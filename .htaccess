@@ -1,0 +1,49 @@
+# FlowDaptor — Apache configuration
+# Clean URLs (drop index.html), default document, and basic hardening.
+
+Options -Indexes -MultiViews
+DirectoryIndex index.html index.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # 301: strip trailing "index.html" from any URL.
+    #   /contact/index.html  -> /contact/
+    #   /index.html          -> /
+    RewriteCond %{THE_REQUEST} \s/+(.*?)index\.html[\s?] [NC]
+    RewriteRule ^ /%1 [R=301,L,NE]
+
+    # If the request targets an existing directory but has no trailing slash,
+    # append one so DirectoryIndex resolves cleanly.
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteCond %{REQUEST_URI} !/$
+    RewriteRule ^(.*)$ /$1/ [R=301,L]
+</IfModule>
+
+# Block access to sensitive files.
+<FilesMatch "^(\.env|\.env\..*|composer\.(json|lock)|\.gitignore|\.htaccess)$">
+    Require all denied
+</FilesMatch>
+
+# Prevent serving anything inside vendor/.
+RedirectMatch 404 /vendor(/.*)?$
+
+# Sensible MIME + caching for static assets.
+<IfModule mod_mime.c>
+    AddType image/svg+xml .svg
+    AddType video/mp4 .mp4
+    AddType font/woff2 .woff2
+</IfModule>
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 7 days"
+    ExpiresByType image/png "access plus 30 days"
+    ExpiresByType image/jpeg "access plus 30 days"
+    ExpiresByType image/svg+xml "access plus 30 days"
+    ExpiresByType video/mp4 "access plus 30 days"
+</IfModule>
