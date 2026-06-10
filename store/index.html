@@ -7,7 +7,7 @@
 <meta name="description" content="Free and paid n8n workflows for SMEs. Premium OpenClaw skills for creative and advertising teams." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="../assets/site.css?v=20260610-1126" />
+<link rel="stylesheet" href="../assets/site.css?v=20260610-1148" />
 <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
 <style>
 :root { --fd-paper: #05060F; }
@@ -26,10 +26,11 @@ h1 em, h2 em, h3 em { font-style: normal !important; background: linear-gradient
 /* ── AUDIENCE SWITCHER ── */
 .st-switcher-bar {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1rem;
+  gap: 0.2rem;
+  padding: 0.6rem 1rem;
   background: var(--surface);
   border-bottom: 0.5px solid var(--border);
   font-family: var(--font-head);
@@ -38,27 +39,32 @@ h1 em, h2 em, h3 em { font-style: normal !important; background: linear-gradient
   letter-spacing: 0.05em;
   color: rgba(236,241,248,0.5);
 }
-.st-switcher-bar span { opacity: 0.7; }
-.st-sw-btn {
-  padding: 0.3rem 0.9rem;
-  border-radius: 999px;
-  border: 1.5px solid transparent;
-  background: transparent;
-  color: rgba(236,241,248,0.5);
-  font-family: var(--font-head);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  cursor: pointer;
-  opacity: 0.6;
-  transition: all 0.2s;
+.st-sw-showing {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 }
-.st-sw-btn.active {
-  opacity: 1;
-  border-color: var(--acc-border);
+.st-sw-showing span { opacity: 0.7; }
+.st-sw-current {
   color: var(--brand-blue);
+  opacity: 1;
+  font-weight: 700;
 }
-.st-sw-btn:hover { opacity: 1; }
+.st-sw-toggle {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-family: var(--font-head);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: rgba(236,241,248,0.45);
+  cursor: pointer;
+  transition: color 0.2s;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.st-sw-toggle:hover { color: rgba(236,241,248,0.8); }
 
 /* ── HERO ── */
 .st-hero {
@@ -418,10 +424,11 @@ h1 em, h2 em, h3 em { font-style: normal !important; background: linear-gradient
 
 <!-- AUDIENCE SWITCHER -->
 <div class="st-switcher-bar">
-  <span>I am a</span>
-  <button class="st-sw-btn active" data-target="sme">SME / Business</button>
-  <span>·</span>
-  <button class="st-sw-btn" data-target="creative">Creative / Agency</button>
+  <div class="st-sw-showing">
+    <span>Showing workflows for:</span>
+    <strong class="st-sw-current" id="sw-current">SME / Business</strong>
+  </div>
+  <button class="st-sw-toggle" id="sw-toggle" data-target="creative">Switch to Creative</button>
 </div>
 
 <!-- ══ SME SECTION ══════════════════════════════════════════ -->
@@ -781,19 +788,24 @@ h1 em, h2 em, h3 em { font-style: normal !important; background: linear-gradient
 <script>
   const smeSection = document.getElementById('sme-section');
   const creativeSection = document.getElementById('creative-section');
-  const swBtns = document.querySelectorAll('.st-sw-btn');
+  const swToggle = document.getElementById('sw-toggle');
+  const swCurrent = document.getElementById('sw-current');
   const ctaH = document.getElementById('cta-h');
   const ctaP = document.getElementById('cta-p');
 
   function applyAudience(aud) {
-    swBtns.forEach(b => b.classList.toggle('active', b.dataset.target === aud));
-
     if (aud === 'creative') {
+      swCurrent.textContent = 'Creative / Agency';
+      swToggle.textContent = 'Switch to SME / Business';
+      swToggle.dataset.target = 'sme';
       smeSection.classList.remove('visible');
       creativeSection.classList.add('visible');
       ctaH.innerHTML = 'Want a custom workflow<br>for your <em>agency?</em>';
       ctaP.textContent = 'Tell us what your team needs to automate — free scoping call.';
     } else {
+      swCurrent.textContent = 'SME / Business';
+      swToggle.textContent = 'Switch to Creative';
+      swToggle.dataset.target = 'creative';
       creativeSection.classList.remove('visible');
       smeSection.classList.add('visible');
       ctaH.innerHTML = 'Want a custom workflow<br>for your <em>business?</em>';
@@ -803,9 +815,7 @@ h1 em, h2 em, h3 em { font-style: normal !important; background: linear-gradient
     localStorage.setItem('fd-audience', aud);
   }
 
-  swBtns.forEach(btn => {
-    btn.addEventListener('click', () => applyAudience(btn.dataset.target));
-  });
+  swToggle.addEventListener('click', () => applyAudience(swToggle.dataset.target));
 
   // Tier tabs (SME only)
   document.querySelectorAll('.st-tier-btn').forEach(btn => {
