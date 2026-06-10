@@ -3185,6 +3185,7 @@ body.page-training .fd-nav-links a:hover {
   margin-bottom: 2.5rem;
 }
 .pr-hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+.pr-hero-video { width: 100%; margin-top: 3rem; border-radius: 14px; border: 1px solid var(--border); display: block; box-shadow: 0 30px 80px -40px rgba(0,0,0,0.85); }
 .pr-btn-primary {
   font-family: var(--font-head);
   font-size: 14px;

@@ -32,3 +32,5 @@ assets/RUBY.jpg
 assets/ruby_dialogue_line*
 assets/*.m4v
 assets/*.mp4
+# deployed hero video (kept in repo, served to the host)
+!assets/command-hero.mp4
