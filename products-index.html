@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FlowDaptor Products — n8n & OpenClaw for Singapore SMEs</title>
+<meta name="description" content="Done-for-you n8n and OpenClaw deployments for Singapore businesses. One-time engagement, self-hosted, PDPA compliant." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="../assets/site.css?v=20260610-1126" />
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+<style>
+:root { --fd-paper: #05060F; }
+body { background: #05060F !important; color: #F5EDE6 !important; }
+
+.pr-hero {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 5rem 2.5rem 4rem;
+}
+.pr-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brand-blue);
+  border: 1px solid var(--acc-border);
+  padding: 6px 13px;
+  border-radius: 999px;
+  background: rgba(43,207,255,0.06);
+  margin-bottom: 1.75rem;
+}
+.pr-label::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--brand-grad); }
+.pr-hero h1 {
+  font-family: var(--font-head);
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #F5EDE6;
+  -webkit-text-fill-color: #F5EDE6;
+  max-width: 780px;
+  margin-bottom: 1.25rem;
+}
+.pr-hero h1 em {
+  font-style: normal;
+  background: var(--brand-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.pr-hero p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(236,241,248,0.62);
+  max-width: 600px;
+  margin-bottom: 2.5rem;
+}
+.pr-hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+.pr-btn-primary {
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  color: #03121a !important;
+  background: var(--brand-grad);
+  padding: 0.75rem 1.75rem;
+  border-radius: 999px;
+  display: inline-block;
+  transition: filter 0.2s;
+  box-shadow: 0 6px 24px -8px rgba(43,207,255,0.5);
+}
+.pr-btn-primary:hover { filter: brightness(1.08); }
+.pr-btn-ghost {
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  color: rgba(236,241,248,0.6);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-bottom: 1px solid rgba(200,220,255,0.15);
+  padding-bottom: 2px;
+  transition: color 0.2s;
+}
+.pr-btn-ghost:hover { color: var(--brand-blue); }
+
+/* Products */
+.pr-section { max-width: 1100px; margin: 0 auto; padding: 0 2.5rem 5rem; }
+.pr-section-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-blue);
+  margin-bottom: 1rem;
+}
+.pr-section-label::before { content:''; display:block; width:20px; height:1.5px; background:var(--brand-grad); }
+.pr-section h2 {
+  font-family: var(--font-head);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #F5EDE6;
+  margin-bottom: 2.5rem;
+  max-width: 640px;
+}
+.pr-section h2 em {
+  font-style: normal;
+  background: var(--brand-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Product cards — big */
+.pr-products { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 5rem; }
+.pr-product {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.pr-product:hover { border-color: var(--acc-border); }
+.pr-product-info { padding: 3rem; }
+.pr-product-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-blue);
+  border: 1px solid var(--acc-border);
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--acc-dim);
+  margin-bottom: 1.25rem;
+}
+.pr-product-title {
+  font-family: var(--font-head);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #F5EDE6;
+  line-height: 1.1;
+  margin-bottom: 0.75rem;
+}
+.pr-product-title em {
+  font-style: normal;
+  background: var(--brand-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.pr-product-desc {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(236,241,248,0.55);
+  margin-bottom: 1.75rem;
+  max-width: 420px;
+}
+.pr-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+.pr-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  font-size: 13.5px;
+  color: rgba(236,241,248,0.7);
+  line-height: 1.5;
+}
+.pr-features li::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--brand-grad);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.pr-product-visual {
+  background: var(--bg-2);
+  border-left: 0.5px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem;
+}
+
+/* n8n visual */
+.pr-n8n-nodes {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 8px;
+  width: 100%;
+  max-width: 280px;
+}
+.pr-node {
+  background: var(--surface-2);
+  border: 1px solid rgba(43,207,255,0.2);
+  border-radius: 8px;
+  padding: 10px 8px;
+  text-align: center;
+  font-family: var(--font-head);
+  transition: border-color 0.2s;
+}
+.pr-node:hover { border-color: var(--acc-border); }
+.pr-node-icon { font-size: 1.2rem; margin-bottom: 4px; }
+.pr-node-label { font-size: 10px; font-weight: 700; color: rgba(236,241,248,0.5); letter-spacing: 0.06em; }
+.pr-node-connector {
+  grid-column: span 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 2px 0;
+}
+.pr-node-connector span { width: 40px; height: 1px; background: linear-gradient(90deg, transparent, rgba(43,207,255,0.4), transparent); }
+
+/* OpenClaw visual */
+.pr-oc-visual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 240px;
+}
+.pr-oc-center {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  border: 2px solid rgba(56,232,196,0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-head);
+  margin: 8px 0;
+}
+.pr-oc-center .label { font-size: 8px; font-weight: 700; color: rgba(56,232,196,0.6); letter-spacing: 0.1em; }
+.pr-oc-center .name { font-size: 12px; font-weight: 700; color: #F5EDE6; }
+.pr-oc-channels {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.pr-oc-channel {
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(236,241,248,0.5);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+/* Includes section */
+.pr-includes {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 3rem;
+  margin-bottom: 5rem;
+}
+.pr-includes h3 {
+  font-family: var(--font-head);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #F5EDE6;
+  margin-bottom: 2rem;
+}
+.pr-includes-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 1rem;
+}
+.pr-include-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.pr-include-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+.pr-include-title {
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 700;
+  color: #F5EDE6;
+}
+.pr-include-desc {
+  font-size: 12px;
+  color: rgba(236,241,248,0.45);
+  line-height: 1.5;
+}
+
+/* Process */
+.pr-process {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 5rem;
+}
+.pr-process-step { background: var(--surface); padding: 2.25rem; }
+.pr-step-num {
+  font-family: var(--font-head);
+  font-size: 3rem;
+  font-weight: 700;
+  color: rgba(200,220,255,0.08);
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+.pr-process-step h3 { font-family: var(--font-head); font-size: 1rem; font-weight: 700; color: #F5EDE6; margin-bottom: 0.5rem; }
+.pr-process-step p { font-size: 13px; line-height: 1.65; color: rgba(236,241,248,0.5); }
+
+/* CTA */
+.pr-cta {
+  background: var(--surface);
+  border-top: 0.5px solid var(--border);
+  padding: 5rem 2.5rem;
+  text-align: center;
+}
+.pr-cta h2 { font-family: var(--font-head); font-size: clamp(1.8rem,3vw,2.8rem); font-weight: 700; color: #F5EDE6; margin-bottom: 0.75rem; letter-spacing: -0.02em; }
+.pr-cta h2 em { font-style: normal; background: var(--brand-grad); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+.pr-cta p { font-size: 14px; color: rgba(236,241,248,0.5); margin-bottom: 2rem; }
+
+.fd-footer { background: var(--bg-2) !important; border-top: 0.5px solid var(--border) !important; padding: 2.5rem !important; display: flex !important; flex-direction: column !important; align-items: center !important; gap: 1.25rem !important; text-align: center !important; }
+.fd-footer-logo img { height: 26px; opacity: 0.5; }
+.fd-footer-links { display: flex !important; flex-wrap: wrap !important; gap: 1.5rem !important; justify-content: center !important; }
+.fd-footer-links a { font-size: 12px !important; font-weight: 600 !important; letter-spacing: 0.06em !important; text-transform: uppercase !important; color: rgba(236,241,248,0.3) !important; transition: color 0.2s !important; }
+.fd-footer-links a:hover { color: #F5EDE6 !important; }
+.fd-footer-copy { font-size: 12px; color: rgba(236,241,248,0.2); }
+
+@media (max-width: 900px) {
+  .pr-product { grid-template-columns: 1fr; }
+  .pr-product-visual { height: 240px; border-left: none; border-top: 0.5px solid var(--border); }
+  .pr-process { grid-template-columns: 1fr; }
+  .pr-includes-grid { grid-template-columns: repeat(2,1fr); }
+}
+
+/* ── NAV FIX ── */
+.fd-nav {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 1.1rem 2.5rem !important;
+}
+.fd-nav-links {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 1.8rem !important;
+  list-style: none !important;
+  align-items: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.fd-nav-links li { margin: 0 !important; padding: 0 !important; }
+.fd-nav-links a {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: rgba(236,241,248,0.62) !important;
+  text-decoration: none !important;
+}
+.fd-nav-links a:hover { color: #F5EDE6 !important; }
+.fd-logo img { height: 26px !important; display: block !important; }
+h1 em, h2 em, h3 em {
+  font-style: normal !important;
+  background: linear-gradient(90deg, #2BCFFF 0%, #1FA8E8 50%, #38E8C4 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  display: inline !important;
+}
+
+</style>
+</head>
+<body>
+
+<nav class="fd-nav">
+  <a href="../" class="fd-logo"><img src="../assets/flowdaptor-logo-small.png" alt="FlowDaptor" /></a>
+  <ul class="fd-nav-links">
+    <li><a href="../products/" class="active">Products</a></li>
+    <li><a href="../workflow/">Workflows</a></li>
+    <li><a href="../enterprise/">Enterprise</a></li>
+    <li><a href="../training/">Training</a></li>
+    <li><a href="../blog/">Blog</a></li>
+    <li><a href="../about/">About</a></li>
+    <li><a href="../store/" class="store-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Store</a></li>
+  </ul>
+  <a class="fd-nav-cta" href="../contact/">Get in touch</a>
+</nav>
+
+<!-- HERO -->
+<div class="pr-hero">
+  <div class="pr-label">SME Automation Products</div>
+  <h1>The tools that move your business<br>from <em>zero AI to AI-ready.</em></h1>
+  <p>We deploy n8n and OpenClaw on your own infrastructure — configured for your actual workflows, handed over running. One engagement. No subscriptions. Yours to keep.</p>
+  <div class="pr-hero-btns">
+    <a class="pr-btn-primary" href="../contact/">Get started →</a>
+    <a class="pr-btn-ghost" href="../enterprise/">Enterprise solutions
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="pr-section">
+  <div class="pr-section-label">Our Products</div>
+  <h2>Two tools. One team.<br><em>Complete AI stack.</em></h2>
+
+  <div class="pr-products">
+
+    <!-- n8n -->
+    <div class="pr-product">
+      <div class="pr-product-info">
+        <div class="pr-product-badge">🔧 Workflow Engine</div>
+        <div class="pr-product-title">n8n <em>Deployment</em></div>
+        <p class="pr-product-desc">We install, configure, and harden n8n on your own servers — mapped to your actual business processes. Connects to 400+ apps and services out of the box.</p>
+        <ul class="pr-features">
+          <li>Self-hosted on your infrastructure — full data sovereignty</li>
+          <li>PDPA compliant by default — no data leaves your servers</li>
+          <li>Custom workflows built for your exact operations</li>
+          <li>Connects to your CRM, email, Slack, Sheets, and more</li>
+          <li>Advanced error handling and production-grade reliability</li>
+          <li>Full handover with documentation and team training</li>
+        </ul>
+        <a class="pr-btn-primary" href="../contact/?ref=n8n">Get a scoping call →</a>
+      </div>
+      <div class="pr-product-visual">
+        <div class="pr-n8n-nodes">
+          <div class="pr-node"><div class="pr-node-icon">📧</div><div class="pr-node-label">Email</div></div>
+          <div class="pr-node"><div class="pr-node-icon">🗃️</div><div class="pr-node-label">CRM</div></div>
+          <div class="pr-node"><div class="pr-node-icon">📊</div><div class="pr-node-label">Sheets</div></div>
+          <div class="pr-node-connector"><span></span></div>
+          <div class="pr-node" style="grid-column:span 3; background: rgba(43,207,255,0.06); border-color: rgba(43,207,255,0.3);">
+            <div class="pr-node-icon">⚙️</div>
+            <div class="pr-node-label" style="color: var(--brand-blue);">n8n · Your Server</div>
+          </div>
+          <div class="pr-node-connector"><span></span></div>
+          <div class="pr-node"><div class="pr-node-icon">💬</div><div class="pr-node-label">Slack</div></div>
+          <div class="pr-node"><div class="pr-node-icon">📄</div><div class="pr-node-label">Reports</div></div>
+          <div class="pr-node"><div class="pr-node-icon">🔔</div><div class="pr-node-label">Alerts</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OpenClaw -->
+    <div class="pr-product">
+      <div class="pr-product-info">
+        <div class="pr-product-badge">🦞 AI Assistant Layer</div>
+        <div class="pr-product-title">OpenClaw <em>Setup</em></div>
+        <p class="pr-product-desc">We install and configure OpenClaw as your business's AI assistant — accessible via WhatsApp or Telegram, with persistent memory and custom skills built for your workflows.</p>
+        <ul class="pr-features">
+          <li>Runs on your machine — open source, fully yours</li>
+          <li>Chat via WhatsApp, Telegram, Slack, or Discord</li>
+          <li>Persistent memory across conversations and sessions</li>
+          <li>Custom skills built for your business operations</li>
+          <li>Connects to your files, calendar, email, and apps</li>
+          <li>Multi-agent capable — orchestrate multiple AI workers</li>
+        </ul>
+        <a class="pr-btn-primary" href="../contact/?ref=openclaw">Get a scoping call →</a>
+      </div>
+      <div class="pr-product-visual">
+        <div class="pr-oc-visual">
+          <div class="pr-oc-channels">
+            <span class="pr-oc-channel">WhatsApp</span>
+            <span class="pr-oc-channel">Telegram</span>
+            <span class="pr-oc-channel">Slack</span>
+          </div>
+          <div class="pr-oc-center">
+            <span class="label">AGENT</span>
+            <span class="name">OpenClaw</span>
+          </div>
+          <div class="pr-oc-channels">
+            <span class="pr-oc-channel">Email</span>
+            <span class="pr-oc-channel">Calendar</span>
+            <span class="pr-oc-channel">Files</span>
+            <span class="pr-oc-channel">Browser</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- What's Included -->
+  <div class="pr-section-label">What's included</div>
+  <h2 style="margin-bottom:1.5rem;">Every engagement includes <em>everything.</em></h2>
+  <div class="pr-includes">
+    <div class="pr-includes-grid">
+      <div class="pr-include-item">
+        <div class="pr-include-icon">🗺️</div>
+        <div class="pr-include-title">Operations mapping</div>
+        <div class="pr-include-desc">We embed with your team to understand your actual workflows before building anything.</div>
+      </div>
+      <div class="pr-include-item">
+        <div class="pr-include-icon">⚙️</div>
+        <div class="pr-include-title">Full installation</div>
+        <div class="pr-include-desc">We install and configure everything on your infrastructure. No technical knowledge required from your side.</div>
+      </div>
+      <div class="pr-include-item">
+        <div class="pr-include-icon">🧪</div>
+        <div class="pr-include-title">Production testing</div>
+        <div class="pr-include-desc">Every workflow is tested against your real data before handover. No demo-only builds.</div>
+      </div>
+      <div class="pr-include-item">
+        <div class="pr-include-icon">📚</div>
+        <div class="pr-include-title">Team training</div>
+        <div class="pr-include-desc">Your team learns to manage, extend, and maintain the system themselves.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Process -->
+  <div class="pr-section-label">How it works</div>
+  <h2 style="margin-bottom:1.5rem;">From scoping to <em>live in production.</em></h2>
+  <div class="pr-process">
+    <div class="pr-process-step"><div class="pr-step-num">01</div><h3>Scoping call</h3><p>Free 30-minute call to understand your business, workflows, and what you want to automate. No commitment.</p></div>
+    <div class="pr-process-step"><div class="pr-step-num">02</div><h3>Proposal & build</h3><p>We scope the engagement, agree on deliverables and timeline, then build and configure your automation stack.</p></div>
+    <div class="pr-process-step"><div class="pr-step-num">03</div><h3>Handover & train</h3><p>Live deployment on your infrastructure, full documentation, and team training. The system is entirely yours from day one.</p></div>
+  </div>
+
+</div>
+
+<!-- CTA -->
+<div class="pr-cta">
+  <h2>Ready to get <em>AI-ready?</em></h2>
+  <p>Book a free scoping call. No commitment, no sales pitch — just a conversation about what we can automate for you.</p>
+  <a class="pr-btn-primary" href="../contact/">Book a free scoping call →</a>
+</div>
+
+<footer class="fd-footer">
+  <div class="fd-footer-logo"><img src="../assets/flowdaptor-logo-small.png" alt="FlowDaptor"/></div>
+  <div class="fd-footer-links">
+    <a href="../products/">Products</a><a href="../workflow/">Workflows</a><a href="../enterprise/">Enterprise</a>
+    <a href="../training/">Training</a><a href="../blog/">Blog</a><a href="../about/">About</a>
+    <a href="../store/">Store</a><a href="../contact/">Contact</a>
+  </div>
+  <div class="fd-footer-copy">FlowDaptor Pte. Ltd. © 2026</div>
+</footer>
+</body>
+</html>

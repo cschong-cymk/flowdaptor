@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" fill="none">
+  <defs>
+    <radialGradient id="cosmo-body" cx="38%" cy="32%" r="75%">
+      <stop offset="0%" stop-color="#7FE9FF"/>
+      <stop offset="38%" stop-color="#2BCFFF"/>
+      <stop offset="70%" stop-color="#1F7AE0"/>
+      <stop offset="100%" stop-color="#0A1E5C"/>
+    </radialGradient>
+    <radialGradient id="cosmo-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="60%" stop-color="#2BCFFF" stop-opacity="0"/>
+      <stop offset="88%" stop-color="#38E8C4" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#7FE9FF" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="cosmo-clip"><circle cx="200" cy="200" r="160"/></clipPath>
+  </defs>
+
+  <!-- atmospheric halo -->
+  <circle cx="200" cy="200" r="196" fill="url(#cosmo-glow)"/>
+
+  <!-- planet body -->
+  <circle cx="200" cy="200" r="160" fill="url(#cosmo-body)"/>
+
+  <!-- surface features -->
+  <g clip-path="url(#cosmo-clip)" opacity="0.55">
+    <!-- storms / craters -->
+    <circle cx="150" cy="120" r="26" fill="#0A1E5C" opacity="0.45"/>
+    <circle cx="150" cy="120" r="26" fill="none" stroke="#7FE9FF" stroke-opacity="0.35" stroke-width="2"/>
+    <circle cx="262" cy="168" r="16" fill="#0A1E5C" opacity="0.4"/>
+    <circle cx="118" cy="232" r="20" fill="#1F7AE0" opacity="0.5"/>
+    <circle cx="232" cy="262" r="12" fill="#0A1E5C" opacity="0.4"/>
+    <circle cx="196" cy="196" r="9" fill="#1F7AE0" opacity="0.45"/>
+    <!-- atmospheric bands -->
+    <path d="M40 250 Q160 210 360 270 L360 360 L40 360 Z" fill="#1F7AE0" opacity="0.35"/>
+    <path d="M60 150 Q200 130 350 180" stroke="#38E8C4" stroke-opacity="0.22" stroke-width="10" fill="none"/>
+    <!-- icy polar cap -->
+    <ellipse cx="210" cy="350" rx="70" ry="26" fill="#EAF7FF" opacity="0.55"/>
+  </g>
+
+  <!-- terminator shadow for depth -->
+  <path d="M200 40 a160 160 0 0 1 0 320 a120 160 0 0 0 0 -320" fill="#05060F" opacity="0.45" clip-path="url(#cosmo-clip)"/>
+</svg>

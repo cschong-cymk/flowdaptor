@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FlowDaptor Store — AI Workflows & OpenClaw Skills</title>
+<meta name="description" content="Free and paid n8n workflows for SMEs. Premium OpenClaw skills for creative and advertising teams." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="../assets/site.css?v=20260610-1126" />
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+<style>
+:root { --fd-paper: #05060F; }
+body { background: #05060F !important; color: #F5EDE6 !important; }
+
+/* ── NAV FIX ── */
+.fd-nav { display: flex !important; flex-direction: row !important; align-items: center !important; justify-content: space-between !important; padding: 1.1rem max(2.5rem, calc((100% - 1100px) / 2)) !important; }
+.fd-nav-links { flex-direction: row !important; gap: 1.8rem !important; list-style: none !important; align-items: center !important; margin: 0 !important; padding: 0 !important; }
+.fd-nav-links li { margin: 0 !important; padding: 0 !important; }
+.fd-nav-links a { font-size: 14px !important; font-weight: 500 !important; color: rgba(236,241,248,0.62) !important; text-decoration: none !important; }
+.fd-nav-links a:hover, .fd-nav-links a.active { color: #F5EDE6 !important; }
+.fd-logo img { height: 26px !important; display: block !important; }
+.fd-nav-cta { color: #03121a !important; -webkit-text-fill-color: #03121a !important; background: linear-gradient(90deg, #2BCFFF, #38E8C4) !important; padding: 9px 18px !important; border-radius: 999px !important; font-size: 14px !important; font-weight: 700 !important; white-space: nowrap !important; flex-shrink: 0 !important; }
+h1 em, h2 em, h3 em { font-style: normal !important; background: linear-gradient(90deg, #2BCFFF 0%, #1FA8E8 50%, #38E8C4 100%) !important; -webkit-background-clip: text !important; background-clip: text !important; color: transparent !important; -webkit-text-fill-color: transparent !important; display: inline !important; }
+
+/* ── AUDIENCE SWITCHER ── */
+.st-switcher-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--surface);
+  border-bottom: 0.5px solid var(--border);
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: rgba(236,241,248,0.5);
+}
+.st-switcher-bar span { opacity: 0.7; }
+.st-sw-btn {
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  border: 1.5px solid transparent;
+  background: transparent;
+  color: rgba(236,241,248,0.5);
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: all 0.2s;
+}
+.st-sw-btn.active {
+  opacity: 1;
+  border-color: var(--acc-border);
+  color: var(--brand-blue);
+}
+.st-sw-btn:hover { opacity: 1; }
+
+/* ── HERO ── */
+.st-hero {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 4rem 2.5rem 3rem;
+  text-align: center;
+}
+.st-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brand-blue);
+  border: 1px solid var(--acc-border);
+  padding: 6px 13px;
+  border-radius: 999px;
+  background: rgba(43,207,255,0.06);
+  margin-bottom: 1.5rem;
+}
+.st-label::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--brand-grad); }
+.st-hero h1 {
+  font-family: var(--font-head);
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #F5EDE6;
+  -webkit-text-fill-color: #F5EDE6;
+  margin-bottom: 1rem;
+}
+.st-hero p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(236,241,248,0.55);
+  max-width: 520px;
+  margin: 0 auto 2.5rem;
+}
+
+/* ── TIER TABS (SME only) ── */
+.st-tiers {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 3rem;
+}
+.st-tier-btn {
+  padding: 0.4rem 1.25rem;
+  border-radius: 999px;
+  border: 1px solid rgba(200,220,255,0.12);
+  background: transparent;
+  color: rgba(236,241,248,0.5);
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.st-tier-btn.active {
+  border-color: var(--acc-border);
+  color: var(--brand-blue);
+  background: rgba(43,207,255,0.06);
+}
+.st-tier-btn:hover { color: var(--text-primary); }
+.st-tier-free.active { border-color: rgba(56,232,196,0.4); color: #38E8C4; background: rgba(56,232,196,0.06); }
+
+/* ── GRID ── */
+.st-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2.5rem 5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+/* ── CARD BASE ── */
+.st-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.st-card:hover { border-color: var(--acc-border); transform: translateY(-2px); }
+
+/* ── FEATURED CARD (OpenClaw / hero image) ── */
+.st-card-hero {
+  position: relative;
+  height: 260px;
+  overflow: hidden;
+}
+.st-card-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  filter: brightness(0.7);
+  transition: filter 0.3s, transform 0.4s;
+}
+.st-card:hover .st-card-hero img { filter: brightness(0.55); transform: scale(1.03); }
+.st-card-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(8,10,22,0.95) 0%, rgba(8,10,22,0.15) 60%, transparent 100%);
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem;
+}
+.st-hero-pipe { display: flex; flex-direction: column; gap: 3px; width: 100%; }
+.st-hero-pipe-step {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: rgba(8,10,22,0.75);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(43,207,255,0.18);
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(236,241,248,0.8);
+  font-family: var(--font-head);
+}
+.st-hero-pipe-step span { font-size: 9px; color: var(--brand-blue); font-weight: 700; width: 14px; }
+.st-hero-pipe-conn { width: 1px; height: 4px; background: rgba(43,207,255,0.3); margin-left: 16px; }
+
+/* ── PLAIN CARD VISUAL (n8n) ── */
+.st-card-visual {
+  background: var(--bg-2);
+  border-bottom: 1px solid var(--border);
+  padding: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+}
+.st-mini-pipe { display: flex; flex-direction: column; gap: 4px; width: 100%; max-width: 240px; }
+.st-mini-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  background: rgba(200,220,255,0.04);
+  border: 1px solid rgba(200,220,255,0.08);
+  border-radius: 6px;
+  font-size: 11px;
+  color: rgba(236,241,248,0.65);
+  font-family: var(--font-head);
+  font-weight: 600;
+}
+.st-mini-step span { font-size: 9px; color: var(--brand-blue); font-weight: 700; width: 16px; }
+.st-mini-conn { width: 1px; height: 5px; background: rgba(43,207,255,0.25); margin-left: 17px; }
+
+/* ── CARD BODY ── */
+.st-card-body { padding: 1.4rem; flex: 1; display: flex; flex-direction: column; }
+.st-card-tags { display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap; }
+.st-card-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-blue);
+}
+.st-tier-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid;
+}
+.st-tier-tag.free { color: #38E8C4; border-color: rgba(56,232,196,0.3); background: rgba(56,232,196,0.06); }
+.st-tier-tag.paid { color: var(--brand-blue); border-color: var(--acc-border); background: var(--acc-dim); }
+.st-tier-tag.premium { color: #F5EDE6; border-color: rgba(245,237,230,0.25); background: rgba(245,237,230,0.06); }
+
+.st-card-title { font-family: var(--font-head); font-size: 1.05rem; font-weight: 700; color: #F5EDE6; margin-bottom: 0.5rem; line-height: 1.25; }
+.st-card-desc { font-size: 13px; line-height: 1.65; color: rgba(236,241,248,0.5); flex: 1; margin-bottom: 1.1rem; }
+.st-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border);
+}
+.st-price {
+  font-family: var(--font-head);
+  font-size: 1.3rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #2BCFFF, #38E8C4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.st-price.free-price { background: none; -webkit-text-fill-color: #38E8C4; color: #38E8C4; font-size: 1rem; }
+.st-buy-btn {
+  font-family: var(--font-head);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  color: #03121a !important;
+  -webkit-text-fill-color: #03121a !important;
+  background: linear-gradient(90deg, #2BCFFF, #38E8C4);
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  transition: filter 0.2s;
+  display: inline-block;
+  white-space: nowrap;
+}
+.st-buy-btn:hover { filter: brightness(1.1); }
+.st-free-btn {
+  font-family: var(--font-head);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  color: #38E8C4 !important;
+  -webkit-text-fill-color: #38E8C4 !important;
+  border: 1px solid rgba(56,232,196,0.35);
+  background: rgba(56,232,196,0.06);
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  transition: all 0.2s;
+  display: inline-block;
+}
+.st-free-btn:hover { background: rgba(56,232,196,0.12); }
+
+/* Coming soon */
+.st-card.coming-soon { opacity: 0.45; pointer-events: none; }
+.st-soon-badge {
+  position: absolute;
+  top: 10px; right: 10px;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  background: rgba(200,220,255,0.08);
+  border: 1px solid rgba(200,220,255,0.15);
+  color: rgba(236,241,248,0.5);
+  padding: 3px 8px; border-radius: 999px;
+}
+.st-featured-badge {
+  position: absolute;
+  top: 12px; left: 12px;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  background: linear-gradient(90deg, #2BCFFF, #38E8C4);
+  color: #03121a;
+  padding: 4px 10px; border-radius: 999px;
+}
+
+/* Install note */
+.st-install {
+  max-width: 1100px;
+  margin: 0 auto 4rem;
+  padding: 0 2.5rem;
+}
+.st-install-inner {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--brand-blue);
+  border-radius: 10px;
+  padding: 1.4rem 2rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1.5rem;
+}
+.st-install-icon { font-size: 1.4rem; }
+.st-install-text h4 { font-family: var(--font-head); font-size: 13px; font-weight: 700; color: #F5EDE6; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.25rem; }
+.st-install-text p { font-size: 13px; color: rgba(236,241,248,0.45); line-height: 1.5; }
+
+/* CTA */
+.st-cta { background: var(--surface); border-top: 0.5px solid var(--border); padding: 5rem 2.5rem; text-align: center; }
+.st-cta h2 { font-family: var(--font-head); font-size: clamp(1.8rem,3vw,2.8rem); font-weight: 700; color: #F5EDE6; -webkit-text-fill-color: #F5EDE6; margin-bottom: 0.75rem; letter-spacing: -0.02em; }
+.st-cta h2 em { font-style: normal !important; background: linear-gradient(90deg,#2BCFFF,#38E8C4) !important; -webkit-background-clip: text !important; background-clip: text !important; color: transparent !important; -webkit-text-fill-color: transparent !important; }
+.st-cta p { font-size: 14px; color: rgba(236,241,248,0.45); margin-bottom: 2rem; }
+
+.fd-footer { background: var(--bg-2) !important; border-top: 0.5px solid var(--border) !important; padding: 2.5rem !important; display: flex !important; flex-direction: column !important; align-items: center !important; gap: 1.25rem !important; text-align: center !important; }
+.fd-footer-logo img { height: 26px; opacity: 0.5; }
+.fd-footer-links { display: flex !important; flex-wrap: wrap !important; gap: 1.5rem !important; justify-content: center !important; }
+.fd-footer-links a { font-size: 12px !important; font-weight: 600 !important; letter-spacing: 0.06em !important; text-transform: uppercase !important; color: var(--text-muted) !important; transition: color 0.2s !important; }
+.fd-footer-links a:hover { color: #F5EDE6 !important; }
+.fd-footer-copy { font-size: 12px; color: var(--text-dim); }
+
+/* Hidden */
+.st-section { display: none; }
+.st-section.visible { display: block; }
+
+@media (max-width: 900px) {
+  .st-grid { grid-template-columns: 1fr; }
+  .st-install-inner { grid-template-columns: 1fr; }
+}
+
+/* Creative grid — 2 cols for featured cards */
+.st-grid-creative {
+  grid-template-columns: repeat(2, 1fr);
+}
+@media (max-width: 900px) {
+  .st-grid-creative { grid-template-columns: 1fr; }
+}
+
+
+.st-proof {
+  background: rgba(43,207,255,0.04);
+  border: 1px solid rgba(43,207,255,0.12);
+  border-radius: 8px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1rem;
+}
+.st-proof-quote {
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: rgba(236,241,248,0.7);
+  font-style: italic;
+  margin-bottom: 0.4rem;
+}
+.st-proof-meta {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--brand-blue);
+  text-transform: uppercase;
+}
+
+
+.st-grid-3 { grid-template-columns: repeat(3, 1fr) !important; }
+@media (max-width: 1100px) { .st-grid-3 { grid-template-columns: repeat(2, 1fr) !important; } }
+@media (max-width: 700px) { .st-grid-3 { grid-template-columns: 1fr !important; } }
+
+</style>
+</head>
+<body>
+
+<nav class="fd-nav">
+  <a href="../" class="fd-logo"><img src="../assets/flowdaptor-logo-small.png" alt="FlowDaptor" /></a>
+  <ul class="fd-nav-links">
+    <li><a href="../products/">Products</a></li>
+    <li><a href="../workflow/">Workflows</a></li>
+    <li><a href="../enterprise/">Enterprise</a></li>
+    <li><a href="../training/">Training</a></li>
+    <li><a href="../blog/">Blog</a></li>
+    <li><a href="../about/">About</a></li>
+    <li><a href="../store/" class="store-link active">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      Store
+    </a></li>
+  </ul>
+  <a class="fd-nav-cta" href="../contact/">Get in touch</a>
+</nav>
+
+<!-- AUDIENCE SWITCHER -->
+<div class="st-switcher-bar">
+  <span>I am a</span>
+  <button class="st-sw-btn active" data-target="sme">SME / Business</button>
+  <span>·</span>
+  <button class="st-sw-btn" data-target="creative">Creative / Agency</button>
+</div>
+
+<!-- ══ SME SECTION ══════════════════════════════════════════ -->
+<div class="st-section" id="sme-section">
+
+  <div class="st-hero">
+    <div class="st-label">n8n Workflow Library</div>
+    <h1>Automate your business.<br><em>Free and paid workflows.</em></h1>
+    <p>Download ready-made n8n workflows for your business. Free templates to get started, paid production-grade builds for serious operations.</p>
+  </div>
+
+  <!-- TIER TABS -->
+  <div class="st-tiers">
+    <button class="st-tier-btn st-tier-free active" data-tier="free">Free</button>
+    <button class="st-tier-btn" data-tier="paid">Paid</button>
+    <button class="st-tier-btn" data-tier="all">All</button>
+  </div>
+
+  <!-- FREE WORKFLOWS -->
+  <div class="st-grid" id="free-grid">
+
+    <div class="st-card" data-tier="free">
+      <div class="st-card-visual">
+        <div class="st-mini-pipe">
+          <div class="st-mini-step"><span>01</span> Gmail trigger</div>
+          <div class="st-mini-conn"></div>
+          <div class="st-mini-step"><span>02</span> Classify &amp; label</div>
+          <div class="st-mini-conn"></div>
+          <div class="st-mini-step"><span>03</span> Slack notify</div>
+        </div>
+      </div>
+      <div class="st-card-body">
+        <div class="st-card-tags">
+          <span class="st-card-tag">Inbox</span>
+          <span class="st-tier-tag free">Free</span>
+        </div>
+        <div class="st-card-title">Email Triage Basic</div>
+        <p class="st-card-desc">Classifies incoming emails by urgency and sends a Slack notification for high-priority items. Simple starting point for inbox automation.</p>
+        <div class="st-card-footer">
+          <div class="st-price free-price">Free</div>
+          <a class="st-free-btn" href="../contact/?ref=email-triage">Download →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="st-card" data-tier="free">
+      <div class="st-card-visual">
+        <div class="st-mini-pipe">
+          <div class="st-mini-step"><span>01</span> New CRM contact</div>
+          <div class="st-mini-conn"></div>
+          <div class="st-mini-step"><span>02</span> Enrich via Clearbit</div>
+          <div class="st-mini-conn"></div>
+          <div class="st-mini-step"><span>03</span> Update record</div>
+        </div>
+      </div>
+      <div class="st-card-body">
+        <div class="st-card-tags">
+          <span class="st-card-tag">CRM</span>
+          <span class="st-tier-tag free">Free</span>
+        </div>
+        <div class="st-card-title">CRM Contact Enricher</div>
+        <p class="st-card-desc">Automatically enriches new CRM contacts with company data, LinkedIn info, and social profiles. Works with HubSpot and Pipedrive.</p>
+        <div class="st-card-footer">
+          <div class="st-price free-price">Free</div>
+          <a class="st-free-btn" href="../contact/?ref=crm-enricher">Download →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="st-card" data-tier="free">
+      <div class="st-card-visual">
+        <div class="st-mini-pipe">
+          <div class="st-mini-step"><span>01</span> Google Sheets trigger</div>
+          <div class="st-mini-conn"></div>
+          <div class="st-mini-step"><span>02</span> Generate PDF report</div>
+          <div class="st-mini-conn"></div>
+          <div class="st-mini-step"><span>03</span> Email to team</div>
+        </div>
+      </div>
+      <div class="st-card-body">
+        <div class="st-card-tags">
+          <span class="st-card-tag">Reporting</span>
+          <span class="st-tier-tag free">Free</span>
+        </div>
+        <div class="st-card-title">Weekly Report Generator</div>
+        <p class="st-card-desc">Pulls data from Google Sheets, generates a formatted PDF report, and emails it to your team every Monday morning automatically.</p>
+        <div class="st-card-footer">
+          <div class="st-price free-price">Free</div>
+          <a class="st-free-btn" href="../contact/?ref=weekly-report">Download →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PAID WORKFLOWS -->
+  <div class="st-grid" id="paid-grid" style="display:none;">
+
+    <div class="st-card" data-tier="paid">
+      <div class="st-card-visual" style="position:relative;">
+        <div class="st-mini-pipe">
+          <div class="st-mini-step"><span>01</span> Monitor all inboxes</div>
+          <div class="st-mini-conn"></div>
+          <div class="st-mini-step"><span>02</span> AI classify + draft</div>
+          <div class="st-mini-conn"></div>
+          <div class="st-mini-step"><span>03</span> Route or auto-reply</div>
+          <div class="st-mini-conn"></div>
+          <div class="st-mini-step"><span>04</span> Log to CRM</div>
+        </div>
+      </div>
+      <div class="st-card-body">
+        <div class="st-card-tags">
+          <span class="st-card-tag">Inbox</span>
+          <span class="st-tier-tag paid">Paid</span>
+        </div>
+        <div class="st-card-title">AI Inbox Triage Pro</div>
+        <p class="st-card-desc">Full inbox automation with AI classification, auto-draft responses, smart routing, and CRM logging. Production-grade with error handling.</p>
+        <div class="st-card-footer">
+          <div class="st-price">$5.99</div>
+          <a class="st-buy-btn" href="../contact/?ref=inbox-pro">Buy →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="st-card" data-tier="paid">
+      <div class="st-card-visual">
+        <div class="st-mini-pipe">
+          <div class="st-mini-step"><span>01</span> Pull invoice data</div>
+          <div class="st-mini-conn"></div>
+          <div class="st-mini-step"><span>02</span> Match transactions</div>
+          <div class="st-mini-conn"></div>
+          <div class="st-mini-step"><span>03</span> Flag anomalies</div>
+          <div class="st-mini-conn"></div>
+          <div class="st-mini-step"><span>04</span> Generate report</div>
+        </div>
+      </div>
+      <div class="st-card-body">
+        <div class="st-card-tags">
+          <span class="st-card-tag">Finance</span>
+          <span class="st-tier-tag paid">Paid</span>
+        </div>
+        <div class="st-card-title">Finance Reconciliation</div>
+        <p class="st-card-desc">Automated reconciliation across invoices and transactions. Flags anomalies, generates audit-ready reports, runs daily without intervention.</p>
+        <div class="st-card-footer">
+          <div class="st-price">$5.99</div>
+          <a class="st-buy-btn" href="../contact/?ref=finance-recon">Buy →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="st-card coming-soon" data-tier="paid">
+      <div class="st-card-visual" style="position:relative;">
+        <span class="st-soon-badge">Coming Soon</span>
+        <div class="st-mini-pipe">
+          <div class="st-mini-step"><span>01</span> LinkedIn scrape</div>
+          <div class="st-mini-conn"></div>
+          <div class="st-mini-step"><span>02</span> Score &amp; enrich</div>
+          <div class="st-mini-conn"></div>
+          <div class="st-mini-step"><span>03</span> Push to CRM</div>
+        </div>
+      </div>
+      <div class="st-card-body">
+        <div class="st-card-tags">
+          <span class="st-card-tag">Lead Gen</span>
+          <span class="st-tier-tag paid">Paid</span>
+        </div>
+        <div class="st-card-title">LinkedIn Lead Harvester</div>
+        <p class="st-card-desc">Automated prospecting that scrapes, scores, and pushes qualified LinkedIn leads directly into your CRM.</p>
+        <div class="st-card-footer">
+          <div class="st-price">$5.99</div>
+          <a class="st-buy-btn" href="#">Coming Soon</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div><!-- /sme -->
+
+<!-- ══ CREATIVE SECTION ════════════════════════════════════ -->
+<div class="st-section" id="creative-section">
+
+  <div class="st-hero">
+    <div class="st-label">Premium OpenClaw Skills</div>
+    <h1>AI workflows built for<br><em>advertising teams.</em></h1>
+    <p>Pre-built OpenClaw skills for agencies and content teams. Buy, install, and wake up to automated content — every day.</p>
+  </div>
+
+  <div class="st-grid st-grid-creative st-grid-3">
+
+    <!-- FEATURED: Anime NewsCaster -->
+    <div class="st-card">
+      <div class="st-card-hero">
+        <img src="../assets/newscaster-hero.jpg" alt="Anime AI NewsCaster" />
+        <div class="st-card-hero-overlay">
+          <div class="st-hero-pipe">
+            <div class="st-hero-pipe-step"><span>01</span> Tavily API · daily news</div>
+            <div class="st-hero-pipe-conn"></div>
+            <div class="st-hero-pipe-step"><span>02</span> Ollama · anime script</div>
+            <div class="st-hero-pipe-conn"></div>
+            <div class="st-hero-pipe-step"><span>03</span> Google Veo · 9:16 video</div>
+            <div class="st-hero-pipe-conn"></div>
+            <div class="st-hero-pipe-step"><span>04</span> Telegram · auto-deliver</div>
+          </div>
+        </div>
+        <div class="st-featured-badge">⚡ Available Now</div>
+      </div>
+      <div class="st-card-body">
+        <div class="st-card-tags">
+          <span class="st-card-tag">Content &amp; Video</span>
+          <span class="st-tier-tag premium">Premium</span>
+        </div>
+        <div class="st-card-title">Anime AI NewsCaster</div>
+        <p class="st-card-desc">Daily AI news video pipeline. Fetches top story, generates anime host script, produces 9:16 vertical video, delivers to Telegram — every morning at 09:00 SGT automatically.</p>
+        <div class="st-proof">
+          <div class="st-proof-quote">"Self-Improving AI Draws $650 Million — AI that teaches itself in a recursive loop — basically auto-leveling tech that could turn whoever cracks it into an unstoppable final boss!"</div>
+          <div class="st-proof-meta">Sagelion · Aiko-chan · Live output · 8 Jun 2026</div>
+        </div>
+        <div class="st-card-footer">
+          <div class="st-price">$19.99</div>
+          <a class="st-buy-btn" href="../contact/?ref=newscaster">Buy &amp; Install →</a>
+        </div>
+      </div>
+    </div>
+
+        <div class="st-card">
+      <div class="st-card-hero">
+        <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"><source src="../assets/JAM.mp4" type="video/mp4"></video>
+        <div class="st-card-hero-overlay"><div class="st-hero-pipe">
+          <div class="st-hero-pipe-step"><span>01</span> Audio split 70 clips</div>
+          <div class="st-hero-pipe-conn"></div>
+          <div class="st-hero-pipe-step"><span>02</span> Google Veo generation</div>
+          <div class="st-hero-pipe-conn"></div>
+          <div class="st-hero-pipe-step"><span>03</span> FFmpeg stitch + sync</div>
+        </div></div>
+        <div class="st-featured-badge" style="background:linear-gradient(90deg,#a78bfa,#ec4899);">🎵 Music Video</div>
+      </div>
+      <div class="st-card-body">
+        <div class="st-card-tags"><span class="st-card-tag">Music Video</span><span class="st-tier-tag premium" style="color:#a78bfa;border-color:rgba(167,139,250,0.3);background:rgba(167,139,250,0.06);">$199</span></div>
+        <div class="st-card-title">AI Music Video Producer</div>
+        <p class="st-card-desc">Full end-to-end music video pipeline. 70 AI-generated cinematic clips, character-consistent, FFmpeg-stitched and synced to your track.</p>
+        <div class="st-card-footer">
+          <div class="st-price" style="-webkit-text-fill-color:#a78bfa;color:#a78bfa;background:none;font-size:1.4rem;">$199</div>
+          <a class="st-buy-btn" href="../contact/?ref=music-video">Buy &amp; Install →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="st-card">
+      <div class="st-card-hero">
+        <img src="../assets/x1.png" alt="Jade Tithe" style="width:100%;height:100%;object-fit:cover;"/>
+        <div class="st-card-hero-overlay"><div class="st-hero-pipe">
+          <div class="st-hero-pipe-step"><span>01</span> Story Bible generation</div>
+          <div class="st-hero-pipe-conn"></div>
+          <div class="st-hero-pipe-step"><span>02</span> Screenplay + Shot List</div>
+          <div class="st-hero-pipe-conn"></div>
+          <div class="st-hero-pipe-step"><span>03</span> Video + Lip-Sync Assembly</div>
+        </div></div>
+        <div class="st-featured-badge" style="background:linear-gradient(90deg,#f59e0b,#ef4444);">🎬 Cinema</div>
+      </div>
+      <div class="st-card-body">
+        <div class="st-card-tags"><span class="st-card-tag">Film Production</span><span class="st-tier-tag premium" style="color:#f59e0b;border-color:rgba(245,158,11,0.3);background:rgba(245,158,11,0.06);">$499</span></div>
+        <div class="st-card-title">Jade Tithe Cinematic<br>Production System</div>
+        <p class="st-card-desc">8-phase AI movie pipeline. Story concept to final cinematic assembly with character consistency, lip-sync, and commercial license.</p>
+        <div class="st-card-footer">
+          <div class="st-price" style="-webkit-text-fill-color:#f59e0b;color:#f59e0b;background:none;font-size:1.4rem;">$499</div>
+          <a class="st-buy-btn" href="../contact/?ref=jade-tithe">Buy &amp; Install →</a>
+        </div>
+      </div>
+    </div>
+
+<!-- Coming soon 1 -->
+    <div class="st-card coming-soon">
+      <div class="st-card-visual" style="position:relative;">
+        <span class="st-soon-badge">Coming Soon</span>
+        <div class="st-mini-pipe">
+          <div class="st-mini-step"><span>01</span> Monitor brand mentions</div>
+          <div class="st-mini-conn"></div>
+          <div class="st-mini-step"><span>02</span> Sentiment analysis</div>
+          <div class="st-mini-conn"></div>
+          <div class="st-mini-step"><span>03</span> Daily brief · Telegram</div>
+        </div>
+      </div>
+      <div class="st-card-body">
+        <div class="st-card-tags">
+          <span class="st-card-tag">Intelligence</span>
+          <span class="st-tier-tag premium">Premium</span>
+        </div>
+        <div class="st-card-title">Brand Pulse Monitor</div>
+        <p class="st-card-desc">Monitors brand mentions across social and news, runs sentiment analysis, and delivers a morning briefing to your chat app.</p>
+        <div class="st-card-footer">
+          <div class="st-price">$19.99</div>
+          <a class="st-buy-btn" href="#">Coming Soon</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Coming soon 2 -->
+    <div class="st-card coming-soon">
+      <div class="st-card-visual" style="position:relative;">
+        <span class="st-soon-badge">Coming Soon</span>
+        <div class="st-mini-pipe">
+          <div class="st-mini-step"><span>01</span> Pull campaign data</div>
+          <div class="st-mini-conn"></div>
+          <div class="st-mini-step"><span>02</span> Analyse performance</div>
+          <div class="st-mini-conn"></div>
+          <div class="st-mini-step"><span>03</span> Generate PDF report</div>
+        </div>
+      </div>
+      <div class="st-card-body">
+        <div class="st-card-tags">
+          <span class="st-card-tag">Reporting</span>
+          <span class="st-tier-tag premium">Premium</span>
+        </div>
+        <div class="st-card-title">Campaign Report Generator</div>
+        <p class="st-card-desc">Pulls from Meta, Google, and TikTok Ads. Analyses performance and delivers a structured PDF report to your client automatically.</p>
+        <div class="st-card-footer">
+          <div class="st-price">$19.99</div>
+          <a class="st-buy-btn" href="#">Coming Soon</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Install note for creative -->
+  <div class="st-install">
+    <div class="st-install-inner">
+      <div class="st-install-icon">🛠</div>
+      <div class="st-install-text">
+        <h4>Every purchase includes a setup call</h4>
+        <p>We install OpenClaw, configure the skill, and verify it's running on your machine. No technical knowledge needed.</p>
+      </div>
+      <a class="st-buy-btn" href="../contact/">Book a call</a>
+    </div>
+  </div>
+
+</div><!-- /creative -->
+
+<!-- CTA -->
+<div class="st-cta">
+  <h2 id="cta-h">Want a custom workflow<br>for your <em>business?</em></h2>
+  <p id="cta-p">Tell us what you need to automate and we'll scope it — free.</p>
+  <a class="fd-nav-cta" href="../contact/">Get in touch →</a>
+</div>
+
+<footer class="fd-footer">
+  <div class="fd-footer-logo"><img src="../assets/flowdaptor-logo-small.png" alt="FlowDaptor"/></div>
+  <div class="fd-footer-links">
+    <a href="../products/">Products</a><a href="../workflow/">Workflows</a><a href="../enterprise/">Enterprise</a>
+    <a href="../training/">Training</a><a href="../blog/">Blog</a><a href="../about/">About</a>
+    <a href="../store/">Store</a><a href="../contact/">Contact</a>
+  </div>
+  <div class="fd-footer-copy">FlowDaptor Pte. Ltd. © 2026</div>
+</footer>
+
+<script>
+  const smeSection = document.getElementById('sme-section');
+  const creativeSection = document.getElementById('creative-section');
+  const swBtns = document.querySelectorAll('.st-sw-btn');
+  const ctaH = document.getElementById('cta-h');
+  const ctaP = document.getElementById('cta-p');
+
+  function applyAudience(aud) {
+    swBtns.forEach(b => b.classList.toggle('active', b.dataset.target === aud));
+
+    if (aud === 'creative') {
+      smeSection.classList.remove('visible');
+      creativeSection.classList.add('visible');
+      ctaH.innerHTML = 'Want a custom workflow<br>for your <em>agency?</em>';
+      ctaP.textContent = 'Tell us what your team needs to automate — free scoping call.';
+    } else {
+      creativeSection.classList.remove('visible');
+      smeSection.classList.add('visible');
+      ctaH.innerHTML = 'Want a custom workflow<br>for your <em>business?</em>';
+      ctaP.textContent = 'Tell us what you need to automate and we\'ll scope it — free.';
+    }
+
+    localStorage.setItem('fd-audience', aud);
+  }
+
+  swBtns.forEach(btn => {
+    btn.addEventListener('click', () => applyAudience(btn.dataset.target));
+  });
+
+  // Tier tabs (SME only)
+  document.querySelectorAll('.st-tier-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.st-tier-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const tier = btn.dataset.tier;
+      const freeGrid = document.getElementById('free-grid');
+      const paidGrid = document.getElementById('paid-grid');
+      if (tier === 'free') { freeGrid.style.display = 'grid'; paidGrid.style.display = 'none'; }
+      else if (tier === 'paid') { freeGrid.style.display = 'none'; paidGrid.style.display = 'grid'; }
+      else { freeGrid.style.display = 'grid'; paidGrid.style.display = 'grid'; }
+    });
+  });
+
+  // Auto-detect from homepage switcher
+  const saved = localStorage.getItem('fd-audience') || 'sme';
+  applyAudience(saved);
+</script>
+<script src="../assets/nav.js" defer></script>
+</body>
+</html>

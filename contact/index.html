@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — FlowDaptor</title>
+  <meta name="description" content="Talk to FlowDaptor about deploying n8n automation on your own infrastructure. Singapore-based, replies within one business day." />
+  <link rel="stylesheet" href="../assets/site.css?v=20260610-1126" />
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+</head>
+<body>
+
+  <nav class="fd-nav">
+    <a href="../" class="fd-logo"><img src="../assets/flowdaptor-logo-small.png" alt="FlowDaptor" /></a>
+    <ul class="fd-nav-links">
+      <li><a href="../products/">Products</a></li>
+      <li><a href="../workflow/">Workflows</a></li>
+      <li><a href="../enterprise/">Enterprise</a></li>
+      <li><a href="../training/">Training</a></li>
+      <li><a href="../blog/">Blog</a></li>
+      <li><a href="../about/">About</a></li>
+      <li>
+        <a href="../store/" class="store-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          Store
+        </a>
+      </li>
+    </ul>
+    <a class="fd-nav-cta active" href="../contact/">Get in touch</a>
+  </nav>
+
+  <section class="fd-hero">
+    <div class="fd-hero-top single">
+      <div>
+        <div class="fd-tag">Get in Touch</div>
+        <h1>Tell us what you'd<br><em>automate</em> first.</h1>
+        <p>Whether you're scoping a pilot, comparing engagement models, or just need a second opinion on whether n8n is the right tool — we read every message and reply within one Singapore business day.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="fd-section no-border">
+    <div class="fd-section-inner">
+      <div class="fd-contact-grid">
+        <div>
+          <div id="fd-form-success" class="fd-form-banner fd-form-banner--ok" role="status" hidden>
+            <strong>Thanks — your message is on its way.</strong>
+            <span>We'll reply within one Singapore business day.</span>
+          </div>
+          <div id="fd-form-error" class="fd-form-banner fd-form-banner--err" role="alert" hidden>
+            <strong>Something went wrong.</strong>
+            <span id="fd-form-error-msg">Please try again or email us directly.</span>
+          </div>
+          <form class="fd-form" action="https://send.flowdaptor.ai/send.php" method="POST" novalidate>
+            <div class="fd-field">
+              <label for="name">Your name</label>
+              <input id="name" name="name" type="text" required autocomplete="name" placeholder="Jane Tan" />
+            </div>
+            <div class="fd-field">
+              <label for="email">Work email</label>
+              <input id="email" name="email" type="email" required autocomplete="email" placeholder="jane@company.com" />
+            </div>
+            <div class="fd-field">
+              <label for="company">Company</label>
+              <input id="company" name="company" type="text" autocomplete="organization" placeholder="Company Pte Ltd" />
+            </div>
+            <div class="fd-field">
+              <label for="interest">What you're interested in</label>
+              <select id="interest" name="interest" required>
+                <option value="">Select one…</option>
+                <option value="workflow">A specific workflow from the library</option>
+                <option value="custom">A custom build</option>
+                <option value="enterprise">Enterprise / embedded engagement</option>
+                <option value="training">Training (public or in-house)</option>
+                <option value="other">Something else</option>
+              </select>
+            </div>
+            <div class="fd-field">
+              <label for="message">Tell us about your workflow</label>
+              <textarea id="message" name="message" required placeholder="What are you trying to automate? What systems are involved? Any constraints we should know about?"></textarea>
+            </div>
+            <div class="fd-field fd-honeypot" aria-hidden="true">
+              <label for="website">Leave this blank</label>
+              <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+            </div>
+            <button type="submit">Send message →</button>
+            <div class="fd-form-note">By submitting you agree to be contacted about your enquiry. We won't share your details. PDPA-compliant.</div>
+          </form>
+        </div>
+
+        <aside class="fd-contact-side">
+          <div class="fd-contact-block">
+            <h3>Email</h3>
+            <p><a href="mailto:enterprise@flowdaptor.com">enterprise@flowdaptor.com</a></p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="fd-section">
+    <div class="fd-section-inner">
+      <div class="fd-section-label">Before you write</div>
+      <h2 class="fd-section-heading">A few things that make our first call sharper.</h2>
+      <div class="fd-steps">
+        <div class="fd-step">
+          <div class="fd-step-num">PREP 01</div>
+          <div class="fd-step-body">
+            <h3>The workflow as it runs today</h3>
+            <p>Even a rough description of who does what, in which system, and how long it takes. We don't need diagrams — just the truth.</p>
+          </div>
+        </div>
+        <div class="fd-step">
+          <div class="fd-step-num">PREP 02</div>
+          <div class="fd-step-body">
+            <h3>The systems involved</h3>
+            <p>Your CRM, ERP, ticketing, comms tools. Bonus points if you know whether they have APIs you've used before.</p>
+          </div>
+        </div>
+        <div class="fd-step">
+          <div class="fd-step-num">PREP 03</div>
+          <div class="fd-step-body">
+            <h3>What "success" looks like</h3>
+            <p>Hours saved per week? Errors reduced? Faster response? Telling us the metric makes everything downstream easier.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="fd-footer">
+    <div class="fd-footer-logo"><img src="../assets/flowdaptor-logo-small.png" alt="FlowDaptor" /></div>
+    <div class="fd-footer-links">
+      <a href="../products/">Products</a>
+      <a href="../workflow/">Workflows</a>
+      <a href="../enterprise/">Enterprise</a>
+      <a href="../training/">Training</a>
+      <a href="../blog/">Blog</a>
+      <a href="../about/">About</a>
+      <a href="../store/">Store</a>
+      <a href="../contact/">Contact</a>
+    </div>
+    <div class="fd-footer-copy">FlowDaptor Pte. Ltd. © 2026 — All rights reserved.</div>
+  </footer>
+
+  <script>
+    (function () {
+      var form = document.querySelector('.fd-form');
+      if (form) {
+        var rules = [
+          { id: 'name',     msg: 'Please enter your name.' },
+          { id: 'email',    msg: 'Please enter a valid email address.', email: true },
+          { id: 'interest', msg: 'Please select an option.' },
+          { id: 'message',  msg: 'Please tell us about your workflow.' }
+        ];
+
+        function setError(field, msg) {
+          var wrap = field.closest('.fd-field');
+          wrap.classList.add('fd-field--error');
+          var existing = wrap.querySelector('.fd-field-error');
+          if (!existing) {
+            var span = document.createElement('span');
+            span.className = 'fd-field-error';
+            span.setAttribute('role', 'alert');
+            field.insertAdjacentElement('afterend', span);
+            existing = span;
+          }
+          existing.textContent = msg;
+        }
+
+        function clearError(field) {
+          var wrap = field.closest('.fd-field');
+          wrap.classList.remove('fd-field--error');
+          var existing = wrap.querySelector('.fd-field-error');
+          if (existing) existing.remove();
+        }
+
+        function isValidEmail(v) {
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+        }
+
+        rules.forEach(function (rule) {
+          var el = document.getElementById(rule.id);
+          if (!el) return;
+          el.addEventListener('blur', function () {
+            var v = el.value.trim();
+            if (!v || (rule.email && !isValidEmail(v))) setError(el, rule.msg);
+            else clearError(el);
+          });
+          el.addEventListener('input', function () {
+            if (el.closest('.fd-field').classList.contains('fd-field--error')) {
+              var v = el.value.trim();
+              if (v && (!rule.email || isValidEmail(v))) clearError(el);
+            }
+          });
+        });
+
+        form.addEventListener('submit', function (e) {
+          var firstInvalid = null;
+          rules.forEach(function (rule) {
+            var el = document.getElementById(rule.id);
+            if (!el) return;
+            var v = el.value.trim();
+            if (!v || (rule.email && !isValidEmail(v))) {
+              setError(el, rule.msg);
+              if (!firstInvalid) firstInvalid = el;
+            } else {
+              clearError(el);
+            }
+          });
+          if (firstInvalid) {
+            e.preventDefault();
+            firstInvalid.focus();
+            firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        });
+      }
+    })();
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var sent = params.get('sent');
+      var err  = params.get('error');
+      var okBanner  = document.getElementById('fd-form-success');
+      var errBanner = document.getElementById('fd-form-error');
+      var errMsg    = document.getElementById('fd-form-error-msg');
+      var form      = document.querySelector('.fd-form');
+
+      var messages = {
+        validation: 'Please check the required fields and try again.',
+        config:     'Mail is not configured on this server. Please email us directly.',
+        send:       'We could not deliver your message. Please try again or email us directly.',
+        method:     'Please submit the form using the button below.'
+      };
+
+      if (sent === '1' && okBanner) {
+        okBanner.hidden = false;
+        if (form) form.style.display = 'none';
+        okBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else if (err && errBanner) {
+        errBanner.hidden = false;
+        if (errMsg && messages[err]) errMsg.textContent = messages[err];
+        errBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    })();
+  </script>
+<script src="../assets/nav.js" defer></script>
+</body>
+</html>

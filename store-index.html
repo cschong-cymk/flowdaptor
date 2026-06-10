@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FlowDaptor Store — AI Workflows for Creative Teams</title>
+<meta name="description" content="Pre-built OpenClaw workflows for advertising agencies and content teams. Buy once, we help you install it." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="../assets/site.css?v=20260610-1126" />
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+<style>
+/* ── BASE FIX ── */
+:root { --fd-paper: #05060F; }
+body { background: #05060F !important; color: #F5EDE6 !important; }
+
+/* ── STORE STYLES ── */
+.st-hero {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 5rem 2.5rem 3rem;
+  text-align: center;
+}
+.st-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brand-blue);
+  border: 1px solid var(--acc-border);
+  padding: 6px 13px;
+  border-radius: 999px;
+  background: rgba(43,207,255,0.06);
+  margin-bottom: 1.75rem;
+}
+.st-label::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--brand-grad);
+}
+.st-hero h1 {
+  font-family: var(--font-head);
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #F5EDE6;
+  -webkit-text-fill-color: #F5EDE6;
+  margin-bottom: 1rem;
+}
+.st-hero h1 em {
+  font-style: normal;
+  background: var(--brand-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.st-hero p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(236,241,248,0.62);
+  max-width: 560px;
+  margin: 0 auto 3rem;
+}
+
+/* Filter bar */
+.st-filters {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+.st-filter {
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(200,220,255,0.12);
+  background: transparent;
+  color: rgba(236,241,248,0.5);
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.st-filter.active, .st-filter:hover {
+  border-color: var(--acc-border);
+  color: var(--brand-blue);
+  background: rgba(43,207,255,0.06);
+}
+
+/* Product grid */
+.st-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2.5rem 6rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+/* Product card */
+.st-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.st-card:hover {
+  border-color: var(--acc-border);
+  transform: translateY(-2px);
+}
+.st-card-visual {
+  background: var(--bg-2);
+  border-bottom: 1px solid var(--border);
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+  position: relative;
+  overflow: hidden;
+}
+.st-card-visual svg { width: 100%; max-width: 280px; }
+
+/* pipeline mini */
+.st-mini-pipe { display: flex; flex-direction: column; gap: 4px; width: 100%; max-width: 240px; }
+.st-mini-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  background: rgba(200,220,255,0.04);
+  border: 1px solid rgba(200,220,255,0.08);
+  border-radius: 6px;
+  font-size: 11px;
+  color: rgba(236,241,248,0.7);
+  font-family: var(--font-head);
+  font-weight: 600;
+}
+.st-mini-step span {
+  font-size: 9px;
+  color: var(--brand-blue);
+  font-weight: 700;
+  width: 16px;
+}
+.st-mini-conn {
+  width: 1px;
+  height: 6px;
+  background: rgba(43,207,255,0.3);
+  margin-left: 18px;
+}
+
+.st-card-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+.st-card-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-blue);
+  margin-bottom: 0.6rem;
+}
+.st-card-title {
+  font-family: var(--font-head);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #F5EDE6;
+  margin-bottom: 0.6rem;
+  line-height: 1.25;
+}
+.st-card-desc {
+  font-size: 13px;
+  line-height: 1.65;
+  color: rgba(236,241,248,0.5);
+  flex: 1;
+  margin-bottom: 1.25rem;
+}
+.st-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+.st-price {
+  font-family: var(--font-head);
+  font-size: 1.4rem;
+  font-weight: 700;
+  background: var(--brand-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.st-buy-btn {
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  color: #03121a;
+  background: var(--brand-grad);
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  transition: filter 0.2s;
+  display: inline-block;
+}
+.st-buy-btn:hover { filter: brightness(1.1); }
+
+/* Coming soon card */
+.st-card.coming-soon { opacity: 0.5; pointer-events: none; }
+.st-card.coming-soon .st-card-visual { filter: grayscale(0.5); }
+.st-soon-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: rgba(200,220,255,0.08);
+  border: 1px solid rgba(200,220,255,0.15);
+  color: rgba(236,241,248,0.5);
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+
+/* Install note */
+.st-install {
+  max-width: 1100px;
+  margin: 0 auto 4rem;
+  padding: 0 2.5rem;
+}
+.st-install-inner {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--brand-blue);
+  border-radius: 10px;
+  padding: 1.5rem 2rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1.5rem;
+}
+.st-install-icon { font-size: 1.5rem; }
+.st-install-text h4 {
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 700;
+  color: #F5EDE6;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.25rem;
+}
+.st-install-text p { font-size: 13px; color: rgba(236,241,248,0.5); line-height: 1.5; }
+
+/* CTA */
+.st-cta {
+  background: var(--surface);
+  border-top: 0.5px solid var(--border);
+  padding: 5rem 2.5rem;
+  text-align: center;
+}
+.st-cta h2 {
+  font-family: var(--font-head);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 700;
+  color: #F5EDE6;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+.st-cta h2 em {
+  font-style: normal;
+  background: var(--brand-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.st-cta p { font-size: 14px; color: rgba(236,241,248,0.5); margin-bottom: 2rem; }
+
+/* Footer */
+.fd-footer {
+  background: var(--bg-2) !important;
+  border-top: 0.5px solid var(--border) !important;
+  padding: 2.5rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 1.25rem !important;
+  text-align: center !important;
+}
+.fd-footer-logo img { height: 26px; opacity: 0.5; }
+.fd-footer-links { display: flex !important; flex-wrap: wrap !important; gap: 1.5rem !important; justify-content: center !important; }
+.fd-footer-links a { font-size: 12px !important; font-weight: 600 !important; letter-spacing: 0.06em !important; text-transform: uppercase !important; color: rgba(236,241,248,0.3) !important; transition: color 0.2s !important; }
+.fd-footer-links a:hover { color: #F5EDE6 !important; }
+.fd-footer-copy { font-size: 12px; color: rgba(236,241,248,0.2); }
+
+@media (max-width: 900px) {
+  .st-grid { grid-template-columns: 1fr; }
+  .st-install-inner { grid-template-columns: 1fr; }
+}
+
+/* ── NAV FIX ── */
+.fd-nav {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 1.1rem 2.5rem !important;
+}
+.fd-nav-links {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 1.8rem !important;
+  list-style: none !important;
+  align-items: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.fd-nav-links li { margin: 0 !important; padding: 0 !important; }
+.fd-nav-links a {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: rgba(236,241,248,0.62) !important;
+  text-decoration: none !important;
+}
+.fd-nav-links a:hover { color: #F5EDE6 !important; }
+.fd-logo img { height: 26px !important; display: block !important; }
+
+/* ── EM GRADIENT FIX ── */
+.st-hero h1 em,
+.pr-hero h1 em,
+.en-hero h1 em,
+h1 em, h2 em {
+  font-style: normal !important;
+  background: linear-gradient(90deg, #2BCFFF 0%, #1FA8E8 50%, #38E8C4 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  display: inline !important;
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="fd-nav">
+  <a href="../" class="fd-logo"><img src="../assets/flowdaptor-logo-small.png" alt="FlowDaptor" /></a>
+  <ul class="fd-nav-links">
+    <li><a href="../products/">Products</a></li>
+    <li><a href="../workflow/">Workflows</a></li>
+    <li><a href="../enterprise/">Enterprise</a></li>
+    <li><a href="../training/">Training</a></li>
+    <li><a href="../blog/">Blog</a></li>
+    <li><a href="../about/">About</a></li>
+    <li><a href="../store/" class="store-link active">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      Store
+    </a></li>
+  </ul>
+  <a class="fd-nav-cta" href="../contact/">Get in touch</a>
+</nav>
+
+<!-- HERO -->
+<div class="st-hero">
+  <div class="st-label">OpenClaw Workflow Store</div>
+  <h1>Pre-built AI workflows<br>for <em>creative teams.</em></h1>
+  <p>Buy a workflow, book a setup call, wake up to automated content. Built for advertising agencies and content teams who want to see AI in action — without the technical overhead.</p>
+</div>
+
+<!-- FILTERS -->
+<div class="st-filters">
+  <button class="st-filter active">All</button>
+  <button class="st-filter">Content & Video</button>
+  <button class="st-filter">Social Media</button>
+  <button class="st-filter">Reporting</button>
+  <button class="st-filter">Lead Gen</button>
+</div>
+
+<!-- PRODUCT GRID -->
+<div class="st-grid">
+
+  <!-- PRODUCT 1: Anime NewsCaster -->
+  <div class="st-card">
+    <div class="st-card-visual">
+      <div class="st-mini-pipe">
+        <div class="st-mini-step"><span>01</span> Fetch AI News · Tavily</div>
+        <div class="st-mini-conn"></div>
+        <div class="st-mini-step"><span>02</span> Generate Script · Ollama</div>
+        <div class="st-mini-conn"></div>
+        <div class="st-mini-step"><span>03</span> Generate Video · Veo</div>
+        <div class="st-mini-conn"></div>
+        <div class="st-mini-step"><span>04</span> Send · Telegram</div>
+      </div>
+    </div>
+    <div class="st-card-body">
+      <div class="st-card-tag">Content &amp; Video</div>
+      <div class="st-card-title">Anime AI NewsCaster</div>
+      <p class="st-card-desc">Daily AI news video pipeline. Fetches top story, generates anime host script, produces 9:16 vertical video, delivers to Telegram — every morning at 09:00 SGT automatically.</p>
+      <div class="st-card-footer">
+        <div class="st-price">$20</div>
+        <a class="st-buy-btn" href="../contact/?ref=newscaster">Buy &amp; Install →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT 2: Coming soon -->
+  <div class="st-card coming-soon">
+    <div class="st-card-visual">
+      <span class="st-soon-badge">Coming Soon</span>
+      <div class="st-mini-pipe">
+        <div class="st-mini-step"><span>01</span> Monitor Brand Mentions</div>
+        <div class="st-mini-conn"></div>
+        <div class="st-mini-step"><span>02</span> Sentiment Analysis</div>
+        <div class="st-mini-conn"></div>
+        <div class="st-mini-step"><span>03</span> Daily Report · Telegram</div>
+      </div>
+    </div>
+    <div class="st-card-body">
+      <div class="st-card-tag">Reporting</div>
+      <div class="st-card-title">Brand Pulse Monitor</div>
+      <p class="st-card-desc">Daily brand mention tracker. Monitors social and news, runs sentiment analysis, and delivers a morning briefing straight to your chat app.</p>
+      <div class="st-card-footer">
+        <div class="st-price">$20</div>
+        <a class="st-buy-btn" href="#">Coming Soon</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT 3: Coming soon -->
+  <div class="st-card coming-soon">
+    <div class="st-card-visual">
+      <span class="st-soon-badge">Coming Soon</span>
+      <div class="st-mini-pipe">
+        <div class="st-mini-step"><span>01</span> Scrape LinkedIn Profiles</div>
+        <div class="st-mini-conn"></div>
+        <div class="st-mini-step"><span>02</span> Enrich &amp; Score Leads</div>
+        <div class="st-mini-conn"></div>
+        <div class="st-mini-step"><span>03</span> Push to CRM</div>
+      </div>
+    </div>
+    <div class="st-card-body">
+      <div class="st-card-tag">Lead Gen</div>
+      <div class="st-card-title">LinkedIn Lead Harvester</div>
+      <p class="st-card-desc">Automated prospecting that scrapes, enriches, and scores LinkedIn leads — then pushes qualified prospects directly into your CRM workflow.</p>
+      <div class="st-card-footer">
+        <div class="st-price">$20</div>
+        <a class="st-buy-btn" href="#">Coming Soon</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT 4: Coming soon -->
+  <div class="st-card coming-soon">
+    <div class="st-card-visual">
+      <span class="st-soon-badge">Coming Soon</span>
+      <div class="st-mini-pipe">
+        <div class="st-mini-step"><span>01</span> Pull Campaign Data</div>
+        <div class="st-mini-conn"></div>
+        <div class="st-mini-step"><span>02</span> Analyse Performance</div>
+        <div class="st-mini-conn"></div>
+        <div class="st-mini-step"><span>03</span> Generate Report · PDF</div>
+      </div>
+    </div>
+    <div class="st-card-body">
+      <div class="st-card-tag">Reporting</div>
+      <div class="st-card-title">Campaign Report Generator</div>
+      <p class="st-card-desc">Pull data from Meta, Google, and TikTok Ads. Analyse performance, generate a structured PDF report, and deliver it to your client automatically.</p>
+      <div class="st-card-footer">
+        <div class="st-price">$20</div>
+        <a class="st-buy-btn" href="#">Coming Soon</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT 5: Coming soon -->
+  <div class="st-card coming-soon">
+    <div class="st-card-visual">
+      <span class="st-soon-badge">Coming Soon</span>
+      <div class="st-mini-pipe">
+        <div class="st-mini-step"><span>01</span> Monitor Trending Topics</div>
+        <div class="st-mini-conn"></div>
+        <div class="st-mini-step"><span>02</span> Generate Post Ideas</div>
+        <div class="st-mini-conn"></div>
+        <div class="st-mini-step"><span>03</span> Schedule &amp; Post</div>
+      </div>
+    </div>
+    <div class="st-card-body">
+      <div class="st-card-tag">Social Media</div>
+      <div class="st-card-title">Social Content Engine</div>
+      <p class="st-card-desc">Monitors trending topics in your niche, generates on-brand post ideas, and schedules content across your social channels — daily, automatically.</p>
+      <div class="st-card-footer">
+        <div class="st-price">$20</div>
+        <a class="st-buy-btn" href="#">Coming Soon</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT 6: Coming soon -->
+  <div class="st-card coming-soon">
+    <div class="st-card-visual">
+      <span class="st-soon-badge">Coming Soon</span>
+      <div class="st-mini-pipe">
+        <div class="st-mini-step"><span>01</span> Triage Client Emails</div>
+        <div class="st-mini-conn"></div>
+        <div class="st-mini-step"><span>02</span> Draft Responses</div>
+        <div class="st-mini-conn"></div>
+        <div class="st-mini-step"><span>03</span> Flag for Review</div>
+      </div>
+    </div>
+    <div class="st-card-body">
+      <div class="st-card-tag">Inbox</div>
+      <div class="st-card-title">Client Inbox Triage</div>
+      <p class="st-card-desc">Classifies incoming client emails by urgency and type, drafts responses, and flags only the emails that need a human decision.</p>
+      <div class="st-card-footer">
+        <div class="st-price">$20</div>
+        <a class="st-buy-btn" href="#">Coming Soon</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- INSTALL NOTE -->
+<div class="st-install">
+  <div class="st-install-inner">
+    <div class="st-install-icon">🛠</div>
+    <div class="st-install-text">
+      <h4>Every purchase includes a setup call</h4>
+      <p>We install OpenClaw, configure the workflow, and verify it's running on your machine. No technical knowledge needed — just show up to the call.</p>
+    </div>
+    <a class="st-buy-btn" href="../contact/">Book a call</a>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="st-cta">
+  <h2>Want a custom workflow<br>for your <em>agency?</em></h2>
+  <p>Tell us what you need to automate and we'll scope it out — free.</p>
+  <a class="fd-nav-cta" href="../contact/">Get in touch →</a>
+</div>
+
+<!-- FOOTER -->
+<footer class="fd-footer">
+  <div class="fd-footer-logo"><img src="../assets/flowdaptor-logo-small.png" alt="FlowDaptor"/></div>
+  <div class="fd-footer-links">
+    <a href="../products/">Products</a><a href="../workflow/">Workflows</a><a href="../enterprise/">Enterprise</a>
+    <a href="../training/">Training</a><a href="../blog/">Blog</a><a href="../about/">About</a>
+    <a href="../store/">Store</a><a href="../contact/">Contact</a>
+  </div>
+  <div class="fd-footer-copy">FlowDaptor Pte. Ltd. © 2026</div>
+</footer>
+
+<script>
+  document.querySelectorAll('.st-filter').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.st-filter').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FlowDaptor Enterprise — Governed AI Agents at Scale</title>
+<meta name="description" content="Production-grade multi-agent deployments for enterprise. Bounded, audited, governed — deployed on your infrastructure." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="../assets/site.css?v=20260610-1126" />
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+<style>
+:root { --fd-paper: #05060F; }
+body { background: #05060F !important; color: #F5EDE6 !important; }
+
+.en-hero {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 5rem 2.5rem 4rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+.en-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brand-blue);
+  border: 1px solid var(--acc-border);
+  padding: 6px 13px;
+  border-radius: 999px;
+  background: rgba(43,207,255,0.06);
+  margin-bottom: 1.75rem;
+}
+.en-label::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--brand-grad); }
+.en-hero h1 {
+  font-family: var(--font-head);
+  font-size: clamp(2.2rem, 3.5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #F5EDE6;
+  -webkit-text-fill-color: #F5EDE6;
+  margin-bottom: 1.25rem;
+}
+.en-hero h1 em {
+  font-style: normal;
+  background: var(--brand-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.en-hero p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(236,241,248,0.62);
+  margin-bottom: 2rem;
+}
+.en-hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+.en-btn-primary {
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  color: #03121a !important;
+  background: var(--brand-grad);
+  padding: 0.75rem 1.75rem;
+  border-radius: 999px;
+  display: inline-block;
+  transition: filter 0.2s;
+}
+.en-btn-primary:hover { filter: brightness(1.08); }
+.en-btn-ghost {
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  color: rgba(236,241,248,0.6);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-bottom: 1px solid rgba(200,220,255,0.15);
+  padding-bottom: 2px;
+  transition: color 0.2s;
+}
+.en-btn-ghost:hover { color: var(--brand-blue); }
+
+/* Commander portrait */
+.en-commander {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.en-commander-img-wrap {
+  position: relative;
+  width: fit-content;
+}
+.en-commander-img-wrap img {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(43,207,255,0.3);
+  display: block;
+}
+.en-commander-rank {
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--brand-grad);
+  color: #03121a;
+  padding: 3px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.en-commander-quote {
+  font-size: 13px;
+  font-style: italic;
+  color: rgba(236,241,248,0.45);
+  text-align: center;
+  max-width: 260px;
+  line-height: 1.6;
+}
+
+/* Section */
+.en-section { max-width: 1100px; margin: 0 auto; padding: 0 2.5rem 5rem; }
+.en-section-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-blue);
+  margin-bottom: 1rem;
+}
+.en-section-label::before { content:''; display:block; width:20px; height:1.5px; background:var(--brand-grad); }
+.en-section h2 {
+  font-family: var(--font-head);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #F5EDE6;
+  margin-bottom: 2.5rem;
+  max-width: 640px;
+}
+.en-section h2 em {
+  font-style: normal;
+  background: var(--brand-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Governance model */
+.en-governance {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 3rem;
+  margin-bottom: 1.5rem;
+}
+.en-gov-diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 2.5rem;
+}
+.en-gov-level {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+}
+.en-gov-node {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem 1.25rem;
+  text-align: center;
+  min-width: 120px;
+  transition: border-color 0.2s;
+}
+.en-gov-node.commander { border-color: rgba(43,207,255,0.4); background: rgba(43,207,255,0.06); }
+.en-gov-node.supervisor { border-color: rgba(56,232,196,0.3); }
+.en-gov-node.agent { border-color: rgba(200,220,255,0.15); min-width: 90px; }
+.en-gov-node .node-role { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brand-blue); margin-bottom: 3px; }
+.en-gov-node .node-name { font-family: var(--font-head); font-size: 13px; font-weight: 700; color: #F5EDE6; }
+.en-gov-connector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 6px 0;
+}
+.en-gov-line { width: 1.5px; height: 24px; background: linear-gradient(to bottom, rgba(43,207,255,0.4), rgba(43,207,255,0.1)); }
+.en-gov-line-h { flex:1; height: 1.5px; background: linear-gradient(90deg, transparent, rgba(43,207,255,0.2), transparent); max-width: 80px; }
+
+.en-gov-principles {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 1rem;
+}
+.en-gov-principle {
+  padding: 1.25rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.en-gov-principle h4 { font-family: var(--font-head); font-size: 13px; font-weight: 700; color: #F5EDE6; margin-bottom: 0.4rem; }
+.en-gov-principle p { font-size: 12px; line-height: 1.6; color: rgba(236,241,248,0.45); }
+
+/* Use cases */
+.en-usecases {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 1.25rem;
+  margin-bottom: 5rem;
+}
+.en-usecase {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 2rem;
+  transition: border-color 0.2s;
+}
+.en-usecase:hover { border-color: var(--acc-border); }
+.en-usecase-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brand-blue); margin-bottom: 0.75rem; }
+.en-usecase h3 { font-family: var(--font-head); font-size: 1.05rem; font-weight: 700; color: #F5EDE6; margin-bottom: 0.5rem; }
+.en-usecase p { font-size: 13px; line-height: 1.65; color: rgba(236,241,248,0.5); }
+
+/* Differentiators */
+.en-diff {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 5rem;
+}
+.en-diff-item { background: var(--surface); padding: 2rem; }
+.en-diff-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+.en-diff-item h3 { font-family: var(--font-head); font-size: 1rem; font-weight: 700; color: #F5EDE6; margin-bottom: 0.5rem; }
+.en-diff-item p { font-size: 13px; line-height: 1.65; color: rgba(236,241,248,0.5); }
+
+/* CTA */
+.en-cta { background: var(--surface); border-top: 0.5px solid var(--border); padding: 5rem 2.5rem; text-align: center; }
+.en-cta h2 { font-family: var(--font-head); font-size: clamp(1.8rem,3vw,2.8rem); font-weight: 700; color: #F5EDE6; margin-bottom: 0.75rem; letter-spacing: -0.02em; }
+.en-cta h2 em { font-style: normal; background: var(--brand-grad); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+.en-cta p { font-size: 14px; color: rgba(236,241,248,0.5); margin-bottom: 2rem; }
+
+.fd-footer { background: var(--bg-2) !important; border-top: 0.5px solid var(--border) !important; padding: 2.5rem !important; display: flex !important; flex-direction: column !important; align-items: center !important; gap: 1.25rem !important; text-align: center !important; }
+.fd-footer-logo img { height: 26px; opacity: 0.5; }
+.fd-footer-links { display: flex !important; flex-wrap: wrap !important; gap: 1.5rem !important; justify-content: center !important; }
+.fd-footer-links a { font-size: 12px !important; font-weight: 600 !important; letter-spacing: 0.06em !important; text-transform: uppercase !important; color: rgba(236,241,248,0.3) !important; transition: color 0.2s !important; }
+.fd-footer-links a:hover { color: #F5EDE6 !important; }
+.fd-footer-copy { font-size: 12px; color: rgba(236,241,248,0.2); }
+
+@media (max-width: 900px) {
+  .en-hero { grid-template-columns: 1fr; }
+  .en-commander { flex-direction: row; align-items: flex-start; }
+  .en-gov-principles { grid-template-columns: 1fr; }
+  .en-usecases { grid-template-columns: 1fr; }
+  .en-diff { grid-template-columns: 1fr; }
+}
+
+/* ── NAV FIX ── */
+.fd-nav {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 1.1rem 2.5rem !important;
+}
+.fd-nav-links {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 1.8rem !important;
+  list-style: none !important;
+  align-items: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.fd-nav-links li { margin: 0 !important; padding: 0 !important; }
+.fd-nav-links a {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: rgba(236,241,248,0.62) !important;
+  text-decoration: none !important;
+}
+.fd-nav-links a:hover { color: #F5EDE6 !important; }
+.fd-logo img { height: 26px !important; display: block !important; }
+h1 em, h2 em, h3 em {
+  font-style: normal !important;
+  background: linear-gradient(90deg, #2BCFFF 0%, #1FA8E8 50%, #38E8C4 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  display: inline !important;
+}
+
+</style>
+</head>
+<body>
+
+<nav class="fd-nav">
+  <a href="../" class="fd-logo"><img src="../assets/flowdaptor-logo-small.png" alt="FlowDaptor" /></a>
+  <ul class="fd-nav-links">
+    <li><a href="../products/">Products</a></li>
+    <li><a href="../workflow/">Workflows</a></li>
+    <li><a href="../enterprise/" class="active">Enterprise</a></li>
+    <li><a href="../training/">Training</a></li>
+    <li><a href="../blog/">Blog</a></li>
+    <li><a href="../about/">About</a></li>
+    <li><a href="../store/" class="store-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Store</a></li>
+  </ul>
+  <a class="fd-nav-cta" href="../contact/">Get in touch</a>
+</nav>
+
+<!-- HERO -->
+<div class="en-hero">
+  <div>
+    <div class="en-label">Enterprise</div>
+    <h1>AI agents that run<br>under <em>proper command.</em></h1>
+    <p>Production-grade multi-agent deployments for enterprise. Every agent is bounded, audited, and governed by a supervising controller. No rogue automation. No data leaks. No vendor lock-in.</p>
+    <div class="en-hero-btns">
+      <a class="en-btn-primary" href="../contact/?ref=enterprise">Talk to us →</a>
+      <a class="en-btn-ghost" href="../products/">SME products
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+  <div class="en-commander">
+    <div class="en-commander-img-wrap">
+      <img src="../assets/zen-web/ruby.jpg" alt="Ruby — Autonomous Operations Commander" loading="lazy"/>
+      <span class="en-commander-rank">Commander</span>
+    </div>
+    <p class="en-commander-quote">"Autonomy with a commander, not autonomy without a leash."</p>
+  </div>
+</div>
+
+<!-- GOVERNANCE -->
+<div class="en-section">
+  <div class="en-section-label">Governance Model</div>
+  <h2>Every agent answers to <em>one chain of command.</em></h2>
+
+  <div class="en-governance">
+    <div class="en-gov-diagram">
+      <!-- Level 1: Human -->
+      <div class="en-gov-level">
+        <div class="en-gov-node commander">
+          <div class="node-role">Human Oversight</div>
+          <div class="node-name">Escalation Layer</div>
+        </div>
+      </div>
+      <div class="en-gov-connector"><div class="en-gov-line"></div></div>
+      <!-- Level 2: Commander -->
+      <div class="en-gov-level">
+        <div class="en-gov-node commander">
+          <div class="node-role">Supervising Controller</div>
+          <div class="node-name">Commander Agent</div>
+        </div>
+      </div>
+      <div class="en-gov-connector">
+        <div class="en-gov-line-h"></div>
+        <div class="en-gov-line"></div>
+        <div class="en-gov-line-h"></div>
+      </div>
+      <!-- Level 3: Supervisors -->
+      <div class="en-gov-level" style="gap:2rem;">
+        <div class="en-gov-node supervisor">
+          <div class="node-role">Domain Supervisor</div>
+          <div class="node-name">Sales Agent</div>
+        </div>
+        <div class="en-gov-node supervisor">
+          <div class="node-role">Domain Supervisor</div>
+          <div class="node-name">Ops Agent</div>
+        </div>
+        <div class="en-gov-node supervisor">
+          <div class="node-role">Domain Supervisor</div>
+          <div class="node-name">Finance Agent</div>
+        </div>
+      </div>
+      <div class="en-gov-connector" style="gap:2rem;">
+        <div class="en-gov-line"></div>
+        <div class="en-gov-line"></div>
+        <div class="en-gov-line"></div>
+      </div>
+      <!-- Level 4: Workers -->
+      <div class="en-gov-level" style="gap:1rem; flex-wrap:wrap; justify-content:center;">
+        <div class="en-gov-node agent"><div class="node-role">Worker</div><div class="node-name">CRM Sync</div></div>
+        <div class="en-gov-node agent"><div class="node-role">Worker</div><div class="node-name">Email</div></div>
+        <div class="en-gov-node agent"><div class="node-role">Worker</div><div class="node-name">Reports</div></div>
+        <div class="en-gov-node agent"><div class="node-role">Worker</div><div class="node-name">Alerts</div></div>
+        <div class="en-gov-node agent"><div class="node-role">Worker</div><div class="node-name">Data</div></div>
+      </div>
+    </div>
+
+    <div class="en-gov-principles">
+      <div class="en-gov-principle">
+        <h4>Bounded actions</h4>
+        <p>Every agent operates within a defined scope. Actions outside the mandate are blocked, not attempted.</p>
+      </div>
+      <div class="en-gov-principle">
+        <h4>Full audit trail</h4>
+        <p>Every agent decision is logged with reasoning, inputs, and outputs. Nothing happens without a trace.</p>
+      </div>
+      <div class="en-gov-principle">
+        <h4>Human escalation</h4>
+        <p>When a decision exceeds an agent's mandate, it escalates to a human — never guesses or acts unilaterally.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Enterprise use cases -->
+  <div class="en-section-label" style="margin-top:3rem;">Enterprise Use Cases</div>
+  <h2>Built for the functions <em>that can't afford to fail.</em></h2>
+  <div class="en-usecases">
+    <div class="en-usecase">
+      <div class="en-usecase-tag">Finance & Compliance</div>
+      <h3>Automated reconciliation at scale</h3>
+      <p>Multi-agent financial reconciliation across thousands of transactions daily. Error detection, anomaly flagging, and audit-ready reports — without a single manual step.</p>
+    </div>
+    <div class="en-usecase">
+      <div class="en-usecase-tag">Sales Operations</div>
+      <h3>Pipeline intelligence layer</h3>
+      <p>Agents that monitor your entire CRM, surface stale deals, enrich contact data, and trigger follow-up sequences — governed by deal stage and rep assignment logic.</p>
+    </div>
+    <div class="en-usecase">
+      <div class="en-usecase-tag">Customer Operations</div>
+      <h3>Tier-1 support automation</h3>
+      <p>Classify, route, and resolve Tier-1 support tickets automatically. Human escalation triggers on sentiment, complexity, or SLA breach — never on guesswork.</p>
+    </div>
+    <div class="en-usecase">
+      <div class="en-usecase-tag">Intelligence & Reporting</div>
+      <h3>Executive intelligence feeds</h3>
+      <p>Daily briefings synthesised from your internal data, market signals, and competitor activity — delivered to leadership before the morning stand-up.</p>
+    </div>
+  </div>
+
+  <!-- Differentiators -->
+  <div class="en-section-label">Why FlowDaptor Enterprise</div>
+  <h2 style="margin-bottom:1.5rem;">Not a tool. <em>An embedded team.</em></h2>
+  <div class="en-diff">
+    <div class="en-diff-item">
+      <div class="en-diff-icon">🏗️</div>
+      <h3>Built on your infrastructure</h3>
+      <p>Everything runs on your servers. No SaaS, no third-party data routing, no vendor dependency. Full PDPA compliance from day one.</p>
+    </div>
+    <div class="en-diff-item">
+      <div class="en-diff-icon">🎯</div>
+      <h3>Scoped to your operations</h3>
+      <p>We don't sell a platform. We build agents mapped to your actual workflows, data models, and business rules — not generic templates.</p>
+    </div>
+    <div class="en-diff-item">
+      <div class="en-diff-icon">🔒</div>
+      <h3>Governed by design</h3>
+      <p>Every deployment ships with a command hierarchy, audit logging, and human escalation paths. Autonomy is earned, not assumed.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- CTA -->
+<div class="en-cta">
+  <h2>Ready to deploy <em>governed AI</em> at scale?</h2>
+  <p>Talk to us about your use case. We'll scope a deployment model that fits your infrastructure and compliance requirements.</p>
+  <a class="en-btn-primary" href="../contact/?ref=enterprise">Talk to us →</a>
+</div>
+
+<footer class="fd-footer">
+  <div class="fd-footer-logo"><img src="../assets/flowdaptor-logo-small.png" alt="FlowDaptor"/></div>
+  <div class="fd-footer-links">
+    <a href="../products/">Products</a><a href="../workflow/">Workflows</a><a href="../enterprise/">Enterprise</a>
+    <a href="../training/">Training</a><a href="../blog/">Blog</a><a href="../about/">About</a>
+    <a href="../store/">Store</a><a href="../contact/">Contact</a>
+  </div>
+  <div class="fd-footer-copy">FlowDaptor Pte. Ltd. © 2026</div>
+</footer>
+</body>
+</html>
