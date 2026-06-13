@@ -28,42 +28,7 @@
   --fd-radius:       8px;
 }
 
-/* Audience switcher */
-.fd-switcher-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1rem;
-  background: var(--surface);
-  border-bottom: 0.5px solid var(--border);
-  font-family: var(--font-head);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  color: var(--text-secondary);
-}
-.fd-switcher-bar span { opacity: 0.7; }
-.fd-sw-btn {
-  padding: 0.3rem 0.9rem;
-  border-radius: 999px;
-  border: 1.5px solid transparent;
-  background: transparent;
-  color: var(--text-secondary);
-  font-family: var(--font-head);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  cursor: pointer;
-  opacity: 0.6;
-  transition: all 0.2s;
-}
-.fd-sw-btn.active {
-  opacity: 1;
-  border-color: var(--acc-border);
-  color: var(--brand-blue);
-}
-.fd-sw-btn:hover { opacity: 1; }
+
 
 /* Hero */
 .fd-hero-headline {
@@ -139,63 +104,9 @@
 .hero-value { font-family: var(--font-head); font-size: 13px; font-weight: 700; fill: #F5EDE6; }
 .cursor-blink { animation: blink-cursor 1s step-end infinite; }
 
-/* Workflow product card (Creative audience) */
-.fd-workflow-hero {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
-  margin-bottom: 4rem;
-}
-.fd-workflow-info { padding: 3.5rem; }
-.fd-workflow-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-head);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--brand-blue);
-  border: 1px solid var(--acc-border);
-  padding: 5px 12px;
-  border-radius: 999px;
-  background: var(--acc-dim);
-  margin-bottom: 1.5rem;
-}
-.fd-workflow-title { font-family: var(--font-head); font-size: 2rem; font-weight: 700; line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 1rem; }
-.fd-workflow-desc { font-size: 14px; line-height: 1.65; color: var(--text-secondary); margin-bottom: 2rem; }
-.fd-workflow-steps { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 2.5rem; }
-.fd-workflow-steps li { display: flex; align-items: center; gap: 0.75rem; font-size: 14px; color: var(--text-secondary); }
-.fd-workflow-steps li::before { content: ''; display: block; width: 6px; height: 6px; border-radius: 50%; background: var(--brand-grad); flex-shrink: 0; }
-.fd-workflow-price-row { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
-.fd-price { font-family: var(--font-head); font-size: 2.8rem; font-weight: 700; letter-spacing: -0.04em; background: var(--brand-grad); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
-.fd-price sup { font-size: 1.2rem; vertical-align: top; margin-top: 0.5rem; }
-.fd-price-note { font-size: 12px; color: var(--text-muted); line-height: 1.4; max-width: 180px; }
-.fd-workflow-visual { background: var(--surface-2); display: flex; align-items: center; justify-content: center; padding: 3rem; overflow: hidden; }
-.fd-pipeline { width: 100%; max-width: 340px; }
-.fd-pipe-step { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; background: var(--surface); border: 1px solid var(--acc-border); border-radius: 8px; margin-bottom: 0.5rem; animation: fade-in-up 0.5s ease both; }
-.fd-pipe-step:nth-child(1) { animation-delay: 0.1s; }
-.fd-pipe-step:nth-child(2) { animation-delay: 0.3s; }
-.fd-pipe-step:nth-child(3) { animation-delay: 0.5s; }
-.fd-pipe-step:nth-child(4) { animation-delay: 0.7s; }
-.fd-pipe-step:nth-child(5) { animation-delay: 0.9s; }
-.fd-pipe-num { font-family: var(--font-head); font-size: 11px; font-weight: 700; color: var(--brand-blue); width: 20px; flex-shrink: 0; }
-.fd-pipe-label { font-family: var(--font-head); font-size: 13px; font-weight: 600; color: var(--text-primary); flex: 1; }
-.fd-pipe-tag { font-size: 11px; color: var(--text-muted); background: var(--bg-2); padding: 2px 6px; border-radius: 4px; font-family: var(--font-mono); }
-.fd-pipe-connector { width: 2px; height: 10px; background: linear-gradient(to bottom, var(--brand-blue), transparent); margin-left: 28px; opacity: 0.4; }
 
-/* Stack SVG wrapper */
-.fd-stack-svg-wrap { width: 100%; max-width: 640px; margin: 0 auto 3rem; }
 
-/* Audience section visibility */
-[data-audience] { display: none; }
-[data-audience].visible { display: block; }
-[data-audience="all"] { display: block; }
+
 
 /* Responsive */
 @media (max-width: 900px) {
@@ -227,47 +138,20 @@
   <a class="fd-nav-cta" href="contact/">Get in touch</a>
 </nav>
 
-<!-- AUDIENCE SWITCHER -->
-<div class="fd-switcher-bar">
-  <span>I am a</span>
-  <button class="fd-sw-btn active" data-target="sme">SME / Business</button>
-  <span>·</span>
-  <button class="fd-sw-btn" data-target="creative">Creative / Agency</button>
-</div>
-
 <!-- HERO -->
 <section class="fd-hero">
 <div class="fd-hero-top">
   <div class="fd-hero-left">
-
-    <!-- SME HERO -->
-    <div class="fd-hero-content active" data-hero="sme">
-      <div class="fd-tag">AI Automation · Singapore</div>
-      <h1 class="fd-hero-headline">From zero AI<br>to <em>AI-ready.</em><br>We handle it.</h1>
-      <p class="fd-hero-sub">FlowDaptor installs and configures n8n or OpenClaw on your own infrastructure — so your business runs on AI without the technical headache. One engagement. No monthly subscriptions. Yours to keep.</p>
-      <div class="fd-hero-btns">
-        <a class="fd-btn-primary" href="contact/">Get started →</a>
-        <a class="fd-btn-ghost" href="products/">
-          See what we build
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
+    <div class="fd-tag">AI Automation · Singapore</div>
+    <h1 class="fd-hero-headline">From zero AI<br>to <em>AI-ready.</em><br>We handle it.</h1>
+    <p class="fd-hero-sub">FlowDaptor installs and configures n8n or OpenClaw on your own infrastructure — so your business runs on AI without the technical headache. One engagement. No monthly subscriptions. Yours to keep.</p>
+    <div class="fd-hero-btns">
+      <a class="fd-btn-primary" href="contact/">Get started →</a>
+      <a class="fd-btn-ghost" href="products/">
+        See what we build
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
     </div>
-
-    <!-- CREATIVE HERO -->
-    <div class="fd-hero-content" data-hero="creative">
-      <div class="fd-tag">AI Workflows · Creative Industry</div>
-      <h1 class="fd-hero-headline">Your content.<br>On autopilot.<br><em>Every day.</em></h1>
-      <p class="fd-hero-sub">Pre-built OpenClaw workflows for ad agencies and content teams. See what's possible in hours, not months — then let us set up the full stack for your business.</p>
-      <div class="fd-hero-btns">
-        <a class="fd-btn-primary" href="store/">Browse workflows →</a>
-        <a class="fd-btn-ghost" href="#workflow-product">
-          See how it works
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
-    </div>
-
   </div>
 
   <!-- ANIMATED HERO VISUAL -->
@@ -407,9 +291,6 @@
 
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- SME SECTIONS -->
-<!-- ═══════════════════════════════════════════════════ -->
-
-<div data-audience="sme" class="visible">
 
   <!-- PROBLEM -->
   <section class="fd-section">
@@ -536,17 +417,7 @@
           <h3>Hands-on training</h3>
           <p>Upskill your team with instructor-led n8n and OpenClaw workshops. No coding experience required.</p>
         </div>
-        <div class="fd-platform-cell wide fd-mascot-block">
-          <figure class="fd-mascot">
-            <img src="assets/inotgrumpy.jpg" alt="inotgrumpy, FlowDaptor's Singapore agentic husky mascot" loading="lazy" />
-            <figcaption><strong>inotgrumpy</strong>Chief Automation Hound · 🇸🇬</figcaption>
-          </figure>
-          <div>
-            <h3>Meet inotgrumpy — our agent-in-residence.</h3>
-            <p>Every FlowDaptor build ships with the same attitude as our Singapore-born mascot: <strong>bounded, dependable, and just grumpy enough to refuse a bad instruction.</strong></p>
-            <p>Your agents run on <em>your</em> infrastructure, answer to a clear chain of command, and don't quit when the work gets real. Buy once, and the whole crew is yours to keep.</p>
-          </div>
-        </div>
+
       </div>
     </div>
   </section>
@@ -622,200 +493,16 @@
     </div>
   </section>
 
-</div><!-- /sme -->
-
 
 <!-- ═══════════════════════════════════════════════════ -->
-<!-- CREATIVE / AGENCY SECTIONS -->
+<!-- SHARED SECTIONS -->
 <!-- ═══════════════════════════════════════════════════ -->
 
-<div data-audience="creative">
-
-  <!-- WORKFLOW PRODUCT CARD -->
-  <section class="fd-section" id="workflow-product">
-    <div class="fd-section-inner">
-      <div class="fd-section-label">Featured Workflow</div>
-      <h2 class="fd-section-heading">See AI content generation <em>in action.</em></h2>
-
-      <div class="fd-workflow-hero">
-        <div class="fd-workflow-info">
-          <div class="fd-workflow-badge">⚡ OpenClaw Skill · $20</div>
-          <div class="fd-workflow-title">Anime AI<br>NewsCaster</div>
-          <p class="fd-workflow-desc">A fully automated daily AI news video pipeline. Fetches the day's top AI story, generates an anime host script, produces a 9:16 vertical video, and delivers it to your Telegram — every morning at 9am SGT, without you lifting a finger.</p>
-          <ul class="fd-workflow-steps">
-            <li>Fetches today's top AI news via Tavily API</li>
-            <li>Generates a 40-60 word anime host script with local LLM</li>
-            <li>Produces 8-second vertical video via Google Veo</li>
-            <li>Auto-delivers to Telegram at 09:00 SGT daily</li>
-            <li>Runs on your machine — your data, your content</li>
-          </ul>
-          <div class="fd-workflow-price-row">
-            <div class="fd-price"><sup>$</sup>19.99</div>
-            <div class="fd-price-note">One-time download. We help you install it. No subscription.</div>
-            <a class="fd-btn-primary" href="store/">Buy &amp; Download →</a>
-          </div>
-        </div>
-
-        <div class="fd-workflow-visual">
-          <div class="fd-pipeline">
-            <div class="fd-pipe-step">
-              <span class="fd-pipe-num">01</span>
-              <span class="fd-pipe-label">Fetch AI News</span>
-              <span class="fd-pipe-tag">Tavily API</span>
-            </div>
-            <div class="fd-pipe-connector"></div>
-            <div class="fd-pipe-step">
-              <span class="fd-pipe-num">02</span>
-              <span class="fd-pipe-label">Pick Top Story</span>
-              <span class="fd-pipe-tag">random · top 10</span>
-            </div>
-            <div class="fd-pipe-connector"></div>
-            <div class="fd-pipe-step">
-              <span class="fd-pipe-num">03</span>
-              <span class="fd-pipe-label">Generate Script</span>
-              <span class="fd-pipe-tag">Ollama LLM</span>
-            </div>
-            <div class="fd-pipe-connector"></div>
-            <div class="fd-pipe-step">
-              <span class="fd-pipe-num">04</span>
-              <span class="fd-pipe-label">Generate Video</span>
-              <span class="fd-pipe-tag">Google Veo</span>
-            </div>
-            <div class="fd-pipe-connector"></div>
-            <div class="fd-pipe-step">
-              <span class="fd-pipe-num">05</span>
-              <span class="fd-pipe-label">Send to Telegram</span>
-              <span class="fd-pipe-tag">OpenClaw</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- INSTALL NOTE -->
-      <div style="background: rgba(43,207,255,0.06); border-radius: 6px; padding: 1.5rem 2rem; display: flex; align-items: flex-start; gap: 1rem; margin-top: 1.5rem; border: 1px solid rgba(43,207,255,0.14); border-left: 3px solid var(--fd-accent);">
-        <div style="font-size: 1.25rem; flex-shrink:0;">🛠</div>
-        <div>
-          <div style="font-family: var(--fd-font-display); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.4rem; color: var(--text-primary);">We set it up for you</div>
-          <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">Every workflow purchase includes a setup call. We'll install OpenClaw, configure the workflow, and get it running on your machine — no technical knowledge needed.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WHY THIS MATTERS -->
-  <section class="fd-section" style="background: var(--fd-ink); color: var(--fd-paper);">
-    <div class="fd-section-inner">
-      <div class="fd-section-label" style="color: var(--fd-accent);">For advertising &amp; content teams</div>
-      <h2 class="fd-section-heading" style="color: var(--fd-paper);">Your agency produces content daily.<br><em>Most of it doesn't need a human.</em></h2>
-      <div class="fd-problems" style="background: rgba(245,243,238,0.05);">
-        <div class="fd-problem" style="background: rgba(245,243,238,0.03);">
-          <div class="fd-problem-label">Opportunity · 01</div>
-          <div class="fd-problem-content">
-            <h3 style="color: var(--fd-paper);">Daily content at zero marginal cost</h3>
-            <p style="color: rgba(245,243,238,0.5);">Social posts, news roundups, trend reports — workflows that run overnight and deliver finished content every morning. <strong style="color:var(--fd-paper);">Your team wakes up to work that's already done.</strong></p>
-          </div>
-        </div>
-        <div class="fd-problem" style="background: rgba(245,243,238,0.03);">
-          <div class="fd-problem-label">Opportunity · 02</div>
-          <div class="fd-problem-content">
-            <h3 style="color: var(--fd-paper);">AI video without a production team</h3>
-            <p style="color: rgba(245,243,238,0.5);">Generate vertical video content for TikTok, Instagram Reels, and Telegram — automatically, every day. <strong style="color:var(--fd-paper);">No editors, no render queues, no approval chains.</strong></p>
-          </div>
-        </div>
-        <div class="fd-problem" style="background: rgba(245,243,238,0.03);">
-          <div class="fd-problem-label">Opportunity · 03</div>
-          <div class="fd-problem-content">
-            <h3 style="color: var(--fd-paper);">A proof of concept that becomes your stack</h3>
-            <p style="color: rgba(245,243,238,0.5);">Start with one workflow. See what's possible. Then let us build the full AI automation stack for your agency — <strong style="color:var(--fd-paper);">self-hosted, PDPA-compliant, yours forever.</strong></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- HOW TO GET STARTED -->
-  <section class="fd-section">
-    <div class="fd-section-inner">
-      <div class="fd-section-label">Getting started</div>
-      <h2 class="fd-section-heading">Running in hours, <em>not months.</em></h2>
-      <div class="fd-steps">
-        <div class="fd-step">
-          <div class="fd-step-num">01</div>
-          <div class="fd-step-body">
-            <h3>Buy the workflow</h3>
-            <p>$20 one-time. You get the OpenClaw skill file, documentation, and a setup call booking link — immediately on purchase.</p>
-          </div>
-        </div>
-        <div class="fd-step">
-          <div class="fd-step-num">02</div>
-          <div class="fd-step-body">
-            <h3>We install it together</h3>
-            <p>Book a 30-minute call. We install OpenClaw, configure the workflow, and verify it's running on your machine. You don't need to touch the terminal.</p>
-          </div>
-        </div>
-        <div class="fd-step">
-          <div class="fd-step-num">03</div>
-          <div class="fd-step-body">
-            <h3>Wake up to your first video</h3>
-            <p>Next morning at 9am SGT, your first AI-generated news video lands in Telegram. Then we talk about what else we can automate for your agency.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-</div><!-- /creative -->
 
 
-<!-- ═══════════════════════════════════════════════════ -->
-<!-- SHARED SECTIONS (both audiences) -->
-<!-- ═══════════════════════════════════════════════════ -->
 
-<!-- COMMANDER -->
-<section class="fd-section" data-audience="all">
-  <div class="fd-section-inner">
-    <div class="fd-commander">
-      <div class="fd-commander-portrait">
-        <img src="assets/zen-web/ruby.jpg" alt="Ruby — Autonomous Operations Commander" loading="lazy" />
-        <span class="fd-commander-rank">Commander</span>
-      </div>
-      <div class="fd-commander-body">
-        <div class="fd-section-label">Mission control</div>
-        <h2 class="fd-section-heading">Every fleet of agents answers to <em>one chain of command.</em></h2>
-        <p>FlowDaptor agents don't run wild. A supervising controller holds authority over the swarm — bounding actions, arbitrating conflicts, and escalating to a human when the call exceeds its mandate. Autonomy with a commander, not autonomy without a leash.</p>
-        <a class="fd-btn-ghost" href="enterprise/">
-          See the governance model
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- COSMOS SHOWCASE -->
-<section class="fd-section" data-audience="all" style="background: var(--fd-ink);">
-  <div class="fd-section-inner">
-    <div class="fd-section-label" style="color: var(--fd-accent);">Field notes</div>
-    <h2 class="fd-section-heading" style="color: var(--fd-paper);">Agents, deployed <em>where the work is.</em></h2>
-    <div class="fd-showcase">
-      <figure class="fd-showcase-tile">
-        <img src="assets/screens/mars_01.jpg" alt="An operator steps into the deployment environment" loading="lazy" />
-        <figcaption style="color: rgba(245,243,238,0.5);"><strong style="color: var(--fd-paper);">Deploy</strong>Inside your perimeter, on your infrastructure.</figcaption>
-      </figure>
-      <figure class="fd-showcase-tile">
-        <img src="assets/screens/mars_02.jpg" alt="Walking the corridor of a running system" loading="lazy" />
-        <figcaption style="color: rgba(245,243,238,0.5);"><strong style="color: var(--fd-paper);">Operate</strong>Bounded, audited, multi-agent by design.</figcaption>
-      </figure>
-      <figure class="fd-showcase-tile">
-        <img src="assets/screens/mars_03.jpg" alt="Reviewing outcomes at mission control" loading="lazy" />
-        <figcaption style="color: rgba(245,243,238,0.5);"><strong style="color: var(--fd-paper);">Own</strong>Buy once. The system is yours to keep.</figcaption>
-      </figure>
-    </div>
-  </div>
-</section>
-
-<!-- CTA — audience-aware -->
-<section class="fd-cta" data-audience="all">
+<section class="fd-cta">
   <div class="fd-cta-inner" id="sme-cta">
     <div class="fd-cta-sub">FlowDaptor</div>
     <h2>Own your AI.<br><em>Automate forever.</em></h2>
@@ -839,51 +526,7 @@
   <div class="fd-footer-copy">FlowDaptor Pte. Ltd. © 2026</div>
 </footer>
 
-<script>
-  // ── AUDIENCE SWITCHER ────────────────────────────────────
-  const swBtns = document.querySelectorAll('.fd-sw-btn');
-  const heroPanels = document.querySelectorAll('.fd-hero-content');
-  const audienceSections = document.querySelectorAll('[data-audience]');
 
-  function switchAudience(target) {
-    // buttons
-    swBtns.forEach(b => b.classList.toggle('active', b.dataset.target === target));
-
-    // hero panels
-    heroPanels.forEach(p => p.classList.toggle('active', p.dataset.hero === target));
-
-    // sections
-    audienceSections.forEach(s => {
-      if (s.dataset.audience === 'all') return; // always visible
-      s.classList.toggle('visible', s.dataset.audience === target);
-    });
-
-    // update CTA
-    const cta = document.querySelector('.fd-cta h2');
-    const ctaBtn = document.querySelector('.fd-cta .fd-btn-primary');
-    if (target === 'creative') {
-      cta.innerHTML = 'See what AI<br>can do for your agency.<br><em>For $20.</em>';
-      ctaBtn.textContent = 'Buy the workflow →';
-      ctaBtn.href = 'store/';
-    } else {
-      cta.innerHTML = 'Own your AI.<br><em>Automate forever.</em>';
-      ctaBtn.textContent = 'Get in touch →';
-      ctaBtn.href = 'contact/';
-    }
-
-    // persist
-    localStorage.setItem('fd-audience', target);
-  }
-
-  swBtns.forEach(btn => {
-    btn.addEventListener('click', () => switchAudience(btn.dataset.target));
-  });
-
-  // restore on load
-  const saved = localStorage.getItem('fd-audience');
-  if (saved) switchAudience(saved);
-  else switchAudience('sme'); // default
-</script>
 
 <script src="assets/nav.js" defer></script>
 </body>
