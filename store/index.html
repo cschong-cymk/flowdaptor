@@ -14,7 +14,7 @@
 :root { --fd-paper: #05060F; }
 body { background: #05060F !important; color: #F5EDE6 !important; }
 
-/* ── STORE STYLES ── */
+/* ── HERO ── */
 .st-hero {
   max-width: 1100px;
   margin: 0 auto;
@@ -41,6 +41,7 @@ body { background: #05060F !important; color: #F5EDE6 !important; }
   width: 6px; height: 6px;
   border-radius: 50%;
   background: var(--brand-grad);
+  flex-shrink: 0;
 }
 .st-hero h1 {
   font-family: var(--font-head);
@@ -52,85 +53,91 @@ body { background: #05060F !important; color: #F5EDE6 !important; }
   -webkit-text-fill-color: #F5EDE6;
   margin-bottom: 1rem;
 }
-.st-hero h1 em {
-  font-style: normal;
-  background: var(--brand-grad);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-}
 .st-hero p {
   font-size: 1rem;
   line-height: 1.7;
   color: rgba(236,241,248,0.62);
   max-width: 560px;
-  margin: 0 auto 3rem;
+  margin: 0 auto 0;
 }
 
-/* Filter bar */
-.st-filters {
+/* ── SECTION DIVIDER ── */
+.st-section-label {
+  max-width: 1100px;
+  margin: 4rem auto 1.5rem;
+  padding: 0 2.5rem;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-bottom: 3rem;
-  flex-wrap: wrap;
+  gap: 1rem;
 }
-.st-filter {
-  padding: 0.4rem 1rem;
-  border-radius: 999px;
-  border: 1px solid rgba(200,220,255,0.12);
-  background: transparent;
-  color: rgba(236,241,248,0.5);
-  font-family: var(--font-head);
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.st-filter.active, .st-filter:hover {
-  border-color: var(--acc-border);
+.st-section-label span {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--brand-blue);
-  background: rgba(43,207,255,0.06);
+  white-space: nowrap;
+}
+.st-section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
 }
 
-/* Product grid */
+/* ── PRODUCT GRID ── */
 .st-grid {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 0 2.5rem 6rem;
+  padding: 0 2.5rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.25rem;
 }
 
-/* Product card */
+/* ── PRODUCT CARD ── */
 .st-card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: border-color 0.2s, transform 0.2s;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 .st-card:hover {
   border-color: var(--acc-border);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
 }
 .st-card-visual {
-  background: var(--bg-2);
   border-bottom: 1px solid var(--border);
-  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  min-height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 180px;
-  position: relative;
-  overflow: hidden;
 }
-.st-card-visual svg { width: 100%; max-width: 280px; }
+/* Image hero cards */
+.st-card-visual.has-img {
+  padding: 0;
+  min-height: 220px;
+}
+.st-card-visual.has-img img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+  opacity: 0.85;
+  transition: opacity 0.3s;
+}
+.st-card:hover .st-card-visual.has-img img { opacity: 1; }
+/* Pipeline visual cards */
+.st-card-visual.has-pipe {
+  background: var(--bg-2);
+  padding: 2rem;
+}
 
 /* pipeline mini */
 .st-mini-pipe { display: flex; flex-direction: column; gap: 4px; width: 100%; max-width: 240px; }
@@ -152,12 +159,53 @@ body { background: #05060F !important; color: #F5EDE6 !important; }
   color: var(--brand-blue);
   font-weight: 700;
   width: 16px;
+  flex-shrink: 0;
 }
 .st-mini-conn {
   width: 1px;
   height: 6px;
   background: rgba(43,207,255,0.3);
   margin-left: 18px;
+}
+
+/* price badge on image */
+.st-price-badge {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  font-family: var(--font-head);
+  font-size: 1.1rem;
+  font-weight: 700;
+  background: rgba(5,6,15,0.85);
+  border: 1px solid var(--acc-border);
+  backdrop-filter: blur(8px);
+  padding: 4px 12px;
+  border-radius: 999px;
+  background-clip: padding-box;
+}
+.st-price-badge span {
+  background: var(--brand-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* tag badge on image */
+.st-tag-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-blue);
+  background: rgba(5,6,15,0.8);
+  border: 1px solid var(--acc-border);
+  backdrop-filter: blur(8px);
+  padding: 3px 10px;
+  border-radius: 999px;
 }
 
 .st-card-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
@@ -190,6 +238,7 @@ body { background: #05060F !important; color: #F5EDE6 !important; }
   justify-content: space-between;
   padding-top: 1rem;
   border-top: 1px solid var(--border);
+  gap: 0.75rem;
 }
 .st-price {
   font-family: var(--font-head);
@@ -200,6 +249,7 @@ body { background: #05060F !important; color: #F5EDE6 !important; }
   background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
+  white-space: nowrap;
 }
 .st-buy-btn {
   font-family: var(--font-head);
@@ -212,31 +262,28 @@ body { background: #05060F !important; color: #F5EDE6 !important; }
   border-radius: 999px;
   transition: filter 0.2s;
   display: inline-block;
+  white-space: nowrap;
 }
 .st-buy-btn:hover { filter: brightness(1.1); }
 
-/* Coming soon card */
-.st-card.coming-soon { opacity: 0.5; pointer-events: none; }
-.st-card.coming-soon .st-card-visual { filter: grayscale(0.5); }
-.st-soon-badge {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  background: rgba(200,220,255,0.08);
-  border: 1px solid rgba(200,220,255,0.15);
-  color: rgba(236,241,248,0.5);
-  padding: 3px 8px;
-  border-radius: 999px;
+/* case study link */
+.st-case-link {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(43,207,255,0.7);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 1rem;
+  transition: color 0.2s;
 }
+.st-case-link:hover { color: var(--brand-blue); }
 
-/* Install note */
+/* ── INSTALL NOTE ── */
 .st-install {
   max-width: 1100px;
-  margin: 0 auto 4rem;
+  margin: 3rem auto 0;
   padding: 0 2.5rem;
 }
 .st-install-inner {
@@ -250,7 +297,6 @@ body { background: #05060F !important; color: #F5EDE6 !important; }
   align-items: center;
   gap: 1.5rem;
 }
-.st-install-icon { font-size: 1.5rem; }
 .st-install-text h4 {
   font-family: var(--font-head);
   font-size: 13px;
@@ -262,7 +308,80 @@ body { background: #05060F !important; color: #F5EDE6 !important; }
 }
 .st-install-text p { font-size: 13px; color: rgba(236,241,248,0.5); line-height: 1.5; }
 
-/* CTA */
+/* ── COMING SOON LIST ── */
+.st-coming {
+  max-width: 1100px;
+  margin: 0 auto 5rem;
+  padding: 0 2.5rem;
+}
+.st-coming-grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 0.75rem;
+  margin-bottom: 3rem;
+}
+.st-coming-item {
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+}
+.st-coming-item-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(236,241,248,0.3);
+  margin-bottom: 0.4rem;
+}
+.st-coming-item-name {
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 700;
+  color: rgba(236,241,248,0.6);
+}
+
+/* ── NOTIFY ── */
+.st-notify {
+  background: rgba(43,207,255,0.06);
+  border: 1px solid var(--acc-border);
+  border-radius: 12px;
+  padding: 2.5rem;
+  text-align: center;
+}
+.st-notify h3 {
+  font-family: var(--font-head);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #F5EDE6;
+  margin-bottom: 0.5rem;
+}
+.st-notify p { font-size: 14px; color: rgba(236,241,248,0.5); margin-bottom: 1.5rem; }
+.st-notify-form { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+.st-notify-form input {
+  font-family: var(--font);
+  font-size: 14px;
+  padding: 0.65rem 1.25rem;
+  border-radius: 999px;
+  border: 1px solid var(--acc-border);
+  background: var(--surface);
+  color: #F5EDE6;
+  outline: none;
+  min-width: 260px;
+}
+.st-notify-form button {
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 700;
+  color: #03121a;
+  background: var(--brand-grad);
+  padding: 0.65rem 1.5rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+}
+
+/* ── CTA ── */
 .st-cta {
   background: var(--surface);
   border-top: 0.5px solid var(--border);
@@ -277,17 +396,9 @@ body { background: #05060F !important; color: #F5EDE6 !important; }
   margin-bottom: 0.75rem;
   letter-spacing: -0.02em;
 }
-.st-cta h2 em {
-  font-style: normal;
-  background: var(--brand-grad);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-}
 .st-cta p { font-size: 14px; color: rgba(236,241,248,0.5); margin-bottom: 2rem; }
 
-/* Footer */
+/* ── FOOTER ── */
 .fd-footer {
   background: var(--bg-2) !important;
   border-top: 0.5px solid var(--border) !important;
@@ -300,14 +411,9 @@ body { background: #05060F !important; color: #F5EDE6 !important; }
 }
 .fd-footer-logo img { height: 26px; opacity: 0.5; }
 .fd-footer-links { display: flex !important; flex-wrap: wrap !important; gap: 1.5rem !important; justify-content: center !important; }
-.fd-footer-links a { font-size: 12px !important; font-weight: 600 !important; letter-spacing: 0.06em !important; text-transform: uppercase !important; color: rgba(236,241,248,0.3) !important; transition: color 0.2s !important; }
+.fd-footer-links a { font-size: 12px !important; font-weight: 600 !important; letter-spacing: 0.06em !important; text-transform: uppercase !important; color: rgba(236,241,248,0.3) !important; transition: color 0.2s !important; text-decoration: none !important; }
 .fd-footer-links a:hover { color: #F5EDE6 !important; }
 .fd-footer-copy { font-size: 12px; color: rgba(236,241,248,0.2); }
-
-@media (max-width: 900px) {
-  .st-grid { grid-template-columns: 1fr; }
-  .st-install-inner { grid-template-columns: 1fr; }
-}
 
 /* ── NAV FIX ── */
 .fd-nav {
@@ -337,9 +443,6 @@ body { background: #05060F !important; color: #F5EDE6 !important; }
 .fd-logo img { height: 26px !important; display: block !important; }
 
 /* ── EM GRADIENT FIX ── */
-.st-hero h1 em,
-.pr-hero h1 em,
-.en-hero h1 em,
 h1 em, h2 em {
   font-style: normal !important;
   background: linear-gradient(90deg, #2BCFFF 0%, #1FA8E8 50%, #38E8C4 100%) !important;
@@ -350,6 +453,15 @@ h1 em, h2 em {
   display: inline !important;
 }
 
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .st-grid { grid-template-columns: 1fr; }
+  .st-install-inner { grid-template-columns: 1fr; text-align: center; }
+  .st-coming-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 700px) {
+  .st-card-visual.has-img img { height: 180px; }
+}
 </style>
 </head>
 <body>
@@ -365,7 +477,7 @@ h1 em, h2 em {
     <li><a href="../blog/">Blog</a></li>
     <li><a href="../about/">About</a></li>
     <li><a href="../store/" class="store-link active">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;vertical-align:middle;margin-right:3px;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
       Store
     </a></li>
   </ul>
@@ -379,47 +491,62 @@ h1 em, h2 em {
   <p>Pre-built automation for content and creative teams. Buy once, we install it with you, and it runs on your machine forever — no subscriptions, no lock-in.</p>
 </div>
 
-<!-- FEATURED PRODUCT -->
-<div style="max-width:1100px;margin:0 auto 3rem;padding:0 2.5rem;">
-  <div style="background:var(--surface);border:1px solid var(--acc-border);border-radius:16px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;gap:0;">
+<!-- SECTION: MEDIA PRODUCTION -->
+<div class="st-section-label"><span>Media Production</span></div>
+<div class="st-grid">
 
-    <!-- LEFT: Info -->
-    <div style="padding:3.5rem;">
-      <div style="display:inline-flex;align-items:center;gap:0.5rem;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--brand-blue);border:1px solid var(--acc-border);padding:5px 12px;border-radius:999px;background:var(--acc-dim);margin-bottom:1.5rem;">Content &amp; Video · Live now</div>
-      <div style="font-family:var(--font-head);font-size:2rem;font-weight:700;line-height:1.1;letter-spacing:-0.025em;margin-bottom:1rem;color:#F5EDE6;">Daily AI News<br>Broadcast</div>
-      <p style="font-size:14px;line-height:1.65;color:rgba(236,241,248,0.6);margin-bottom:1.75rem;">A fully automated daily AI news video pipeline. Fetches the day's top story, generates a script, produces a 9:16 vertical video, and delivers it to your Telegram — every morning at 9am SGT, without you lifting a finger.</p>
-      <ul style="list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin-bottom:2.5rem;">
-        <li style="display:flex;align-items:center;gap:0.75rem;font-size:14px;color:rgba(236,241,248,0.6);"><span style="width:6px;height:6px;border-radius:50%;background:var(--brand-grad);flex-shrink:0;display:block;"></span>Fetches today's top AI news via Tavily API</li>
-        <li style="display:flex;align-items:center;gap:0.75rem;font-size:14px;color:rgba(236,241,248,0.6);"><span style="width:6px;height:6px;border-radius:50%;background:var(--brand-grad);flex-shrink:0;display:block;"></span>Generates a broadcast script with a local LLM</li>
-        <li style="display:flex;align-items:center;gap:0.75rem;font-size:14px;color:rgba(236,241,248,0.6);"><span style="width:6px;height:6px;border-radius:50%;background:var(--brand-grad);flex-shrink:0;display:block;"></span>Produces 8-second vertical video via Google Veo</li>
-        <li style="display:flex;align-items:center;gap:0.75rem;font-size:14px;color:rgba(236,241,248,0.6);"><span style="width:6px;height:6px;border-radius:50%;background:var(--brand-grad);flex-shrink:0;display:block;"></span>Auto-delivers to Telegram at 09:00 SGT daily</li>
-        <li style="display:flex;align-items:center;gap:0.75rem;font-size:14px;color:rgba(236,241,248,0.6);"><span style="width:6px;height:6px;border-radius:50%;background:var(--brand-grad);flex-shrink:0;display:block;"></span>Runs on your machine — your data, your content</li>
-      </ul>
-      <div style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
-        <div style="font-family:var(--font-head);font-size:2.8rem;font-weight:700;letter-spacing:-0.04em;background:var(--brand-grad);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;"><sup style="font-size:1.2rem;vertical-align:top;margin-top:0.5rem;">$</sup>9.99</div>
-        <div style="font-size:12px;color:rgba(236,241,248,0.4);line-height:1.4;max-width:160px;">One-time purchase. Setup call included. No subscription.</div>
-        <a href="../contact/?ref=newscaster" style="font-family:var(--font-head);font-size:14px;font-weight:700;text-decoration:none;color:#03121a;background:var(--brand-grad);padding:0.75rem 1.75rem;border-radius:999px;display:inline-block;">Buy &amp; Install →</a>
+  <!-- CARD 1: Jade Tithe / AI Film Production -->
+  <div class="st-card">
+    <div class="st-card-visual has-img">
+      <img src="../assets/jade-tithe-hero.jpg" alt="The Jade Tithe — AI film production workflow" />
+      <div class="st-tag-badge">Film &amp; Cinematic</div>
+      <div class="st-price-badge"><span>$249</span></div>
+    </div>
+    <div class="st-card-body">
+      <div class="st-card-title">AI Film Production Pipeline</div>
+      <a class="st-case-link" href="../blog/jade-tithe/">↗ See it in action — The Jade Tithe</a>
+      <p class="st-card-desc">End-to-end cinematic production. Story concept → character design → screenplay → audio → 70+ consistent video clips → lip-sync → final assembly. Character-consistent across every scene.</p>
+      <div class="st-card-footer">
+        <div class="st-price">$249</div>
+        <a class="st-buy-btn" href="../contact/?ref=film-production">Buy &amp; Install →</a>
       </div>
     </div>
-
-    <!-- RIGHT: Pipeline visual -->
-    <div style="background:var(--bg-2);display:flex;align-items:center;justify-content:center;padding:3rem;">
-      <div style="width:100%;max-width:320px;">
-        <div class="st-mini-pipe">
-          <div class="st-mini-step"><span>01</span> Fetch AI News · Tavily</div>
-          <div class="st-mini-conn"></div>
-          <div class="st-mini-step"><span>02</span> Pick Top Story</div>
-          <div class="st-mini-conn"></div>
-          <div class="st-mini-step"><span>03</span> Generate Script · Ollama</div>
-          <div class="st-mini-conn"></div>
-          <div class="st-mini-step"><span>04</span> Generate Video · Veo</div>
-          <div class="st-mini-conn"></div>
-          <div class="st-mini-step"><span>05</span> Send · Telegram 09:00 SGT</div>
-        </div>
-      </div>
-    </div>
-
   </div>
+
+  <!-- CARD 2: AI Music Video -->
+  <div class="st-card">
+    <div class="st-card-visual has-img">
+      <img src="../assets/mandopop-hero.jpg" alt="AI Music Video workflow" />
+      <div class="st-tag-badge">Music Video</div>
+      <div class="st-price-badge"><span>$199</span></div>
+    </div>
+    <div class="st-card-body">
+      <div class="st-card-title">AI Music Video Producer</div>
+      <p class="st-card-desc">Character-consistent music video pipeline. Lock references once, generate across every section — verse, chorus, bridge — with a consistent visual arc throughout. FFmpeg assembly included.</p>
+      <div class="st-card-footer">
+        <div class="st-price">$199</div>
+        <a class="st-buy-btn" href="../contact/?ref=music-video">Buy &amp; Install →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 3: Daily AI NewsCaster -->
+  <div class="st-card">
+    <div class="st-card-visual has-img">
+      <img src="../assets/newscaster-hero.jpg" alt="Anime AI NewsCaster workflow" />
+      <div class="st-tag-badge">Daily Content</div>
+      <div class="st-price-badge"><span>$9.99</span></div>
+    </div>
+    <div class="st-card-body">
+      <div class="st-card-title">Daily AI News Broadcast</div>
+      <p class="st-card-desc">Fully automated daily AI news video. Fetches top story, generates a script, produces a 9:16 vertical video, and delivers to Telegram every morning — without you lifting a finger.</p>
+      <div class="st-card-footer">
+        <div class="st-price">$9.99</div>
+        <a class="st-buy-btn" href="../contact/?ref=newscaster">Buy &amp; Install →</a>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <!-- INSTALL NOTE -->
@@ -435,39 +562,33 @@ h1 em, h2 em {
 </div>
 
 <!-- COMING SOON -->
-<div style="max-width:1100px;margin:0 auto 5rem;padding:0 2.5rem;">
-  <div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--brand-blue);margin-bottom:1rem;">Coming soon</div>
-  <h2 style="font-family:var(--font-head);font-size:1.6rem;font-weight:700;letter-spacing:-0.02em;color:#F5EDE6;margin-bottom:2rem;">More workflows <em style="font-style:normal;background:var(--brand-grad);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;">in the pipeline.</em></h2>
-  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:0.75rem;margin-bottom:3rem;">
-    <div style="padding:1.25rem 1.5rem;border:1px solid var(--border);border-radius:10px;background:var(--surface);">
-      <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(236,241,248,0.3);margin-bottom:0.4rem;">Reporting</div>
-      <div style="font-family:var(--font-head);font-size:15px;font-weight:700;color:rgba(236,241,248,0.6);">Brand Pulse Monitor</div>
+<div class="st-section-label" style="margin-top:4rem;"><span>Coming soon</span></div>
+<div class="st-coming">
+  <div class="st-coming-grid">
+    <div class="st-coming-item">
+      <div class="st-coming-item-tag">Reporting</div>
+      <div class="st-coming-item-name">Brand Pulse Monitor</div>
     </div>
-    <div style="padding:1.25rem 1.5rem;border:1px solid var(--border);border-radius:10px;background:var(--surface);">
-      <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(236,241,248,0.3);margin-bottom:0.4rem;">Reporting</div>
-      <div style="font-family:var(--font-head);font-size:15px;font-weight:700;color:rgba(236,241,248,0.6);">Campaign Report Generator</div>
+    <div class="st-coming-item">
+      <div class="st-coming-item-tag">Reporting</div>
+      <div class="st-coming-item-name">Campaign Report Generator</div>
     </div>
-    <div style="padding:1.25rem 1.5rem;border:1px solid var(--border);border-radius:10px;background:var(--surface);">
-      <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(236,241,248,0.3);margin-bottom:0.4rem;">Social Media</div>
-      <div style="font-family:var(--font-head);font-size:15px;font-weight:700;color:rgba(236,241,248,0.6);">Social Content Engine</div>
+    <div class="st-coming-item">
+      <div class="st-coming-item-tag">Social Media</div>
+      <div class="st-coming-item-name">Social Content Engine</div>
     </div>
-    <div style="padding:1.25rem 1.5rem;border:1px solid var(--border);border-radius:10px;background:var(--surface);">
-      <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(236,241,248,0.3);margin-bottom:0.4rem;">Inbox</div>
-      <div style="font-family:var(--font-head);font-size:15px;font-weight:700;color:rgba(236,241,248,0.6);">Client Inbox Triage</div>
-    </div>
-    <div style="padding:1.25rem 1.5rem;border:1px solid var(--border);border-radius:10px;background:var(--surface);">
-      <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(236,241,248,0.3);margin-bottom:0.4rem;">Lead Gen</div>
-      <div style="font-family:var(--font-head);font-size:15px;font-weight:700;color:rgba(236,241,248,0.6);">LinkedIn Lead Harvester</div>
+    <div class="st-coming-item">
+      <div class="st-coming-item-tag">Inbox</div>
+      <div class="st-coming-item-name">Client Inbox Triage</div>
     </div>
   </div>
 
-  <!-- NOTIFY -->
-  <div style="background:rgba(43,207,255,0.06);border:1px solid var(--acc-border);border-radius:12px;padding:2.5rem;text-align:center;">
-    <div style="font-family:var(--font-head);font-size:1.1rem;font-weight:700;color:#F5EDE6;margin-bottom:0.5rem;">Get notified when new workflows drop.</div>
-    <p style="font-size:14px;color:rgba(236,241,248,0.5);margin-bottom:1.5rem;">No spam. One email when something new is ready.</p>
-    <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
-      <input type="email" placeholder="your@email.com" style="font-family:var(--font);font-size:14px;padding:0.65rem 1.25rem;border-radius:999px;border:1px solid var(--acc-border);background:var(--surface);color:#F5EDE6;outline:none;min-width:260px;" />
-      <button style="font-family:var(--font-head);font-size:14px;font-weight:700;color:#03121a;background:var(--brand-grad);padding:0.65rem 1.5rem;border-radius:999px;border:none;cursor:pointer;">Notify me</button>
+  <div class="st-notify">
+    <h3>Get notified when new workflows drop.</h3>
+    <p>No spam. One email when something new is ready.</p>
+    <div class="st-notify-form">
+      <input type="email" placeholder="your@email.com" />
+      <button>Notify me</button>
     </div>
   </div>
 </div>
