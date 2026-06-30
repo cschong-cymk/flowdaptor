@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>We used a fantasy feature film to break our own product — FlowDaptor</title>
+<link rel="stylesheet" href="../../assets/site.css?v=20260616-1713" />
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+<style>
+/* ── Post layout ── */
+.post-wrap {
+  max-width: 740px;
+  margin: 0 auto;
+  padding: 0 2rem 6rem;
+}
+
+/* ── Hero image ── */
+.post-hero-img {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto 0;
+  height: 420px;
+  overflow: hidden;
+}
+.post-hero-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  display: block;
+  filter: brightness(0.88);
+}
+
+/* ── Header ── */
+.post-header {
+  padding: 2.5rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+}
+.post-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-blue);
+  margin-bottom: 0.75rem;
+}
+.post-title {
+  font-family: var(--font-head);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+.post-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ── Body copy ── */
+.post-body {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+.post-body p { margin-bottom: 1.4rem; }
+.post-body h2 {
+  font-family: var(--font-head);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 2.5rem 0 0.75rem;
+}
+.post-body strong { color: var(--text-primary); }
+
+/* ── Callout box ── */
+.post-callout {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--brand-blue);
+  border-radius: 8px;
+  padding: 1.2rem 1.4rem;
+  margin: 2rem 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+.post-callout strong { color: var(--text-primary); display: block; margin-bottom: 0.3rem; }
+
+/* ── Video comparison ── */
+.video-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin: 2.5rem 0;
+}
+.video-compare-item {}
+.video-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+.video-label span {
+  color: var(--brand-blue);
+}
+.video-embed-wrap {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+/* Force TikTok embeds to fill column */
+.video-embed-wrap .tiktok-embed {
+  margin: 0 !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+
+/* ── What broke ── */
+.broke-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.broke-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.1rem 1.2rem;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+.broke-item .broke-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+.broke-item.broke-bad .broke-label { color: #e05b5b; }
+.broke-item.broke-good .broke-label { color: #4caf8a; }
+
+/* ── Next three ── */
+.next-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+  counter-reset: next-counter;
+}
+.next-list li {
+  counter-increment: next-counter;
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+.next-list li:last-child { border-bottom: none; }
+.next-list li::before {
+  content: counter(next-counter, decimal-leading-zero);
+  font-family: var(--font-head);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--brand-blue);
+  flex-shrink: 0;
+  line-height: 1.4;
+}
+.next-list li strong {
+  display: block;
+  color: var(--text-primary);
+  margin-bottom: 0.2rem;
+}
+
+/* ── Responsive ── */
+@media (max-width: 700px) {
+  .post-hero-img { height: 240px; }
+  .post-title { font-size: 1.5rem; }
+  .video-compare { grid-template-columns: 1fr; }
+  .broke-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="fd-nav">
+  <a href="../../" class="fd-logo"><img src="../../assets/flowdaptor-logo-small.png" alt="FlowDaptor" /></a>
+  <ul class="fd-nav-links">
+    <li><a href="../../products/">Products</a></li>
+    <li><a href="../../workflow/">Workflows</a></li>
+    <li><a href="../../enterprise/">Enterprise</a></li>
+    <li><a href="../../training/">Training</a></li>
+    <li><a href="../../blog/" class="active">Blog</a></li>
+    <li><a href="../../about/">About</a></li>
+    <li><a href="../../store/" class="store-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Store</a></li>
+  </ul>
+  <a class="fd-nav-cta" href="../../contact/">Get in touch</a>
+</nav>
+
+<div class="post-hero-img">
+  <img src="../../assets/jade-tithe-stress-test.png" alt="Scene from The Jade Tithe — three characters around a congee bowl in a smoky hut" />
+</div>
+
+<div class="post-wrap">
+
+  <div class="post-header">
+    <div class="post-tag">Build Log &middot; linyan.io</div>
+    <h1 class="post-title">We used a fantasy feature film to break our own product</h1>
+    <div class="post-meta">June 2026 &nbsp;&middot;&nbsp; linyan.io team</div>
+  </div>
+
+  <div class="post-body">
+
+    <p><a href="https://linyan.io" target="_blank" rel="noopener">linyan.io</a> is built for content creators — one prompt, one video, no pipeline engineering. Before we let anyone near it, we needed to know where it breaks. So we gave it the hardest thing we could think of: a full fantasy feature film.</p>
+
+    <p><strong>The Jade Tithe</strong> is a cinematic fantasy drama set in a historical East Asian world. Two non-human characters — MO, a halfling scholar with pointed ears and dirt-caked bare feet, and YAN, a half-elf warrior with heterochromia and a scythe — move through 70+ scenes across an entire feature-length story. Firelit huts. Bustling village streets. Emotional dialogue. Ancient scrolls.</p>
+
+    <p>If linyan.io could hold together through that, a 30-second social clip is nothing.</p>
+
+    <div class="post-callout">
+      <strong>How linyan.io works</strong>
+      Single-prompt to video. You define your characters once — appearance, proportions, clothing, props — and that definition travels with every scene you generate. We orchestrate the underlying model so you don't have to re-describe your cast on every clip.
+    </div>
+
+    <h2>The test: Scene 3, The Last Congee</h2>
+
+    <p>We picked one of the hardest scenes in the film to start with. INT. a one-room dirt-floor hut, night. Dying firelight. Three characters: MO, his teenage sister MEI, and their elderly mother. A cracked ceramic pot of congee divided with painful precision into three unequal bowls. A bamboo scroll hidden under a floorboard.</p>
+
+    <p>Dense scene. Specific characters. Difficult lighting. We ran it through linyan.io and through LTX-2.3 — currently one of the strongest open video generation models — on the same prompt, first attempt, no iteration.</p>
+
+    <h2>The results</h2>
+
+    <div class="video-compare">
+      <div class="video-compare-item">
+        <div class="video-label"><span>linyan.io</span> — first generation</div>
+        <div class="video-embed-wrap">
+          <blockquote
+            class="tiktok-embed"
+            cite="https://www.tiktok.com/@linyanio/video/7656980641384238357"
+            data-video-id="7656980641384238357">
+            <section></section>
+          </blockquote>
+        </div>
+      </div>
+      <div class="video-compare-item">
+        <div class="video-label"><span>LTX-2.3</span> — first generation</div>
+        <div class="video-embed-wrap">
+          <blockquote
+            class="tiktok-embed"
+            cite="https://www.tiktok.com/@linyanio/video/7656980747428973845"
+            data-video-id="7656980747428973845">
+            <section></section>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+
+    <h2>What held up. What didn't.</h2>
+
+    <div class="broke-grid">
+      <div class="broke-item broke-good">
+        <div class="broke-label">✓ Held up</div>
+        The atmosphere landed on the first try. Firelight, smoke, dirt floor, three characters in frame — the scene reads correctly without iteration. For a content creator, that means fewer generations you throw away.
+      </div>
+      <div class="broke-item broke-good">
+        <div class="broke-label">✓ Held up</div>
+        30-second clip length. The scene has room to breathe. We got 10-second clips out of LTX-2.3 at our API tier — your limit may vary, but ours did. For storytelling that matters.
+      </div>
+      <div class="broke-item broke-bad">
+        <div class="broke-label">✗ Broke</div>
+        MO's character definition didn't fully survive. The pointed ears and halfling proportions — the things that make MO <em>MO</em> — flattened into a generic figure. The scene worked. The character didn't.
+      </div>
+      <div class="broke-item broke-bad">
+        <div class="broke-label">✗ Broke</div>
+        No audio. The congee scene lives on silence and subtext. Right now linyan.io generates vision only. That gap is obvious the moment you watch it.
+      </div>
+    </div>
+
+    <h2>What we're fixing next</h2>
+
+    <ul class="next-list">
+      <li>
+        <div>
+          <strong>Character-aware planning</strong>
+          The prompt defines the character. The planner needs to enforce it — catching drift across scenes, flagging when MO's ears disappear or Yan's heterochromia shifts. Character consistency has to be a system guarantee, not something you check by eye.
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Sound — Suno integration</strong>
+          Music and ambient audio first, synced to clip mood and pacing. For content creators, sound isn't optional — it's half the post. We're building the integration now.
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Story-level scene context</strong>
+          Right now each prompt is stateless. The planner doesn't know what happened in the previous scene or what's coming next. Giving it story context — not just character context — changes the quality of what it generates.
+        </div>
+      </li>
+    </ul>
+
+    <h2>The honest takeaway</h2>
+
+    <p>A fantasy feature film is not what linyan.io is for. It's for a creator who wants a 30-second clip that looks cinematic, sounds right, and features a consistent character — in minutes, not hours. The Jade Tithe stress test told us where the floor is. Now we know what to raise.</p>
+
+    <p>If you want to follow the build, linyan.io is open source at <a href="https://linyan.io" target="_blank" rel="noopener">linyan.io</a>.</p>
+
+  </div>
+
+</div>
+
+<footer class="fd-footer">
+  <div class="fd-footer-logo"><img src="../../assets/flowdaptor-logo-small.png" alt="FlowDaptor" /></div>
+  <div class="fd-footer-links">
+    <a href="../../products/">Products</a><a href="../../workflow/">Workflows</a><a href="../../enterprise/">Enterprise</a>
+    <a href="../../training/">Training</a><a href="../../blog/">Blog</a><a href="../../about/">About</a>
+    <a href="../../store/">Store</a><a href="../../contact/">Contact</a>
+  </div>
+  <div class="fd-footer-copy">FlowDaptor Pte. Ltd. &copy; 2026</div>
+</footer>
+
+<script src="../../assets/nav.js" defer></script>
+<script async src="https://www.tiktok.com/embed.js"></script>
+</body>
+</html>
