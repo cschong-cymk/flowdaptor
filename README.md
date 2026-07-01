@@ -9,6 +9,7 @@ Marketing site for **FlowDaptor Pte. Ltd.** — a Singapore-based AI automation 
 - `/workflow/` — Workflow library catalogue
 - `/enterprise/` — Enterprise engagements, three-tier pricing (Basic / Pro / Enterprise)
 - `/training/` — Hands-on n8n and agentic AI workshops
+- `/blog/` — Case studies, build logs, and field notes; one directory per post (`/blog/<slug>/`), each post a standalone page with its own scoped `<style>` block. Some posts embed TikTok videos (`tiktok.com/embed.js`).
 - `/store/` — Buy individual agent JSONs
 - `/about/` — Team, principles, recognition
 - `/contact/` — Enquiry form (PHP + Symfony Mailer over SMTP)
@@ -41,12 +42,24 @@ All HTML files use trailing-slash links (`../products/`, `../contact/`, etc.). D
 - A hidden `website` honeypot field traps naive bots — if filled, we pretend to succeed.
 - Javascript validation: required `name`, `message`, RFC-valid `email`, enum-checked `interest`.
 
+## Blog
+
+Live since June 2026. Current posts:
+
+- `linyan-vs-ltx/` — Seedance 2.0 (linyan.io) vs LTX-2.3 Pro, same prompt; second-character rendering failure + Pika same-model observation (July 2026)
+- `linyan-stress-test/` — Breaking linyan.io with a fantasy feature film (June 2026)
+- `ai-three-times-before-lunch/` — Field notes from Yishun (June 2026)
+- `jade-tithe/` — Sagelion case study, OpenClaw pipeline (June 2026)
+- `the-future-of-agentic-ai/` — Agentic AI trends (May 2026)
+
+Conventions: newest card first in `/blog/index.html`; card thumbnails live in `assets/` (e.g. `assets/linyan-vs-ltx.png`); post tags follow the `bl-card-tag` pattern (Build Log / Case Study / Field Notes / Trends). Posts naming real public figures or AI-generated likenesses must carry an in-post disclosure paragraph and get legal review before publishing.
+
 ## Roadmap
 
-- **Blog section** (`/blog/`) — case studies, technical write-ups on n8n + agentic patterns, Singapore SME automation playbooks, and product launch notes for FlowDaptor 1.0 and OpenClaw
 - Real video for homepage hero (currently a placeholder)
 - Add product detail pages under `/products/[slug]/`
 - Performance pass: image optimisation, lazy-load below-fold sections
+- Blog follow-up: publish the Seedance 2.0 diagnostic results (fictional two-character rerun + solo likeness tests) promised in `linyan-vs-ltx/`
 
 ## Authorship
 
