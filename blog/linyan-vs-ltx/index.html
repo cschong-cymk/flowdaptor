@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Same prompt, 30 seconds: where linyan.io loses to LTX — FlowDaptor Blog</title>
+<meta name="description" content="We ran one prompt through linyan.io and LTX. LTX won on character capture — especially in two-character scenes. Here's the honest breakdown." />
+<link rel="stylesheet" href="../../assets/site.css?v=20260616-1713" />
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+<style>
+.post { max-width: 720px; margin: 0 auto; padding: 0 2.5rem 6rem; }
+.post p { font-size: 15px; line-height: 1.8; color: var(--text-secondary); margin-bottom: 1.4rem; }
+.post h2 { font-family: var(--font-head); font-size: 1.4rem; font-weight: 700; color: var(--text-primary); margin: 3rem 0 1rem; line-height: 1.3; }
+.post strong { color: var(--text-primary); }
+.post-meta { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 2.5rem; }
+.post-prompt { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--brand-blue); border-radius: 8px; padding: 1.2rem 1.4rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; line-height: 1.7; color: var(--text-secondary); margin: 0 0 1.4rem; white-space: pre-wrap; }
+.post-vs { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 2rem 0; }
+.post-vs-col { min-width: 0; }
+.post-vs-label { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brand-blue); margin-bottom: 0.8rem; }
+.post-vs .tiktok-embed { margin: 0 !important; max-width: 100% !important; min-width: 0 !important; }
+.post-note { font-size: 13px; color: var(--text-muted); border-top: 1px solid var(--border); padding-top: 1.2rem; margin-top: 3rem; line-height: 1.7; }
+@media (max-width: 760px) { .post { padding: 0 1.5rem 4rem; } .post-vs { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<nav class="fd-nav">
+  <a href="../../" class="fd-logo"><img src="../../assets/flowdaptor-logo-small.png" alt="FlowDaptor" /></a>
+  <ul class="fd-nav-links">
+    <li><a href="../../products/">Products</a></li>
+    <li><a href="../../workflow/">Workflows</a></li>
+    <li><a href="../../enterprise/">Enterprise</a></li>
+    <li><a href="../../training/">Training</a></li>
+    <li><a href="../../blog/" class="active">Blog</a></li>
+    <li><a href="../../about/">About</a></li>
+    <li><a href="../../store/" class="store-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Store</a></li>
+  </ul>
+  <a class="fd-nav-cta" href="../../contact/">Get in touch</a>
+</nav>
+
+<section class="fd-hero">
+  <div class="fd-hero-top single">
+    <div>
+      <div class="fd-tag">Build Log · linyan.io</div>
+      <h1>Same prompt, 30 seconds: <em>where we lose to LTX.</em></h1>
+      <p>Same prompt, one generation each: LTX-2.3 Pro delivered both characters. Our Seedance 2.0 pipeline never rendered the second one at all.</p>
+    </div>
+  </div>
+</section>
+
+<article class="post">
+
+  <div class="post-meta">June 2026 · Build log</div>
+
+  <p>Most vendor comparisons are rigged. You pick the prompt your model is good at, cherry-pick the best of ten generations, and post the winner. We're doing the opposite: same prompt, one generation each, 30 seconds of output — and publishing the one where we lose.</p>
+
+  <p>Why? Because we ship linyan.io to real customers, and "we couldn't render the second character" is the single most useful bug report we can give ourselves in public. Along the way we also found something bigger than a bug: run the same prompt through Pika and you get our output back, near frame for frame. More on that below.</p>
+
+  <h2>The setup</h2>
+
+  <p>One prompt, unchanged, submitted to both engines. Default settings on both sides — no reference images, no character locking, no retries. 30-second target duration. The full prompt is below — it's long, because it's a scene-by-scene script, and that's exactly what makes it a good stress test: two named characters who must stay recognizable across six scenes, cuts, and a shared frame.</p>
+
+  <details>
+    <summary style="cursor:pointer;font-size:13px;font-weight:700;color:var(--brand-blue);margin-bottom:0.8rem;">Show the full prompt (verbatim)</summary>
+    <div class="post-prompt">Title: “A Meeting of Systems”
+
+Create a 30-second cinematic political short set inside a polished diplomatic meeting room in Washington, D.C. The tone should feel serious, intelligent, restrained, and premium, like a high-end international affairs documentary with dramatic realism. Use naturalistic facial animation, realistic body language, soft cinematic lighting, shallow depth of field, and subtle camera movement. The atmosphere should suggest high trust, strategic dialogue, and two powerful leaders comparing governing philosophies rather than arguing.
+
+Character Design
+Lawrence Wong
+Lawrence Wong should appear as a middle-aged East Asian statesman with short, neatly combed black hair, rectangular eyeglasses, and a calm, composed expression. He wears a perfectly tailored dark navy or charcoal suit, a crisp white dress shirt, a muted dark tie with a slight purple or blue tint, and a small Singapore flag lapel pin. His posture is upright but relaxed, with measured hand gestures and a thoughtful, disciplined presence. His look should communicate intelligence, stability, and precision.
+
+Donald Trump
+Donald Trump should appear as an older white American statesman with a strong, instantly recognizable face, light blond hair styled back, and a confident, imposing presence. He wears a dark navy or charcoal suit, a bright white shirt, a bold red tie, and an American flag lapel pin. His posture should be assertive and grounded, with a serious expression that can shift into curiosity or approval. His body language should feel presidential, controlled, and theatrical without becoming caricatured.
+
+Scene Structure
+Scene 1 — Arrival, 0–3s
+Open with a wide establishing shot of an elegant meeting room in Washington, D.C. The U.S. and Singapore flags stand in the background. Lawrence Wong and Donald Trump enter from opposite sides, approach with purpose, and exchange a formal handshake. The camera slowly pushes in as the handshake lands with weight and significance. On-screen text: “Washington, D.C.”
+
+Scene 2 — Opening Exchange, 3–7s
+Cut to a medium two-shot at a polished conference table. Trump leans slightly forward and asks, with measured curiosity: “So what makes Singapore’s system work so well?” Wong gives a subtle nod before responding. Keep the dialogue understated and realistic, with brief pauses and natural eye contact.
+
+Scene 3 — Governance, 7–15s
+Intercut Wong speaking with elegant b-roll of Singapore: the skyline, Parliament, clean public housing blocks, an efficient MRT train, and modern government service interfaces. Wong says in voiceover: “We focus on long-term planning, policy continuity, and trust in institutions.” The visuals should feel orderly, modern, and optimistic, with crisp composition and calm pacing. Singapore’s system should visually imply a stable parliamentary structure and highly integrated digital governance.
+
+Scene 4 — Stability and Merit, 15–22s
+Transition into tighter alternating close-ups, with Wong continuing: “Meritocracy, low corruption, and pragmatic policy keep the system stable.” Cut to visuals of schools, the business district, the port, and digitally connected public services. The editing should accelerate slightly here, giving the impression of competence, efficiency, and national coordination. The scene should feel polished, not preachy.
+
+Scene 5 — Reaction, 22–25s
+Cut back to Trump in close-up. He leans back subtly, considering Wong’s answer, then gives a restrained nod and says: “Interesting. Very disciplined approach.” Keep his reaction grounded, strategic, and slightly impressed. Avoid comedy; the moment should feel like a recognition of competence between two leaders.
+
+Scene 6 — Closing, 25–28s
+Return to the wide shot. Both leaders stand, exchange a final handshake, and hold for a beat. Wong delivers the closing line: “Different systems, same goal — delivering for our people.” Fade out on a clean final title card: “Different paths. Shared outcomes.” End with a dignified, cinematic dissolve.
+
+Visual Style Notes
+Use a premium international-political look with realistic skin texture, detailed suits, subtle reflections on polished wood, and soft key lighting from one side. Keep the color palette restrained: deep blues, warm neutrals, muted reds, and clean white highlights. Camera language should include slow dolly-ins, gentle rack focus, and occasional close-ups to emphasize tension and respect. Singapore’s digital service culture and governance efficiency can be hinted through clean interface visuals and streamlined civic imagery.</div>
+  </details>
+
+  <p><strong>A necessary disclosure:</strong> the prompt depicts two real, living political leaders, and every line of dialogue in it is scripted fiction. Neither has said these words. The clips exist purely as a model stress test — recognizable faces are the hardest possible test of character consistency, which is the point of this post — and both are labeled as AI-generated where they're posted.</p>
+
+  <p>Versions matter, so on the record: linyan.io currently runs on <strong>Seedance 2.0</strong>; the comparison clip was generated with <strong>LTX-2.3 Pro</strong>. Both on default settings, both generated in June 2026. Rerun this in six months and the result may flip — that's the nature of this market.</p>
+
+  <h2>The results, side by side</h2>
+
+  <div class="post-vs">
+    <div class="post-vs-col">
+      <div class="post-vs-label">linyan.io (ours)</div>
+      <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@linyanio/video/7657689509068295445" data-video-id="7657689509068295445" style="max-width:605px;min-width:280px;"><section><a target="_blank" href="https://www.tiktok.com/@linyanio/video/7657689509068295445">Watch on TikTok</a></section></blockquote>
+    </div>
+    <div class="post-vs-col">
+      <div class="post-vs-label">LTX</div>
+      <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@linyanio/video/7657689823959960853" data-video-id="7657689823959960853" style="max-width:605px;min-width:280px;"><section><a target="_blank" href="https://www.tiktok.com/@linyanio/video/7657689823959960853">Watch on TikTok</a></section></blockquote>
+    </div>
+  </div>
+
+  <h2>What we saw</h2>
+
+  <p>We expected identity drift — faces wobbling between cuts, costumes changing color. What we got was worse and simpler: <strong>our pipeline could not render the second character at all.</strong> Not badly. Not inconsistently. Not at all.</p>
+
+  <p>The prompt is explicit. Scene 1 is two leaders entering from opposite sides and shaking hands. Scene 2 is a two-shot at a conference table. Scene 6 is a closing handshake. LTX-2.3 Pro delivered those beats — two distinct, recognizable people sharing the frame and staying themselves across cuts. Our Seedance 2.0 output never puts the second leader on screen. A prompt written for two characters came back as a one-character film, and every scene built on their interaction — the handshake, the exchange, the reaction shot — collapses with it.</p>
+
+  <p>That's a categorical failure, and it's worth being precise about why it's worse than drift. Drift you can sometimes rescue in the edit — cut around the bad frames, regenerate a shot. A character who never materializes kills the brief itself. There is no edit that saves a dialogue scene with one participant.</p>
+
+  <h2>Two hypotheses — and we don't yet know which</h2>
+
+  <p>Honest build logs name their unknowns, so here are the two explanations we can't yet separate.</p>
+
+  <p><strong>Hypothesis one: multi-subject binding failure.</strong> Rendering two characters means holding two identity representations bound to two regions of the frame while both move, occlude each other, and survive cuts. When a model can't do this, it doesn't always blend the characters — often it collapses the scene to the single subject it can hold and quietly drops the other. That matches what we see, and it's a known weak point of current architectures.</p>
+
+  <p><strong>Hypothesis two: a likeness filter, not a capability gap.</strong> Both characters in this prompt are real, heavily protected political figures. It's entirely possible the base model isn't <em>failing</em> to render the second leader — it's <em>refusing</em> to, silently, via a public-figure safety filter, while LTX-2.3 Pro applies looser rules. If that's the cause, our conclusion changes from "the model can't do two characters" to "the model won't do this face," which is a very different bug with a very different fix.</p>
+
+  <p>Either way the commercial reality stands: two-character scenes aren't an edge case. Dialogue is two people. Conflict is two people. Almost every story beat a client actually wants involves more than one character in frame — which is exactly what we learned the hard way on <a href="../jade-tithe/">The Jade Tithe</a>. A pipeline that silently returns one character for a two-character brief is not shippable for narrative work, whatever the underlying reason.</p>
+
+  <h2>The Pika wrinkle</h2>
+
+  <p>While we were at it, we ran the same prompt through <strong>Pika</strong> — and got output that is, for practical purposes, identical to ours. Same composition, same look, and the same missing second character. Two products producing near-identical video from one prompt isn't coincidence; it's the fingerprint of a <strong>shared underlying model</strong> — consistent with both running Seedance 2.0 under the hood.</p>
+
+  <p>We're saying this out loud because it reframes the finding. The character-capture failure in this post isn't a linyan.io bug — it's a limitation of the base model, and every product built on that model inherits it, whatever the brand on the front. If you're comparing tools in this space, test with your own prompt before paying: some of the "different" options on your shortlist are the same engine wearing different UI.</p>
+
+  <p>It also raises the bar for us. If the base model is shared, the model isn't the product — the pipeline around it is. That's where the fix has to come from.</p>
+
+  <h2>What we're doing about it</h2>
+
+  <p>Before promising a fix, we're isolating the cause — the two hypotheses above have opposite remedies, and guessing wrong wastes a quarter. Three diagnostics, all cheap:</p>
+
+  <p><strong>Rerun with two fictional characters.</strong> Same six-scene structure, invented leaders, no real likenesses. If both characters render, the problem is a likeness filter, not multi-subject capacity. If the second character still vanishes, Seedance 2.0 genuinely can't hold two subjects at this length and the filter theory dies.</p>
+
+  <p><strong>Rerun each real leader solo.</strong> If one of them fails to render even alone, we've found the filtered face, and the two-character framing was never the real variable.</p>
+
+  <p><strong>If it's capacity, not filtering:</strong> the fix lives in the pipeline, not the prompt — per-character reference conditioning, or routing multi-character shots to an engine that can hold them and compositing back. If it's filtering, the fix is a product decision about what we render at all. We'll publish the diagnostic results either way, including if they make this post look wrong.</p>
+
+  <h2>The caveat you should hold us to</h2>
+
+  <p>This is one prompt and one generation per engine. It's a data point, not a benchmark. The Pika observation is an inference from output similarity, not something either vendor has confirmed. And we haven't yet separated "Seedance 2.0 can't render two subjects" from "Seedance 2.0 won't render this subject" — the diagnostics above will settle it. The finding we're confident in is the narrow one: on this two-character brief, as of June 2026, our output failed outright and LTX-2.3 Pro delivered — and we'd rather tell you that than have you find out mid-project.</p>
+
+  <div class="post-note">All clips were generated by us from the same prompt; the linyan.io and LTX runs are posted to our TikTok unedited. If you want the prompt file or the raw outputs — including the Pika run — to verify this yourself, <a href="../../contact/">ask us</a>.</div>
+
+</article>
+
+<footer class="fd-footer">
+  <div class="fd-footer-logo"><img src="../../assets/flowdaptor-logo-small.png" alt="FlowDaptor" /></div>
+  <div class="fd-footer-links">
+    <a href="../../products/">Products</a><a href="../../workflow/">Workflows</a><a href="../../enterprise/">Enterprise</a>
+    <a href="../../training/">Training</a><a href="../../blog/">Blog</a><a href="../../about/">About</a>
+    <a href="../../store/">Store</a><a href="../../contact/">Contact</a>
+  </div>
+  <div class="fd-footer-copy">FlowDaptor Pte. Ltd. &copy; 2026</div>
+</footer>
+<script src="../../assets/nav.js" defer></script>
+<script async src="https://www.tiktok.com/embed.js"></script>
+</body>
+</html>
