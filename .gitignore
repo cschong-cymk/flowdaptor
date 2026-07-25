@@ -19,7 +19,6 @@ composer.lock
 .claude/
 
 # Unused raw media drops (kept locally, not deployed)
-assets/openart-*
 assets/video-*
 assets/video_*
 assets/storyboard_*
