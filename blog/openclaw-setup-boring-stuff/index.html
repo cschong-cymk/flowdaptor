@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Setting Up OpenClaw: The Boring Stuff That Saves Your Bacon — FlowDaptor Blog</title>
+<meta name="description" content="Operations and governance checklist for setting up an OpenClaw agent without surprise bills or rogue actions." />
+<link rel="stylesheet" href="../../assets/site.css?v=20260616-1713" />
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+<style>
+.post { max-width: 720px; margin: 0 auto; padding: 0 2.5rem 6rem; }
+.post p { font-size: 15px; line-height: 1.8; color: var(--text-secondary); margin-bottom: 1.4rem; }
+.post h2 { font-family: var(--font-head); font-size: 1.4rem; font-weight: 700; color: var(--text-primary); margin: 3rem 0 1rem; line-height: 1.3; }
+.post h3 { font-family: var(--font-head); font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin: 2rem 0 0.8rem; }
+.post ul { font-size: 15px; line-height: 1.8; color: var(--text-secondary); margin-bottom: 1.4rem; padding-left: 1.5rem; }
+.post li { margin-bottom: 0.5rem; }
+.post-meta { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 2.5rem; }
+.post-hero-img { width: 100%; max-width: 1100px; margin: 0 auto 2rem; height: 420px; overflow: hidden; border-radius: 12px; }
+.post-hero-img img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+.post a { color: var(--brand-blue); text-decoration: underline; }
+</style>
+</head>
+<body>
+<nav class="fd-nav">
+  <a href="../../" class="fd-logo"><img src="../../assets/flowdaptor-logo-small.png" alt="FlowDaptor" /></a>
+  <ul class="fd-nav-links">
+    <li><a href="../../products/">Products</a></li>
+    <li><a href="../../workflow/">Workflows</a></li>
+    <li><a href="../../blog/" style="color: var(--brand-blue);">Blog</a></li>
+  </ul>
+</nav>
+
+<div class="post-hero-img">
+  <img src="../../assets/openclaw-setup-hero.jpg" alt="OpenClaw governance workshop" />
+</div>
+
+<main class="post">
+  <div class="post-meta">October 2026 · Tan Meng Wee</div>
+  <h2>Setting Up OpenClaw: The Boring Stuff That Saves Your Bacon</h2>
+
+  <p>Everyone wants the fun part of setting up an OpenClaw agent. Picking the model, wiring up tools, writing clever prompts — that's the good stuff.</p>
+
+  <p>But the setup that actually keeps you out of trouble? That's the boring part. And it's the part most people skip.</p>
+
+  <p>I scribbled a quick checklist recently, and it really comes down to two things: <strong>operations</strong> (your agent's armour guard) and <strong>governance</strong> (keeping humans in the loop). Let's go through it.</p>
+
+  <h2>Operations: be the armour guard</h2>
+
+  <p>Your agent will happily burn tokens while you're asleep. Someone has to play defence. That someone is you.</p>
+
+  <h3>Optimize your tokens — and auto-check the LLM</h3>
+  <p>Tokens are money. Every message, every tool call, every long reflection step costs something. Without guardrails, your agent spends like a tourist at the airport.</p>
+  <p>Easy wins: trim context, use the smallest model that can do the job, and don't let the agent talk to itself in circles. Set up an auto-check before the LLM fires off a tool or final answer. It's not babysitting — it's a reflex.</p>
+
+  <h3>Estimate tokens with history in mind</h3>
+  <p>Token estimation isn't just the current prompt. You also have to account for conversation history, tool outputs, and anything pulled from memory. History is the sneaky part.</p>
+  <p>Track estimates, compare to reality, and keep improving. If you're always off by a third, your budget is basically fiction.</p>
+
+  <h3>Do regular deep cleans</h3>
+  <p>Agents get cluttered. Old chats, stale memory, half-finished tasks, leftover tool states — it piles up. Without cleaning, your agent gets slower, more expensive, and weirder.</p>
+  <p>Set a recurring slot to archive old sessions, compact memory, and clear irrelevant state. Think of it like clearing your browser tabs, except it actually saves money.</p>
+
+  <h2>Governance: keep humans in the loop</h2>
+
+  <p>Automation is great. Full unsupervised autonomy is not. Governance sounds dull, but it's what makes the whole thing trustworthy.</p>
+
+  <h3>Set up alerts for human-in-the-loop moments</h3>
+  <p>Some things should always pause for a human. Decide upfront what those are: irreversible actions, risky outputs, unusual tool requests, big context spikes.</p>
+  <p>The alert should be useful, not noise. A human needs to approve, tweak, or reject quickly — not dig through logs first.</p>
+
+  <h3>Make accountability clear</h3>
+  <p>When the agent does something, someone owns it. Keep a simple audit trail: who asked, what the agent did, which tools it called, and what came out.</p>
+  <p>The agent works inside boundaries. The human owns exceptions and consequences. If that line gets fuzzy, you won't know what — or who — to fix.</p>
+
+  <h3>Require sign-off for the sensitive stuff</h3>
+  <p>For anything that matters, ask for sign-off before the agent acts, not just a record after. Routine tasks can be lightweight. Risky ones get proper scrutiny.</p>
+  <p>The goal isn't to slow everything down. It's to make sure the right decisions land in front of the right people.</p>
+
+  <h2>Bottom line</h2>
+
+  <p>A good OpenClaw setup isn't just about smarts. It's about discipline.</p>
+  <p>Skip operations and you get surprise bills and a sluggish agent. Skip governance and you get actions nobody owns and mistakes nobody catches.</p>
+  <p>So set up the armour guard. Build the human loop. Then let the agent run wild.</p>
+
+  <p style="font-size: 13px; color: var(--text-muted); margin-top: 2rem;">#OpenClaw #AIAgents #Governance #Automation</p>
+</main>
+
+<footer class="fd-footer">
+  <div class="fd-footer-logo"><img src="../../assets/flowdaptor-logo-small.png" alt="FlowDaptor" /></div>
+  <div class="fd-footer-links">
+    <a href="../../products/">Products</a><a href="../../workflow/">Workflows</a><a href="../../enterprise/">Enterprise</a>
+    <a href="../../training/">Training</a><a href="../../blog/">Blog</a><a href="../../about/">About</a>
+    <a href="../../store/">Store</a><a href="../../contact/">Contact</a>
+  </div>
+  <div class="fd-footer-copy">FlowDaptor Pte. Ltd. &copy; 2026</div>
+</footer>
+<script src="../../assets/nav.js" defer></script>
+</body>
+</html>
