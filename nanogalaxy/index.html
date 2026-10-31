@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NanoGalaxy™ PPMOCVD — 2D TMD Monolithic 3D Integration</title>
+<meta name="description" content="The 12-inch plasma-photon MOCVD platform that grows wafer-scale 2D TMD monolayers below 450 °C for monolithic 3D integration." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="../assets/site.css?v=20260616-1713" />
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+
+<style>
+/* ── NanoGalaxy product page ── */
+.ng-page { background: var(--bg); }
+
+/* Hero */
+.ng-hero {
+  position: relative;
+  padding: 5rem max(2.5rem, calc((100% - 1100px) / 2)) 3rem;
+  overflow: hidden;
+}
+.ng-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(43,207,255,0.08), transparent 35%),
+    radial-gradient(circle at 20% 80%, rgba(56,232,196,0.06), transparent 35%);
+  pointer-events: none;
+}
+.ng-hero-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 3.5rem;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.ng-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-blue);
+  margin-bottom: 1rem;
+}
+.ng-eyebrow::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand-grad);
+}
+.ng-hero h1 {
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 1.05;
+  margin-bottom: 1.25rem;
+}
+.ng-hero h1 span {
+  display: block;
+  font-size: 0.55em;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-top: 0.6rem;
+  line-height: 1.4;
+}
+.ng-hero-sub {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 540px;
+  margin-bottom: 2rem;
+  line-height: 1.65;
+}
+.ng-hero-sub strong { color: var(--text-primary); }
+.ng-hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+.ng-btn-primary {
+  background: var(--brand-grad);
+  color: var(--acc-text);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: 999px;
+  transition: transform 0.2s, filter 0.2s;
+  box-shadow: 0 6px 24px -8px rgba(43,207,255,0.50), 0 4px 12px -8px rgba(56,232,196,0.35);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.ng-btn-primary:hover { filter: brightness(1.06); transform: translateY(-1px); }
+.ng-btn-ghost {
+  border: 1px solid var(--border-strong);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 22px;
+  border-radius: 999px;
+  transition: border-color 0.2s, color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.ng-btn-ghost:hover { border-color: var(--brand-blue); color: var(--brand-blue); }
+.ng-hero-visual {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 360px;
+  position: relative;
+  overflow: hidden;
+}
+.ng-hero-visual::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(43,207,255,0.06), transparent 60%);
+}
+.ng-hero-visual img {
+  max-width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+}
+
+/* Stats */
+.ng-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2.5rem 4rem;
+  position: relative;
+  z-index: 1;
+}
+.ng-stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+}
+.ng-stat-value {
+  display: block;
+  font-family: var(--font-head);
+  font-size: 1.75rem;
+  font-weight: 700;
+  background: var(--brand-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.35rem;
+}
+.ng-stat-label { display: block; font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 0.15rem; }
+.ng-stat-sub { display: block; font-size: 11px; color: var(--text-muted); }
+
+/* Thesis */
+.ng-thesis {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 4rem max(2.5rem, calc((100% - 1100px) / 2));
+  text-align: center;
+}
+.ng-thesis-text {
+  font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+  font-weight: 600;
+  color: var(--text-secondary);
+  max-width: 900px;
+  margin: 0 auto;
+  line-height: 1.55;
+}
+.ng-thesis-text s { color: var(--text-muted); text-decoration-color: rgba(236,241,248,0.25); }
+.ng-thesis-text .accent {
+  color: var(--brand-blue);
+  font-weight: 700;
+}
+.ng-thesis-text strong { display: block; color: var(--text-primary); margin-top: 0.75rem; }
+
+/* Sections */
+.ng-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 5rem 2.5rem;
+}
+.ng-section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-blue);
+  margin-bottom: 0.8rem;
+}
+.ng-section-label::before { content: ''; width: 20px; height: 1.5px; background: var(--brand-grad); }
+.ng-section h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  margin-bottom: 1rem;
+}
+.ng-section h2 em {
+  font-style: normal;
+  background: var(--brand-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.ng-section-lede {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 620px;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+
+/* Cards */
+.ng-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+.ng-grid-2-1 {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 3rem;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+.ng-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 2rem;
+  transition: border-color 0.2s;
+}
+.ng-card:hover { border-color: var(--acc-border); }
+.ng-card-accent { background: linear-gradient(135deg, rgba(43,207,255,0.08), rgba(56,232,196,0.06)); border-color: var(--acc-border); }
+.ng-card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+.ng-card-num {
+  font-family: var(--font-head);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: rgba(200,220,255,0.12);
+}
+.ng-card-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-blue);
+  border: 1px solid var(--acc-border);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+.ng-card h3 { font-size: 1.15rem; margin-bottom: 0.75rem; }
+.ng-card p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 1rem;
+}
+.ng-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+.ng-card li {
+  font-size: 12px;
+  color: var(--text-muted);
+  padding-left: 1.1rem;
+  position: relative;
+}
+.ng-card li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--brand-grad);
+}
+
+/* Deployment visual */
+.ng-deploy-frame {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+}
+.ng-deploy-frame img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+.ng-deploy-caption {
+  margin-top: 1rem;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Specs */
+.ng-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+.ng-spec-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.5rem;
+}
+.ng-spec-group {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-blue);
+  border: 1px solid var(--acc-border);
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+}
+.ng-spec-table { width: 100%; border-collapse: collapse; }
+.ng-spec-table th,
+.ng-spec-table td {
+  text-align: left;
+  padding: 0.65rem 0;
+  font-size: 13px;
+  border-bottom: 1px solid var(--border);
+}
+.ng-spec-table tr:last-child th,
+.ng-spec-table tr:last-child td { border-bottom: none; }
+.ng-spec-table th {
+  color: var(--text-secondary);
+  font-weight: 600;
+  width: 45%;
+  padding-right: 1rem;
+}
+.ng-spec-table td { color: var(--text-primary); font-weight: 500; }
+
+/* Applications */
+.ng-app-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.ng-app-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.75rem;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.ng-app-card:hover { border-color: var(--acc-border); transform: translateY(-2px); }
+.ng-app-card span {
+  display: block;
+  font-family: var(--font-head);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+.ng-app-card span em {
+  font-style: normal;
+  background: var(--brand-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.ng-app-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+/* Services */
+.ng-services-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+.ng-service-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 2rem;
+  text-align: center;
+}
+.ng-service-step {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--brand-grad-soft);
+  border: 1px solid var(--acc-border);
+  font-family: var(--font-head);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--brand-blue);
+  margin-bottom: 1rem;
+}
+.ng-service-card h3 { font-size: 1.05rem; margin-bottom: 0.6rem; }
+.ng-service-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+/* CTA / Quote */
+.ng-quote {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 5rem max(2.5rem, calc((100% - 1100px) / 2));
+}
+.ng-quote-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 4rem;
+  align-items: start;
+}
+.ng-quote h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 1rem; }
+.ng-quote h2 em {
+  font-style: normal;
+  background: var(--brand-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.ng-quote p { color: var(--text-secondary); line-height: 1.65; margin-bottom: 1.5rem; }
+.ng-quote-highlights { display: flex; flex-direction: column; gap: 1.25rem; }
+.ng-quote-highlight-title {
+  display: block;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.2rem;
+}
+.ng-quote-highlight p { font-size: 13px; margin: 0; }
+.ng-quote-form {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+}
+.ng-form-row { display: flex; flex-direction: column; gap: 1rem; }
+.ng-form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+.ng-form-group label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+.ng-form-group input,
+.ng-form-group textarea {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+.ng-form-group input:focus,
+.ng-form-group textarea:focus { outline: none; border-color: var(--brand-blue); }
+.ng-form-group input::placeholder,
+.ng-form-group textarea::placeholder { color: var(--text-dim); }
+.ng-form-hp { position: absolute; left: -9999px; }
+.ng-form-submit {
+  background: var(--brand-grad);
+  color: var(--acc-text);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  transition: transform 0.2s, filter 0.2s;
+  box-shadow: 0 6px 24px -8px rgba(43,207,255,0.50), 0 4px 12px -8px rgba(56,232,196,0.35);
+}
+.ng-form-submit:hover { filter: brightness(1.06); transform: translateY(-1px); }
+.ng-form-fine {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 0.75rem;
+}
+
+/* Footer reuse */
+.ng-footer-pad { padding-top: 0; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .ng-hero-grid { grid-template-columns: 1fr; }
+  .ng-grid-3 { grid-template-columns: 1fr; }
+  .ng-grid-2-1 { grid-template-columns: 1fr; }
+  .ng-stats { grid-template-columns: repeat(2, 1fr); }
+  .ng-specs-grid { grid-template-columns: 1fr; }
+  .ng-app-grid { grid-template-columns: 1fr; }
+  .ng-services-row { grid-template-columns: 1fr; }
+  .ng-quote-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .ng-stats { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body class="ng-page">
+
+<nav class="fd-nav">
+  <a href="../" class="fd-logo"><img src="../assets/flowdaptor-logo-small.png" alt="FlowDaptor" /></a>
+  <ul class="fd-nav-links">
+    <li><a href="../products/">Products</a></li>
+    <li><a href="../workflow/">Workflows</a></li>
+    <li><a href="../enterprise/">Enterprise</a></li>
+    <li><a href="../training/">Training</a></li>
+    <li><a href="../blog/">Blog</a></li>
+    <li><a href="../about/">About</a></li>
+    <li><a href="../store/" class="store-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Store</a></li>
+  </ul>
+  <a class="fd-nav-cta" href="mailto:enterprise@flowdaptor.com">Request a quote</a>
+</nav>
+
+<!-- HERO -->
+<section class="ng-hero">
+  <div class="ng-hero-grid">
+    <div>
+      <div class="ng-eyebrow">NanoGalaxy™ Equipment · PPMOCVD</div>
+      <h1>NanoGalaxy<sup style="font-size:0.45em;">™</sup><span>We grow semiconductors one atom thick, right on top of finished chips.</span></h1>
+      <p class="ng-hero-sub">The <strong>12-inch (300 mm)</strong> plasma-photon MOCVD platform that grows wafer-scale 2D TMD monolayers below <strong>450 °C</strong> — ICP plasma and in-situ UV working in synergy for atomic-level uniformity across wafer-scale CMOS and pilot-line integration, heterogeneous stacking, and high-volume production.</p>
+      <div class="ng-hero-btns">
+        <a class="ng-btn-primary" href="mailto:enterprise@flowdaptor.com">Request a Quote →</a>
+        <a class="ng-btn-ghost" href="#datasheet">View Datasheet</a>
+      </div>
+    </div>
+    <div class="ng-hero-visual">
+      <img src="../assets/nanogalaxy-machine.png" alt="NanoGalaxy PPMOCVD production tool" />
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="ng-stats">
+  <div class="ng-stat"><span class="ng-stat-value">60 s</span><span class="ng-stat-label">Growth Window</span><span class="ng-stat-sub">full monolayer cycle</span></div>
+  <div class="ng-stat"><span class="ng-stat-value">0.65 nm/min</span><span class="ng-stat-label">Monolayer Rate</span><span class="ng-stat-sub">atomic-level precision</span></div>
+  <div class="ng-stat"><span class="ng-stat-value">&lt;450 °C</span><span class="ng-stat-label">Process Temp</span><span class="ng-stat-sub">CMOS BEOL compatible</span></div>
+  <div class="ng-stat"><span class="ng-stat-value">60 /hr</span><span class="ng-stat-label">Wafer Throughput</span><span class="ng-stat-sub">4 chambers in parallel</span></div>
+</div>
+
+<!-- THESIS -->
+<section class="ng-thesis">
+  <p class="ng-thesis-text">Conventional CVD needs <s>750 °C</s> to grow a usable monolayer — hot enough to destroy every transistor beneath it. NanoGalaxy grows the same crystal at <span class="accent">450 °C and below</span>, directly on finished CMOS.<strong> Monolithic 3D stops being a roadmap slide and becomes a process recipe.</strong></p>
+</section>
+
+<!-- CORE TECHNOLOGY -->
+<section class="ng-section">
+  <div class="ng-section-label">Core Technology</div>
+  <h2>ICP + UV <em>Synergy</em></h2>
+  <p class="ng-section-lede">Two complementary mechanisms work in tandem inside every chamber: plasma supplies the energy that temperature can't, and UV photons repair the lattice while it grows.</p>
+  <div class="ng-grid-3">
+    <div class="ng-card">
+      <div class="ng-card-head"><span class="ng-card-num">01</span><span class="ng-card-tag">ICP Plasma</span></div>
+      <h3>Activate Precursors at Low Temperature</h3>
+      <p>High-density inductively-coupled plasma activates precursors and lowers the reaction energy barrier — enabling high-quality 2D TMD growth below 450 °C without compromising material properties.</p>
+      <ul>
+        <li>High-density RF plasma source</li>
+        <li>Lowers activation energy barrier</li>
+        <li>CMOS BEOL temperature-compatible</li>
+      </ul>
+    </div>
+    <div class="ng-card ng-card-accent">
+      <div class="ng-card-head"><span class="ng-card-num">02</span><span class="ng-card-tag">UV Photons</span></div>
+      <h3>Real-Time In-Situ Defect Removal</h3>
+      <p>In-situ UV irradiation repairs defects in real time during growth, dramatically improving material quality, uniformity, and long-range crystalline order across the full 12-inch wafer.</p>
+      <ul>
+        <li>In-situ UV illumination</li>
+        <li>In-situ defect passivation</li>
+        <li>Uniform treatment across 300 mm</li>
+      </ul>
+    </div>
+    <div class="ng-card">
+      <div class="ng-card-head"><span class="ng-card-num">03</span><span class="ng-card-tag">Result</span></div>
+      <h3>Wafer-Scale 2D TMD Films</h3>
+      <p>Atomically compact, defect-low, highly uniform transition-metal-dichalcogenide films — ready for advanced logic nodes, 3D monolithic stacking, and emerging memory.</p>
+      <ul>
+        <li>MoS₂ · WS₂ · MoSe₂ · WSe₂</li>
+        <li>Defect-low, highly uniform films</li>
+        <li>Ready for 3D stacking integration</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- DEPLOYMENT -->
+<section class="ng-section" style="padding-top:0;">
+  <div class="ng-section-label">Deployment</div>
+  <div class="ng-grid-2-1">
+    <div>
+      <h2>One 12-Inch Platform, Pilot Line to Fab</h2>
+      <p class="ng-section-lede">The same 300 mm plasma-photon MOCVD system serves wafer-scale CMOS and pilot-line integration, heterogeneous stacking, and high-volume production.</p>
+    </div>
+    <div class="ng-deploy-frame">
+      <img src="../assets/nanogalaxy-machine.png" alt="NanoGalaxy PPMOCVD production tool" />
+      <span class="ng-deploy-caption">4-chamber 300 mm production tool</span>
+    </div>
+  </div>
+  <div class="ng-grid-3">
+    <div class="ng-card">
+      <div class="ng-card-head"><span class="ng-card-tag">Integration</span></div>
+      <h3>Wafer-Scale CMOS &amp; Pilot Lines</h3>
+      <p>Grows uniformly across the full 300 mm wafer directly on finished CMOS at back-end-of-line temperature — a process qualified on a pilot line transfers into the fab on the same platform.</p>
+      <ul>
+        <li>300 mm full-wafer uniformity</li>
+        <li>Runs on completed CMOS</li>
+        <li>Pilot line to production, one recipe</li>
+      </ul>
+    </div>
+    <div class="ng-card">
+      <div class="ng-card-head"><span class="ng-card-tag">Stacking</span></div>
+      <h3>Heterogeneous Stacking</h3>
+      <p>Logic, memory and 2D channels grown tier-on-tier as a single monolithic stack — no wafer bonding, no through-silicon vias, and no alignment error between dissimilar device layers.</p>
+      <ul>
+        <li>Monolithic tier-on-tier growth</li>
+        <li>No bonding, no TSVs</li>
+        <li>Dissimilar devices in one stack</li>
+      </ul>
+    </div>
+    <div class="ng-card">
+      <div class="ng-card-head"><span class="ng-card-tag">Volume</span></div>
+      <h3>High-Volume Production</h3>
+      <p>Four independent chambers process in parallel at 60 wafers per hour, with a rotary susceptor and six-zone thermal control designed for continuous fab operation.</p>
+      <ul>
+        <li>60 wafers/hr, 4 chambers parallel</li>
+        <li>Rotary susceptor, 6 thermal zones</li>
+        <li>Built for continuous fab duty</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- DATASHEET -->
+<section class="ng-section" id="datasheet" style="padding-top:0;">
+  <div style="display:flex; justify-content:space-between; align-items:flex-end; gap:2rem; flex-wrap:wrap; margin-bottom:2rem;">
+    <div>
+      <div class="ng-section-label">Datasheet</div>
+      <h2>Equipment <em>Specifications</em></h2>
+      <p class="ng-section-lede">Designed from the ground up for high-volume 2D TMD manufacturing — precision, reliability, and serviceability built in at every layer.</p>
+    </div>
+    <a class="ng-btn-ghost" href="mailto:enterprise@flowdaptor.com?subject=NanoGalaxy%20PPMOCVD%20datasheet%20request">Request printable datasheet ↗</a>
+  </div>
+  <div class="ng-specs-grid">
+    <div class="ng-spec-card">
+      <span class="ng-spec-group">Process</span>
+      <table class="ng-spec-table">
+        <tr><th>Supported materials</th><td>MoS₂, WS₂, MoSe₂, WSe₂</td></tr>
+        <tr><th>Growth temperature</th><td>&lt; 450 °C adjustable</td></tr>
+        <tr><th>Growth window</th><td>60 s per monolayer cycle</td></tr>
+        <tr><th>Monolayer growth rate</th><td>0.65 nm/min, atomic-level precision</td></tr>
+        <tr><th>Process gases</th><td>H₂, Ar, S(Se) source, Mo/W source</td></tr>
+      </table>
+    </div>
+    <div class="ng-spec-card">
+      <span class="ng-spec-group">Plasma &amp; UV</span>
+      <table class="ng-spec-table">
+        <tr><th>UV subsystem</th><td>In-situ defect removal during growth</td></tr>
+      </table>
+    </div>
+    <div class="ng-spec-card">
+      <span class="ng-spec-group">Platform</span>
+      <table class="ng-spec-table">
+        <tr><th>Chambers</th><td>4 independent, parallel process</td></tr>
+        <tr><th>Wafer size</th><td>12 inch (300 mm)</td></tr>
+        <tr><th>Max throughput</th><td>60 wafers/hr (4-chamber parallel)</td></tr>
+        <tr><th>Susceptor</th><td>Rotary — no center temperature dip</td></tr>
+        <tr><th>Chamber access</th><td>Lift-up lid, easy maintenance</td></tr>
+      </table>
+    </div>
+    <div class="ng-spec-card">
+      <span class="ng-spec-group">Facility</span>
+      <table class="ng-spec-table">
+        <tr><th>Heating method</th><td>Full-line SCR, 6 temperature zones</td></tr>
+        <tr><th>Temperature measurement</th><td>Dual-mode: thermocouple + IR camera</td></tr>
+        <tr><th>System power</th><td>~35 kW — three-phase AC 380 V, 50/60 Hz</td></tr>
+        <tr><th>Footprint (W × D × H)</th><td>4776 × 4615 × 1651 mm</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- APPLICATIONS -->
+<section class="ng-section" style="padding-top:0;">
+  <div class="ng-section-label">Applications</div>
+  <h2>From Memory to <em>Aerospace</em></h2>
+  <p class="ng-section-lede">The platform of choice for next-generation 3D monolithic integration across memory, logic, and radiation-hard silicon.</p>
+  <div class="ng-app-grid">
+    <div class="ng-app-card"><span>3D Stacked <em>SRAM</em></span><p>Monolithic 3D SRAM for next-generation cache architectures with high bandwidth and minimal power.</p></div>
+    <div class="ng-app-card"><span>3D Stacked <em>DRAM</em></span><p>Cost-effective on-chip DRAM replacement for memory-intensive AI and HPC workloads at extreme density.</p></div>
+    <div class="ng-app-card"><span><em>RRAM</em></span><p>Resistive RAM arrays for neuromorphic computing and ultra-dense non-volatile storage.</p></div>
+    <div class="ng-app-card"><span><em>MRAM</em></span><p>Magnetic RAM with superior endurance and retention for enterprise and industrial applications.</p></div>
+    <div class="ng-app-card"><span>Radiation-<em>Hardened</em></span><p>Memory and compute hardened against cosmic radiation for satellite and aerospace computing.</p></div>
+    <div class="ng-app-card"><span>1 nm-Node <em>Logic</em></span><p>2D TMD channels for mainstream logic beyond silicon's physical floor — grown directly in BEOL.</p></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="ng-section" style="padding-top:0;">
+  <div class="ng-section-label">Services &amp; Support</div>
+  <h2>Full-Service <em>Partnership</em></h2>
+  <p class="ng-section-lede">Committed to peak equipment performance through the tool's entire operational lifetime.</p>
+  <div class="ng-services-row">
+    <div class="ng-service-card">
+      <div class="ng-service-step">5Y</div>
+      <h3>5-Year Parts Replacement</h3>
+      <p>Replacement of any parts within 5 years to ensure long-term stable operation of the equipment.</p>
+    </div>
+    <div class="ng-service-card">
+      <div class="ng-service-step">↑</div>
+      <h3>Upgrade &amp; Iteration Support</h3>
+      <p>Continuous software and hardware upgrades keep your tool at the forefront of 2D materials technology.</p>
+    </div>
+    <div class="ng-service-card">
+      <div class="ng-service-step">⚙</div>
+      <h3>Process Development Service</h3>
+      <p>One on-site equipment engineer and one process engineer assist with 2D TMD CMOS and 3D monolithic integration flows.</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE / CTA -->
+<section class="ng-quote" id="quote">
+  <div class="ng-quote-grid">
+    <div>
+      <div class="ng-section-label">Request a Quote</div>
+      <h2>Evaluate the NanoGalaxy <em>PPMOCVD</em></h2>
+      <p>Talk to our process engineers about your 2D TMD integration roadmap, request budgetary pricing, or schedule an on-site demonstration.</p>
+      <div class="ng-quote-highlights">
+        <div class="ng-quote-highlight"><span class="ng-quote-highlight-title">Budgetary quote</span><p>Configuration-specific pricing with delivery and installation timeline.</p></div>
+        <div class="ng-quote-highlight"><span class="ng-quote-highlight-title">Process demonstration</span><p>Witness a full 12-inch MoS₂ growth cycle on your own wafer lot.</p></div>
+        <div class="ng-quote-highlight"><span class="ng-quote-highlight-title">Integration review</span><p>BEOL thermal-budget and facility-requirements assessment with our engineers.</p></div>
+      </div>
+    </div>
+    <div class="ng-quote-form">
+      <form action="mailto:enterprise@flowdaptor.com" method="GET" enctype="text/plain">
+        <div class="ng-form-row">
+          <div class="ng-form-group">
+            <label for="name">Full name</label>
+            <input type="text" id="name" name="name" placeholder="Ada Lovelace" required />
+          </div>
+          <div class="ng-form-group">
+            <label for="email">Work email</label>
+            <input type="email" id="email" name="email" placeholder="you@company.com" required />
+          </div>
+          <div class="ng-form-group">
+            <label for="organization">Organization</label>
+            <input type="text" id="organization" name="organization" placeholder="Company or lab" required />
+          </div>
+          <div class="ng-form-group">
+            <label for="budget">Project scale</label>
+            <input type="text" id="budget" name="budget" placeholder="Budget, volume, or production timeline" />
+          </div>
+          <div class="ng-form-group">
+            <label for="specifications">Project context</label>
+            <textarea id="specifications" name="specifications" rows="5" placeholder="Share the application, success metrics, and any integration constraints." required></textarea>
+          </div>
+          <input class="ng-form-hp" tabindex="-1" autocomplete="off" aria-hidden="true" name="website" value="" />
+          <button type="submit" class="ng-form-submit">Request quote →</button>
+          <p class="ng-form-fine">We use this only to reply to you, and never sell it.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="fd-footer ng-footer-pad">
+  <div class="fd-footer-logo"><img src="../assets/flowdaptor-logo-small.png" alt="FlowDaptor"/></div>
+  <div class="fd-footer-links">
+    <a href="../products/">Products</a><a href="../workflow/">Workflows</a><a href="../enterprise/">Enterprise</a>
+    <a href="../training/">Training</a><a href="../blog/">Blog</a><a href="../about/">About</a>
+    <a href="../store/">Store</a><a href="../contact/">Contact</a>
+  </div>
+  <div class="fd-footer-copy">FlowDaptor Pte. Ltd. © 2026</div>
+</footer>
+<script src="../assets/nav.js" defer></script>
+</body>
+</html>
