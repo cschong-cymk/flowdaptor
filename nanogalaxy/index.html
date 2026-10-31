@@ -435,6 +435,68 @@
 .ng-service-card h3 { font-size: 1.05rem; margin-bottom: 0.6rem; }
 .ng-service-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
 
+/* Interactive showcase */
+.ng-showcase-section {
+  max-width: 1100px;
+  margin: 0 auto 4rem;
+  padding: 0 2.5rem;
+}
+.ng-showcase-wrap {
+  background: #050b14;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+}
+.ng-showcase-view {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+}
+.ng-showcase-view canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.ng-showcase-tags {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.ng-showcase-tag {
+  position: absolute;
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 12px;
+  color: #e2e8f0;
+  background: rgba(5,11,24,0.72);
+  border-left: 2px solid #7dd3fc;
+  border-radius: 0 4px 4px 0;
+  padding: 4px 8px 4px 10px;
+  white-space: nowrap;
+  transform: translateY(-50%);
+  transition: opacity 0.4s ease;
+}
+.ng-showcase-caption {
+  padding: 1.75rem 2rem 2rem;
+  background: #080f1a;
+  border-top: 1px solid rgba(148,163,184,0.12);
+}
+.ng-showcase-caption h3 {
+  font-family: var(--font-head);
+  font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+  font-weight: 600;
+  color: #f1f5f9;
+  margin-bottom: 0.5rem;
+  line-height: 1.35;
+}
+.ng-showcase-caption p {
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: #94a3b8;
+  margin: 0;
+  max-width: 720px;
+}
+
 /* CTA / Quote */
 .ng-quote {
   background: var(--surface);
@@ -588,6 +650,20 @@
   <div class="ng-stat"><span class="ng-stat-value">&lt;450 °C</span><span class="ng-stat-label">Process Temp</span><span class="ng-stat-sub">CMOS BEOL compatible</span></div>
   <div class="ng-stat"><span class="ng-stat-value">60 /hr</span><span class="ng-stat-label">Wafer Throughput</span><span class="ng-stat-sub">4 chambers in parallel</span></div>
 </div>
+
+<!-- SHOWCASE -->
+<section class="ng-showcase-section">
+  <div class="ng-showcase-wrap">
+    <div class="ng-showcase-view">
+      <canvas id="ngShowcase"></canvas>
+      <div class="ng-showcase-tags" id="ngShowcaseTags"></div>
+    </div>
+    <div class="ng-showcase-caption">
+      <h3 id="ngShowcaseTitle">A machine that grows semiconductors a few atoms thick.</h3>
+      <p id="ngShowcaseText">Plasma and light crack the precursor molecules, and molybdenum and sulfur settle into one atomic layer of MoS₂.</p>
+    </div>
+  </div>
+</section>
 
 <!-- THESIS -->
 <section class="ng-thesis">
@@ -1163,6 +1239,7 @@
 })();
 </script>
 <script src="../assets/nav.js" defer></script>
+<script src="../assets/nanogalaxy-showcase.js" defer></script>
 <script>
 (function() {
     const params = new URLSearchParams(window.location.search);
