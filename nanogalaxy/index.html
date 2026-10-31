@@ -7,6 +7,7 @@
 <meta name="description" content="The 12-inch plasma-photon MOCVD platform that grows wafer-scale 2D TMD monolayers below 450 °C for monolithic 3D integration." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&display=swap" />
 <link rel="stylesheet" href="../assets/site.css?v=20260616-1713" />
 <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -110,31 +111,35 @@
 .ng-btn-ghost:hover { border-color: var(--brand-blue); color: var(--brand-blue); }
 /* Hero visual — animated PPMOCVD growth sequence */
 .ng-blob {
-  background: #050a18;
+  background: #050b18;
   border: 1px solid rgba(148,163,184,0.12);
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 30px 60px -24px rgba(5,10,24,0.55);
+  box-shadow: 0 18px 50px rgba(5,11,24,0.18);
 }
-.ng-blob-stage { position: relative; aspect-ratio: 16 / 10; }
+.ng-blob-stage { position: relative; aspect-ratio: 16 / 9; }
 .ng-blob-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .ng-blob-label {
   position: absolute; left: 0; top: 0;
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  font-size: 13px; color: #e2e8f0; white-space: nowrap;
-  padding: 3px 0 3px 10px; border-left: 2px solid #38bdf8;
-  opacity: 0; transition: opacity 0.6s; pointer-events: none; will-change: transform;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 12px; line-height: 1.2; color: #e2e8f0; white-space: nowrap;
+  padding: 4px 8px 4px 10px;
+  background: rgba(5,11,24,0.72);
+  border-left: 2px solid #7dd3fc;
+  border-radius: 0 4px 4px 0;
+  opacity: 0; transition: opacity 0.25s linear;
+  pointer-events: none; will-change: transform;
 }
-.ng-blob-label.on { opacity: 1; }
-.ng-blob-label.flip { border-left: 0; border-right: 2px solid #38bdf8; padding: 3px 10px 3px 0; }
-.ng-blob-fade { position: absolute; inset: 0; background: #050a18; opacity: 1; pointer-events: none; }
 .ng-blob-fallback { display: none; }
-.ng-blob-caption { padding: 1.25rem 1.5rem 1.5rem; border-top: 1px solid rgba(148,163,184,0.10); transition: opacity 0.5s; }
-.ng-blob-caption h3 { font-size: 1.05rem; color: #f8fafc; margin-bottom: 0.4rem; }
-.ng-blob-caption p { font-size: 13.5px; color: #94a3b8; line-height: 1.6; margin: 0; }
-.ng-blob.no-webgl canvas, .ng-blob.no-webgl .ng-blob-label, .ng-blob.no-webgl .ng-blob-fade { display: none; }
+.ng-blob-caption {
+  padding: 16px 22px 20px;
+  border-top: 1px solid rgba(148,163,184,0.16);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+.ng-blob-caption h3 { font-family: inherit; font-size: 17px; font-weight: 600; line-height: 1.5; color: #f8fafc; margin: 0; }
+.ng-blob-caption p { font-size: 14px; line-height: 1.55; color: #a3b1c6; margin: 4px 0 0; }
+.ng-blob.no-webgl canvas, .ng-blob.no-webgl .ng-blob-label { display: none; }
 .ng-blob.no-webgl .ng-blob-fallback { display: block; position: absolute; inset: 0; margin: auto; max-width: 85%; max-height: 85%; }
-@media (max-width: 560px) { .ng-blob-label { font-size: 11px; } }
 
 /* Stats */
 .ng-stats {
@@ -435,68 +440,6 @@
 .ng-service-card h3 { font-size: 1.05rem; margin-bottom: 0.6rem; }
 .ng-service-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
 
-/* Interactive showcase */
-.ng-showcase-section {
-  max-width: 1100px;
-  margin: 0 auto 4rem;
-  padding: 0 2.5rem;
-}
-.ng-showcase-wrap {
-  background: #050b14;
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 24px 64px rgba(0,0,0,0.35);
-}
-.ng-showcase-view {
-  position: relative;
-  aspect-ratio: 16 / 9;
-  width: 100%;
-}
-.ng-showcase-view canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-.ng-showcase-tags {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-.ng-showcase-tag {
-  position: absolute;
-  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
-  font-size: 12px;
-  color: #e2e8f0;
-  background: rgba(5,11,24,0.72);
-  border-left: 2px solid #7dd3fc;
-  border-radius: 0 4px 4px 0;
-  padding: 4px 8px 4px 10px;
-  white-space: nowrap;
-  transform: translateY(-50%);
-  transition: opacity 0.4s ease;
-}
-.ng-showcase-caption {
-  padding: 1.75rem 2rem 2rem;
-  background: #080f1a;
-  border-top: 1px solid rgba(148,163,184,0.12);
-}
-.ng-showcase-caption h3 {
-  font-family: var(--font-head);
-  font-size: clamp(1.15rem, 2.2vw, 1.55rem);
-  font-weight: 600;
-  color: #f1f5f9;
-  margin-bottom: 0.5rem;
-  line-height: 1.35;
-}
-.ng-showcase-caption p {
-  font-size: 0.98rem;
-  line-height: 1.6;
-  color: #94a3b8;
-  margin: 0;
-  max-width: 720px;
-}
-
 /* CTA / Quote */
 .ng-quote {
   background: var(--surface);
@@ -610,7 +553,7 @@
     <li><a href="../about/">About</a></li>
     <li><a href="../store/" class="store-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Store</a></li>
   </ul>
-  <a class="fd-nav-cta" href="#quote">Request a quote</a>
+  <a class="fd-nav-cta" href="mailto:enterprise@flowdaptor.com">Request a quote</a>
 </nav>
 
 <!-- HERO -->
@@ -621,23 +564,20 @@
       <h1>NanoGalaxy<sup style="font-size:0.45em;">™</sup><span>We grow semiconductors one atom thick, right on top of finished chips.</span></h1>
       <p class="ng-hero-sub">The <strong>12-inch (300 mm)</strong> plasma-photon MOCVD platform that grows wafer-scale 2D TMD monolayers below <strong>450 °C</strong> — ICP plasma and in-situ UV working in synergy for atomic-level uniformity across wafer-scale CMOS and pilot-line integration, heterogeneous stacking, and high-volume production.</p>
       <div class="ng-hero-btns">
-        <a class="ng-btn-primary" href="#quote">Request a Quote →</a>
-        <a class="ng-btn-ghost" href="#datasheet">View Datasheet</a>
+        <a class="ng-btn-primary" href="mailto:enterprise@flowdaptor.com">Request a Quote →</a>
+        <a class="ng-btn-ghost" href="#datasheet/">View Datasheet</a>
       </div>
     </div>
     <div class="ng-blob" id="ngBlob">
-      <div class="ng-blob-stage" role="img" aria-label="Animation: inside the NanoGalaxy chamber, plasma and UV light grow a single atomic layer of MoS2 on a 300 mm wafer">
+      <div class="ng-blob-stage" role="img" aria-label="Animation: a MoS2 film grows across a 300 mm wafer in the NanoGalaxy chamber, then precursor molecules crack in plasma and UV light and settle into one atomic layer">
         <canvas id="ngBlobCanvas"></canvas>
-        <img class="ng-blob-fallback" src="../assets/nanogalaxy-machine2.png" alt="NanoGalaxy PPMOCVD production tool" />
-        <div class="ng-blob-label" data-k="gas">precursor gas, flowing down</div>
-        <div class="ng-blob-label" data-k="wafer">300 mm wafer</div>
+        <img class="ng-blob-fallback" src="../assets/nanogalaxy-machine.png" alt="NanoGalaxy PPMOCVD production tool" />
         <div class="ng-blob-label" data-k="plasma">plasma, from above</div>
         <div class="ng-blob-label" data-k="light">light, from the side at an angle</div>
-        <div class="ng-blob-fade"></div>
       </div>
       <div class="ng-blob-caption">
-        <h3 id="ngBlobTitle">Inside the chamber, below 450 °C.</h3>
-        <p id="ngBlobText">Precursor gas flows down onto a 300 mm wafer spinning on a heated susceptor.</p>
+        <h3>A machine that grows semiconductors a few atoms thick.</h3>
+        <p id="ngBlobText">MoS₂ films across full 300 mm wafers, cool enough to grow directly on finished chips.</p>
       </div>
     </div>
   </div>
@@ -650,20 +590,6 @@
   <div class="ng-stat"><span class="ng-stat-value">&lt;450 °C</span><span class="ng-stat-label">Process Temp</span><span class="ng-stat-sub">CMOS BEOL compatible</span></div>
   <div class="ng-stat"><span class="ng-stat-value">60 /hr</span><span class="ng-stat-label">Wafer Throughput</span><span class="ng-stat-sub">4 chambers in parallel</span></div>
 </div>
-
-<!-- SHOWCASE -->
-<section class="ng-showcase-section">
-  <div class="ng-showcase-wrap">
-    <div class="ng-showcase-view">
-      <canvas id="ngShowcase"></canvas>
-      <div class="ng-showcase-tags" id="ngShowcaseTags"></div>
-    </div>
-    <div class="ng-showcase-caption">
-      <h3 id="ngShowcaseTitle">A machine that grows semiconductors a few atoms thick.</h3>
-      <p id="ngShowcaseText">Plasma and light crack the precursor molecules, and molybdenum and sulfur settle into one atomic layer of MoS₂.</p>
-    </div>
-  </div>
-</section>
 
 <!-- THESIS -->
 <section class="ng-thesis">
@@ -764,7 +690,7 @@
       <h2>Equipment <em>Specifications</em></h2>
       <p class="ng-section-lede">Designed from the ground up for high-volume 2D TMD manufacturing — precision, reliability, and serviceability built in at every layer.</p>
     </div>
-    <a class="ng-btn-ghost" href="/datasheet">Request printable datasheet ↗</a>
+    <a class="ng-btn-ghost" href="mailto:enterprise@flowdaptor.com?subject=NanoGalaxy%20PPMOCVD%20datasheet%20request">Request printable datasheet ↗</a>
   </div>
   <div class="ng-specs-grid">
     <div class="ng-spec-card">
@@ -900,346 +826,400 @@
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-/* NanoGalaxy hero animation: chamber view → MoS2 monolayer growth, looping */
+/* NanoGalaxy hero: 25 s loop — film grows across the wafer, camera dives in,
+   precursor molecules crack in plasma + UV and settle into a MoS2 monolayer. */
 (function () {
   var root = document.getElementById('ngBlob');
   if (!root) return;
   var stage = root.querySelector('.ng-blob-stage');
   var canvas = document.getElementById('ngBlobCanvas');
-  var fade = root.querySelector('.ng-blob-fade');
-  var caption = root.querySelector('.ng-blob-caption');
-  var capTitle = document.getElementById('ngBlobTitle');
-  var capText = document.getElementById('ngBlobText');
-  var labels = {};
-  root.querySelectorAll('.ng-blob-label').forEach(function (el) { labels[el.dataset.k] = el; });
+  var lineEl = document.getElementById('ngBlobText');
+  var LINES = [
+    'MoS₂ films across full 300 mm wafers, cool enough to grow directly on finished chips.',
+    'Plasma and light crack the precursor molecules, and molybdenum and sulfur settle into one atomic layer of MoS₂.'
+  ];
   function fail() { root.classList.add('no-webgl'); }
   if (!window.THREE) return fail();
 
   var renderer;
-  try { renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true }); } catch (e) { return fail(); }
+  try { renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, powerPreference: 'high-performance' }); }
+  catch (e) { return fail(); }
   if (!renderer.getContext()) return fail();
-  renderer.setClearColor(0x050a18, 1);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setClearColor(0x050b18, 1);
 
-  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var rand = function (a, b) { return a + Math.random() * (b - a); };
+  /* ── helpers ── */
   var clamp01 = function (x) { return x < 0 ? 0 : x > 1 ? 1 : x; };
-  var easeOut = function (x) { return 1 - Math.pow(1 - x, 3); };
-  var easeInOut = function (x) { return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+  var smooth = function (a, b, x) { var n = clamp01((x - a) / (b - a)); return n * n * (3 - 2 * n); };
+  var ease = function (x) { x = clamp01(x); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+  var lerp = function (a, b, t) { return a + (b - a) * t; };
+  var rgb = function (h) { return new THREE.Color(h); };
 
-  function canvasTex(size, draw) {
-    var c = document.createElement('canvas'); c.width = c.height = size;
-    draw(c.getContext('2d'), size);
-    var t = new THREE.CanvasTexture(c); t.anisotropy = 4; return t;
+  var LOOP = 25, SWITCH = 9.2;
+  var U = {
+    time: { value: 0 },
+    px: { value: 6 },
+    bg: { value: new THREE.Vector3(0.02, 0.043, 0.094) },
+    chamber: { value: 0 },   // fade for the chamber scene
+    lattice: { value: 0 }    // fade for the atomic scene
+  };
+  var scene = new THREE.Scene();
+  var cam = new THREE.PerspectiveCamera(34, 16 / 9, 0.1, 100);
+  var ADD = { transparent: true, depthWrite: false, blending: THREE.CustomBlending,
+              blendSrc: THREE.OneFactor, blendDst: THREE.OneFactor, blendEquation: THREE.AddEquation };
+
+  function randAttr(n) { var a = new Float32Array(n * 4); for (var i = 0; i < a.length; i++) a[i] = Math.random(); return a; }
+  function pointCloud(positions, n, vs, fs, fade, extra) {
+    var g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    g.setAttribute('aRand', new THREE.BufferAttribute(randAttr(n), 4));
+    var uni = { uTime: U.time, uPx: U.px, uFade: fade };
+    for (var k in extra) uni[k] = extra[k];
+    var p = new THREE.Points(g, new THREE.ShaderMaterial(Object.assign({ uniforms: uni, vertexShader: vs, fragmentShader: fs }, ADD)));
+    p.frustumCulled = false;
+    return p;
   }
-  var DOT = canvasTex(64, function (g, s) {
-    var gr = g.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2);
-    gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.35, 'rgba(255,255,255,0.6)'); gr.addColorStop(1, 'rgba(255,255,255,0)');
-    g.fillStyle = gr; g.fillRect(0, 0, s, s);
-  });
-  function points(n, fill, size, opacity) {
-    var pos = new Float32Array(n * 3), col = new Float32Array(n * 3), c = new THREE.Color();
-    for (var i = 0; i < n; i++) { fill(i, pos, c); col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b; }
-    var geo = new THREE.BufferGeometry();
-    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-    geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
-    var mat = new THREE.PointsMaterial({ size: size, map: DOT, vertexColors: true, transparent: true, opacity: opacity,
-      depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true });
-    return new THREE.Points(geo, mat);
+
+  /* ───────── Chamber ───────── */
+  var chamber = new THREE.Group(); scene.add(chamber);
+  var SOLID_VS = [
+    'varying vec3 vN; varying vec3 vV; varying vec3 vObjN; varying vec3 vObj;',
+    'void main(){',
+    '  vN = normalize(normalMatrix * normal);',
+    '  vec4 mv = modelViewMatrix * vec4(position, 1.0);',
+    '  vV = mv.xyz; vObjN = normal; vObj = position;',
+    '  gl_Position = projectionMatrix * mv;',
+    '}'].join('\n');
+  var SOLID_FS = [
+    'uniform vec3 uColor; uniform vec3 uColor2; uniform vec3 uBg;',
+    'uniform float uEmissive; uniform float uWafer; uniform float uGrow; uniform float uFade; uniform float uTime;',
+    'varying vec3 vN; varying vec3 vV; varying vec3 vObjN; varying vec3 vObj;',
+    'vec2 hexCell(vec2 p){ const vec2 s = vec2(1.0, 1.7320508);',
+    '  vec2 a = mod(p, s) - 0.5 * s; vec2 b = mod(p - 0.5 * s, s) - 0.5 * s;',
+    '  return dot(a, a) < dot(b, b) ? a : b; }',
+    'void main(){',
+    '  vec3 N = normalize(vN); vec3 V = normalize(-vV); vec3 L = normalize(vec3(0.35, 0.9, 0.55));',
+    '  float diff = max(dot(N, L), 0.0);',
+    '  float rim = pow(1.0 - max(dot(N, V), 0.0), 3.0);',
+    '  vec3 base = uColor; vec3 glow = vec3(0.0);',
+    '  if (uWafer < 0.5) {',
+    '    if (vObjN.y < -0.5) glow += uColor2 * uEmissive;',
+    '  } else if (vObjN.y > 0.5) {',
+    '    float r = length(vObj.xz);',
+    '    float film = 1.0 - smoothstep(uGrow - 0.02, uGrow, r);',
+    '    float atom = 1.0 - smoothstep(0.18, 0.3, length(hexCell(vObj.xz * 13.0)));',
+    '    vec3 filmCol = mix(uColor2 * 0.45, uColor2 * 1.25, atom);',
+    '    float sheen = 0.85 + 0.15 * sin(r * 9.0 - uTime * 0.6);',
+    '    base = mix(uColor * sheen, filmCol, film);',
+    '    float edge = exp(-abs(r - uGrow) * 30.0) * step(0.02, uGrow) * step(uGrow, 2.19);',
+    '    glow += vec3(0.35, 0.85, 1.0) * edge * 1.4;',
+    '  } else { base *= 0.7; }',
+    '  vec3 lit = base * (0.26 + 0.74 * diff) + base * rim * 0.45 + glow;',
+    '  gl_FragColor = vec4(mix(uBg, lit, clamp(uFade, 0.0, 1.0)), 1.0);',
+    '}'].join('\n');
+  function solid(geo, y, color, color2, emissive, wafer) {
+    var m = new THREE.Mesh(geo, new THREE.ShaderMaterial({
+      uniforms: { uColor: { value: rgb(color) }, uColor2: { value: rgb(color2) }, uEmissive: { value: emissive },
+                  uWafer: { value: wafer ? 1 : 0 }, uGrow: { value: 0 }, uFade: U.chamber, uTime: U.time, uBg: U.bg },
+      vertexShader: SOLID_VS, fragmentShader: SOLID_FS }));
+    m.position.y = y; chamber.add(m); return m;
   }
+  var susceptor = solid(new THREE.CylinderGeometry(2.2, 2.2, 0.08, 128), -0.04, '#8a96a8', '#8b5cf6', 0, true);
+  solid(new THREE.CylinderGeometry(2.6, 2.6, 0.3, 96), -0.24, '#4a5568', '#7c3aed', 0.55);
+  solid(new THREE.CylinderGeometry(2.35, 2.35, 0.2, 96), 2.45, '#3b4556', '#a78bfa', 0.7);
 
-  /* ───────── Scene A: the chamber ───────── */
-  var sA = new THREE.Scene();
-  var cA = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
-  sA.add(new THREE.AmbientLight(0xffffff, 0.55));
-  var dA = new THREE.DirectionalLight(0xffffff, 0.85); dA.position.set(2, 6, 5); sA.add(dA);
-  var slate = new THREE.MeshStandardMaterial({ color: 0x4b5a70, roughness: 0.55, metalness: 0.35 });
-  var lid = new THREE.Mesh(new THREE.CylinderGeometry(3.2, 3.2, 0.32, 96), slate); lid.position.y = 2.2; sA.add(lid);
-  var base = new THREE.Mesh(new THREE.CylinderGeometry(3.25, 3.25, 0.55, 96),
-    new THREE.MeshStandardMaterial({ color: 0x3e4a5c, roughness: 0.6, metalness: 0.35 }));
-  base.position.y = -1.36; sA.add(base);
-
-  var ringTex = canvasTex(512, function (g, s) {
-    var r = s / 2;
-    var gr = g.createRadialGradient(r, r, 0, r, r, r);
-    gr.addColorStop(0, '#cbd5e1'); gr.addColorStop(1, '#8a97aa');
-    g.fillStyle = gr; g.fillRect(0, 0, s, s);
-    for (var k = 0; k < 90; k++) {           // soft concentric ripples
-      var rr = r * (0.42 + k / 90 * 0.58);
-      g.strokeStyle = 'rgba(255,255,255,' + (0.10 + 0.10 * Math.sin(k * 0.45)) + ')';
-      g.lineWidth = 2; g.beginPath(); g.arc(r, r, rr, 0, Math.PI * 2); g.stroke();
-    }
-  });
-  var platter = new THREE.Group(); platter.position.y = -1.02; sA.add(platter);
-  var platterSide = new THREE.MeshStandardMaterial({ color: 0x6b7a90, roughness: 0.5, metalness: 0.3 });
-  platter.add(new THREE.Mesh(new THREE.CylinderGeometry(2.75, 2.75, 0.12, 96),
-    [platterSide, new THREE.MeshStandardMaterial({ map: ringTex, roughness: 0.4, metalness: 0.2 }), platterSide]));
-
-  var waferTex = canvasTex(1024, function (g, s) {
-    var r = s / 2;
-    var gr = g.createRadialGradient(r, r, 0, r, r, r);
-    gr.addColorStop(0, '#5b2bd6'); gr.addColorStop(0.92, '#3b1a9a'); gr.addColorStop(1, '#3b1a9a');
-    g.fillStyle = gr; g.beginPath(); g.arc(r, r, r * 0.94, 0, Math.PI * 2); g.fill();
-    g.fillStyle = 'rgba(196,181,253,0.85)';
-    var a = 13, h = a * Math.sqrt(3) / 2;
-    for (var y = 0, row = 0; y < s; y += h, row++) for (var x = (row % 2) * a / 2; x < s; x += a) {
-      if (Math.hypot(x - r, y - r) < r * 0.9) { g.beginPath(); g.arc(x, y, 2.2, 0, Math.PI * 2); g.fill(); }
-    }
-    g.shadowColor = '#67e8f9'; g.shadowBlur = 30; g.strokeStyle = '#a5f3fc'; g.lineWidth = 14;
-    g.beginPath(); g.arc(r, r, r * 0.94, 0, Math.PI * 2); g.stroke();
-  });
-  var wafer = new THREE.Mesh(new THREE.CircleGeometry(1.3, 96),
-    new THREE.MeshBasicMaterial({ map: waferTex, transparent: true }));
-  wafer.rotation.x = -Math.PI / 2; wafer.position.y = 0.065; platter.add(wafer);
-  var halo = new THREE.Mesh(new THREE.RingGeometry(1.25, 1.75, 96),
-    new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.12, blending: THREE.AdditiveBlending, depthWrite: false }));
-  halo.rotation.x = -Math.PI / 2; halo.position.y = 0.07; platter.add(halo);
-  var dust = points(500, function (i, p, c) {
-    var a = Math.random() * Math.PI * 2, r = Math.sqrt(rand(0.2, 1)) * 2.7;
-    p[i * 3] = Math.cos(a) * r; p[i * 3 + 1] = 0.08; p[i * 3 + 2] = Math.sin(a) * r;
-    c.setHSL(0.55, 0.6, rand(0.75, 0.95));
-  }, 0.03, 0.55);
-  platter.add(dust);
-
-  var GAS = 1100, gasTop = 2.02, gasBot = -0.92;
-  var gas = points(GAS, function (i, p, c) {
-    var a = Math.random() * Math.PI * 2, r = Math.sqrt(Math.random()) * 2.95;
-    p[i * 3] = Math.cos(a) * r; p[i * 3 + 1] = rand(gasBot, gasTop); p[i * 3 + 2] = Math.sin(a) * r;
-    Math.random() < 0.3 ? c.setHex(0x818cf8) : c.setHSL(0.55, 0.7, rand(0.75, 0.95));
-  }, 0.04, 0.9);
-  var gasSpeed = new Float32Array(GAS); for (var gi = 0; gi < GAS; gi++) gasSpeed[gi] = rand(0.35, 0.8);
-  sA.add(gas);
-
-  /* ───────── Scene B: the MoS2 monolayer ───────── */
-  var sB = new THREE.Scene();
-  var cB = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
-  sB.add(new THREE.AmbientLight(0xffffff, 0.45));
-  var dB = new THREE.DirectionalLight(0xffffff, 1.15); dB.position.set(-4, 7, 4); sB.add(dB);
-  var rim = new THREE.PointLight(0x67e8f9, 1.2, 14); rim.position.set(3, 2, -3); sB.add(rim);
-  var lattice = new THREE.Group(); sB.add(lattice);
-
-  var A = 0.62, R = 3.1, H = 0.36, S3 = Math.sqrt(3);
-  var V = [[A / 2, A / (2 * S3)], [-A / 2, A / (2 * S3)], [0, -A / S3]];
-  var mo = [], sSites = {}, sList = [], bonds = [];
-  var key = function (x, z) { return Math.round(x * 100) + ',' + Math.round(z * 100); };
-  function birth(r) { return 0.3 + (r / R) * 6.2 + rand(0, 1.3); }
-  for (var i = -12; i <= 12; i++) for (var j = -12; j <= 12; j++) {
-    var x = A * (i + j / 2), z = A * j * S3 / 2, r = Math.hypot(x, z);
-    if (r < R) mo.push({ x: x, z: z, t: birth(r) });
-    var sx = x + V[0][0], sz = z + V[0][1], sr = Math.hypot(sx, sz);
-    if (sr < R + 0.15) {
-      var site = { x: sx, z: sz, t: [birth(sr) + 0.25, birth(sr) + 0.35] };
-      sSites[key(sx, sz)] = site; sList.push(site);
-    }
+  var GAS = 2600, gasPos = new Float32Array(GAS * 3);
+  for (var i = 0; i < GAS; i++) {
+    var gr = 2.1 * Math.sqrt(Math.random()), ga = Math.random() * Math.PI * 2;
+    gasPos[i * 3] = gr * Math.cos(ga); gasPos[i * 3 + 2] = gr * Math.sin(ga);
   }
-  mo.forEach(function (m) {
-    V.forEach(function (v) {
-      var s = sSites[key(m.x + v[0], m.z + v[1])];
-      if (!s) return;
-      [0, 1].forEach(function (k) { bonds.push({ a: m, b: s, y: k ? -H : H, t: Math.max(m.t, s.t[k]) + 0.6 }); });
+  chamber.add(pointCloud(gasPos, GAS, [
+    'attribute vec4 aRand; uniform float uTime; uniform float uPx; varying float vA; varying float vMix;',
+    'void main(){',
+    '  float ph = fract(aRand.x + uTime * (0.22 + 0.18 * aRand.y));',
+    '  vec3 p = position; p.y = mix(2.3, 0.06, ph);',
+    '  p.x += sin(uTime * 1.3 + aRand.z * 6.283) * 0.05;',
+    '  vec4 mv = modelViewMatrix * vec4(p, 1.0);',
+    '  gl_Position = projectionMatrix * mv;',
+    '  gl_PointSize = uPx * (3.0 + 4.0 * aRand.w) / -mv.z;',
+    '  vA = smoothstep(0.0, 0.08, ph) * (1.0 - smoothstep(0.85, 1.0, ph)); vMix = aRand.y;',
+    '}'].join('\n'), [
+    'uniform float uFade; varying float vA; varying float vMix;',
+    'void main(){',
+    '  float a = (1.0 - smoothstep(0.0, 0.5, length(gl_PointCoord - 0.5))) * vA * uFade;',
+    '  vec3 col = mix(vec3(0.65, 0.42, 1.0), vec3(0.3, 0.85, 1.0), vMix);',
+    '  gl_FragColor = vec4(col * a, a);',
+    '}'].join('\n'), U.chamber));
+
+  /* ───────── Atomic scene ───────── */
+  var world = new THREE.Group(); scene.add(world);      // plasma + light: fixed in space
+  var layer = new THREE.Group(); world.add(layer);      // the growing monolayer: slowly turns
+
+  // plasma glow from above
+  var PL = 900, plPos = new Float32Array(PL * 3);
+  for (i = 0; i < PL; i++) {
+    var pr = 6.2 * Math.sqrt(Math.random()), pa = Math.random() * Math.PI * 2;
+    plPos[i * 3] = pr * Math.cos(pa); plPos[i * 3 + 1] = 7.2 + 1.6 * Math.random(); plPos[i * 3 + 2] = pr * Math.sin(pa);
+  }
+  world.add(pointCloud(plPos, PL, [
+    'attribute vec4 aRand; uniform float uTime; uniform float uPx; varying float vA; varying float vMix;',
+    'void main(){',
+    '  float ang = uTime * (0.12 + 0.18 * aRand.x); float c = cos(ang); float s = sin(ang);',
+    '  vec3 p = vec3(position.x * c - position.z * s, position.y, position.x * s + position.z * c);',
+    '  float fall = fract(aRand.w + uTime * 0.08);',
+    '  p.y -= fall * 3.0;',
+    '  p.y += sin(uTime * 1.4 + aRand.y * 6.283) * 0.12;',
+    '  vec4 mv = modelViewMatrix * vec4(p, 1.0);',
+    '  gl_Position = projectionMatrix * mv;',
+    '  gl_PointSize = uPx * (70.0 + 110.0 * aRand.z) / -mv.z;',
+    '  float fl = 0.5 + 0.5 * sin(uTime * 3.0 + aRand.z * 40.0);',
+    '  vA = (0.35 + 0.65 * fl * fl) * smoothstep(0.0, 0.15, fall) * (1.0 - smoothstep(0.75, 1.0, fall));',
+    '  vMix = aRand.y;',
+    '}'].join('\n'), [
+    'uniform float uFade; varying float vA; varying float vMix;',
+    'void main(){',
+    '  float a = 1.0 - smoothstep(0.0, 0.5, length(gl_PointCoord - 0.5));',
+    '  a = a * a * vA * uFade * 0.5;',
+    '  vec3 col = mix(vec3(0.55, 0.3, 1.0), vec3(0.95, 0.4, 0.95), vMix);',
+    '  gl_FragColor = vec4(col * a, a);',
+    '}'].join('\n'), U.lattice));
+
+  // UV light: a widening shaft entering from the side
+  var BEAM = 3600;
+  world.add(pointCloud(new Float32Array(BEAM * 3), BEAM, [
+    'attribute vec4 aRand; uniform float uTime; uniform float uPx; uniform vec3 uFrom; uniform vec3 uTo; varying float vA;',
+    'void main(){',
+    '  vec3 d = uTo - uFrom; vec3 dir = normalize(d);',
+    '  vec3 up = abs(dir.y) < 0.95 ? vec3(0.0, 1.0, 0.0) : vec3(1.0, 0.0, 0.0);',
+    '  vec3 ax = normalize(cross(dir, up)); vec3 ay = cross(ax, dir);',
+    '  float u = fract(aRand.x + uTime * (0.35 + 0.2 * aRand.w));',
+    '  float r = sqrt(aRand.y) * (0.25 + 1.6 * u);',
+    '  float th = aRand.z * 6.283;',
+    '  vec3 p = uFrom + d * u + (ax * cos(th) + ay * sin(th)) * r;',
+    '  vec4 mv = modelViewMatrix * vec4(p, 1.0);',
+    '  gl_Position = projectionMatrix * mv;',
+    '  gl_PointSize = uPx * (40.0 + 50.0 * aRand.w) / -mv.z;',
+    '  vA = smoothstep(0.0, 0.08, u) * (1.0 - smoothstep(0.9, 1.0, u)) * (0.6 + 0.4 * (1.0 - aRand.y));',
+    '}'].join('\n'), [
+    'uniform float uFade; varying float vA;',
+    'void main(){',
+    '  float a = 1.0 - smoothstep(0.0, 0.5, length(gl_PointCoord - 0.5));',
+    '  a = a * a * vA * uFade * 0.35;',
+    '  gl_FragColor = vec4(vec3(0.85, 0.97, 1.0) * a, a);',
+    '}'].join('\n'), U.lattice,
+    { uFrom: { value: new THREE.Vector3(-3.4, 9, 3) }, uTo: { value: new THREE.Vector3(0.5, 0.6, 0.3) } }));
+
+  // lattice sites: Mo on a triangular lattice, S above and below the hollow sites
+  var SQ3 = Math.sqrt(3), atoms = [], sKey = {};
+  var key = function (x, y, z) { return Math.round(x * 100) + ',' + Math.round(y * 100) + ',' + Math.round(z * 100); };
+  for (var a = -8; a <= 8; a++) for (var b = -8; b <= 8; b++) {
+    var x = a + 0.5 * b, z = b * SQ3 / 2, r = Math.hypot(x, z);
+    if (r > 5.3) continue;
+    atoms.push({ pos: [x, 0, z], mo: true, t: 1.2 + 7.5 * r / 5.3 + 0.7 * Math.random() });
+    var sx = x + 0.5, sz = z + 1 / (2 * SQ3), sr = Math.hypot(sx, sz);
+    if (sr <= 5.7) [0.75, -0.75].forEach(function (y) {
+      sKey[key(sx, y, sz)] = atoms.length;
+      atoms.push({ pos: [sx, y, sz], mo: false, t: 1.2 + sr / 5.3 * 7.5 + 0.7 * Math.random() });
+    });
+  }
+  var HOLES = [[0.5, 1 / (2 * SQ3)], [-0.5, 1 / (2 * SQ3)], [0, -1 / SQ3]], bonds = [];
+  atoms.forEach(function (m, k) {
+    if (!m.mo) return;
+    HOLES.forEach(function (h) { [0.75, -0.75].forEach(function (y) {
+      var s = sKey[key(m.pos[0] + h[0], y, m.pos[2] + h[1])];
+      if (s !== undefined) bonds.push([k, s]);
+    }); });
+  });
+
+  // every atom arrives inside a precursor molecule: Mo(CO)6 for Mo, a two-armed carrier for S
+  var COL = { Mo: '#2dd4bf', S: '#facc15', C: '#9ca3af', O: '#f87171', H: '#e5e7eb' };
+  var AXES = [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]], ARMS = [[0.82, 0.57, 0], [-0.82, 0.57, 0]];
+  var parts = [];
+  atoms.forEach(function (m, k) {
+    m.spin = [Math.random() * 6.283, Math.random() * 6.283];
+    m.from = [m.pos[0] + (Math.random() - 0.5) * 2, m.pos[1] + 4.5 + 2 * Math.random(), m.pos[2] + (Math.random() - 0.5) * 2];
+    parts.push({ k: k, color: m.mo ? COL.Mo : COL.S, size: m.mo ? 0.34 : 0.28 });
+    if (m.mo) AXES.forEach(function (d) {
+      parts.push({ k: k, lig: d, dist: 0.8, color: COL.C, size: 0.11 });
+      parts.push({ k: k, lig: d, dist: 1.15, color: COL.O, size: 0.11 });
+    });
+    else ARMS.forEach(function (d) {
+      parts.push({ k: k, lig: d, dist: 0.75, color: COL.C, size: 0.11 });
+      parts.push({ k: k, lig: [1.3 * d[0], 1.6 * d[1], 0.35], dist: 0.95, color: COL.H, size: 0.08 });
     });
   });
 
-  var sphere = new THREE.SphereGeometry(1, 22, 16);
-  var moMesh = new THREE.InstancedMesh(sphere, new THREE.MeshStandardMaterial({ roughness: 0.3, metalness: 0.15 }), mo.length);
-  var sMesh = new THREE.InstancedMesh(sphere, new THREE.MeshStandardMaterial({ roughness: 0.3, metalness: 0.2 }), sList.length * 2);
-  var bMesh = new THREE.InstancedMesh(new THREE.CylinderGeometry(1, 1, 1, 6),
-    new THREE.MeshStandardMaterial({ color: 0x8796ab, roughness: 0.5, metalness: 0.3 }), bonds.length);
-  var col = new THREE.Color();
-  mo.forEach(function (m, k) { moMesh.setColorAt(k, col.setHex(Math.random() < 0.12 ? 0x7af3ff : 0x14b8a6)); });
-  for (var k = 0; k < sList.length * 2; k++) sMesh.setColorAt(k, col.setHex(Math.random() < 0.1 ? 0xfff07a : 0xeab308));
-  [moMesh, sMesh, bMesh].forEach(function (m) { m.instanceMatrix.setUsage(THREE.DynamicDrawUsage); lattice.add(m); });
+  var BALL_FS = [
+    'uniform vec3 uBg; uniform float uFade; varying vec3 vN; varying vec3 vV; varying vec3 vCol; varying vec2 vData;',
+    'void main(){',
+    '  vec3 N = normalize(vN); vec3 V = normalize(-vV); vec3 L = normalize(vec3(0.4, 0.9, 0.5));',
+    '  float diff = max(dot(N, L), 0.0);',
+    '  float spec = pow(max(dot(N, normalize(L + V)), 0.0), 48.0);',
+    '  float rim = pow(1.0 - max(dot(N, V), 0.0), 2.5);',
+    '  vec3 lit = vCol * (0.22 + 0.78 * diff) + vec3(0.9) * spec * 0.55 + vCol * rim * 0.5;',
+    '  lit += mix(vCol, vec3(1.0), 0.35) * vData.y * (0.6 + rim);',
+    '  gl_FragColor = vec4(mix(uBg, lit, clamp(uFade * vData.x, 0.0, 1.0)), 1.0);',
+    '}'].join('\n');
+  function instanced(src, n, attrs) {
+    var g = new THREE.InstancedBufferGeometry();
+    g.index = src.index;
+    g.setAttribute('position', src.attributes.position);
+    g.setAttribute('normal', src.attributes.normal);
+    for (var k in attrs) { attrs[k].setUsage(THREE.DynamicDrawUsage); g.setAttribute(k, attrs[k]); }
+    g.instanceCount = n;
+    return g;
+  }
+  var NP = parts.length;
+  var aOff = new THREE.InstancedBufferAttribute(new Float32Array(NP * 3), 3);
+  var aCol = new THREE.InstancedBufferAttribute(new Float32Array(NP * 3), 3);
+  var aDat = new THREE.InstancedBufferAttribute(new Float32Array(NP * 3), 3);
+  parts.forEach(function (p, k) { var c = rgb(p.color); aCol.setXYZ(k, c.r, c.g, c.b); });
+  var balls = new THREE.Mesh(instanced(new THREE.SphereGeometry(1, 18, 12), NP, { aOffset: aOff, aColor: aCol, aData: aDat }),
+    new THREE.ShaderMaterial({ uniforms: { uBg: U.bg, uFade: U.lattice }, fragmentShader: BALL_FS, vertexShader: [
+      'attribute vec3 aOffset; attribute vec3 aColor; attribute vec3 aData;',
+      'varying vec3 vN; varying vec3 vV; varying vec3 vCol; varying vec2 vData;',
+      'void main(){',
+      '  vec4 mv = modelViewMatrix * vec4(aOffset + position * aData.x * smoothstep(0.0, 0.35, aData.y), 1.0);',
+      '  vN = normalize(normalMatrix * normal); vV = mv.xyz; vCol = aColor; vData = aData.yz;',
+      '  gl_Position = projectionMatrix * mv;',
+      '}'].join('\n') }));
+  balls.frustumCulled = false; layer.add(balls);
 
-  var Y = new THREE.Vector3(0, 1, 0), tmp = new THREE.Object3D(), va = new THREE.Vector3(), vb = new THREE.Vector3();
-  function atomAt(mesh, idx, x, y, z, rad, t0, tl) {
-    var p = clamp01((tl - t0) / 0.75), e = easeOut(p);
-    tmp.position.set(x, y + (1 - e) * 1.6, z);
-    tmp.quaternion.identity();
-    tmp.scale.setScalar(p > 0 ? rad * (0.35 + 0.65 * e) : 0.0001);
-    tmp.updateMatrix(); mesh.setMatrixAt(idx, tmp.matrix);
-  }
-  function updateLattice(tl) {
-    mo.forEach(function (m, k) { atomAt(moMesh, k, m.x, 0, m.z, 0.21, m.t, tl); });
-    sList.forEach(function (s, k) {
-      atomAt(sMesh, k * 2, s.x, H, s.z, 0.17, s.t[0], tl);
-      atomAt(sMesh, k * 2 + 1, s.x, -H, s.z, 0.17, s.t[1], tl);
-    });
-    bonds.forEach(function (b, k) {
-      var g = clamp01((tl - b.t) / 0.4);
-      va.set(b.a.x, 0, b.a.z); vb.set(b.b.x, b.y, b.b.z);
-      tmp.position.copy(va).add(vb).multiplyScalar(0.5);
-      vb.sub(va); var len = vb.length();
-      tmp.quaternion.setFromUnitVectors(Y, vb.normalize());
-      tmp.scale.set(g > 0 ? 0.028 : 0.0001, Math.max(len * g, 0.0001), g > 0 ? 0.028 : 0.0001);
-      tmp.updateMatrix(); bMesh.setMatrixAt(k, tmp.matrix);
-    });
-    moMesh.instanceMatrix.needsUpdate = sMesh.instanceMatrix.needsUpdate = bMesh.instanceMatrix.needsUpdate = true;
-  }
+  var NB = bonds.length;
+  var aA = new THREE.InstancedBufferAttribute(new Float32Array(NB * 3), 3);
+  var aB = new THREE.InstancedBufferAttribute(new Float32Array(NB * 3), 3);
+  var aBond = new THREE.InstancedBufferAttribute(new Float32Array(NB * 2), 2);
+  bonds.forEach(function (bd, k) { var p = atoms[bd[0]].pos, q = atoms[bd[1]].pos; aA.setXYZ(k, p[0], p[1], p[2]); aB.setXYZ(k, q[0], q[1], q[2]); });
+  var sticks = new THREE.Mesh(instanced(new THREE.CylinderGeometry(1, 1, 1, 10, 1, true), NB, { aA: aA, aB: aB, aBond: aBond }),
+    new THREE.ShaderMaterial({ uniforms: { uBg: U.bg, uFade: U.lattice }, fragmentShader: BALL_FS, vertexShader: [
+      'attribute vec3 aA; attribute vec3 aB; attribute vec2 aBond;',
+      'varying vec3 vN; varying vec3 vV; varying vec3 vCol; varying vec2 vData;',
+      'void main(){',
+      '  vec3 d = aB - aA; float len = max(length(d), 1e-4); vec3 y = d / len;',
+      '  vec3 up = abs(y.y) < 0.99 ? vec3(0.0, 1.0, 0.0) : vec3(1.0, 0.0, 0.0);',
+      '  vec3 x = normalize(cross(up, y)); vec3 z = cross(y, x);',
+      '  float rad = aBond.x * smoothstep(0.0, 0.35, aBond.y);',
+      '  vec3 p = aA + x * position.x * rad + y * (position.y + 0.5) * len + z * position.z * rad;',
+      '  vec4 mv = modelViewMatrix * vec4(p, 1.0);',
+      '  vN = normalize(normalMatrix * (x * normal.x + y * normal.y + z * normal.z));',
+      '  vV = mv.xyz; vCol = vec3(0.62, 0.68, 0.8); vData = vec2(aBond.y, 0.0);',
+      '  gl_Position = projectionMatrix * mv;',
+      '}'].join('\n') }));
+  sticks.frustumCulled = false; layer.add(sticks);
 
-  // precursor molecules: metal core + two ligands, cracking as they reach the surface
-  var MOL = 46, mols = [];
-  var core = new THREE.InstancedMesh(sphere, new THREE.MeshStandardMaterial({ color: 0x6b7280, roughness: 0.4 }), MOL);
-  var lig = new THREE.InstancedMesh(sphere, new THREE.MeshStandardMaterial({ color: 0xef4444, roughness: 0.4 }), MOL * 2);
-  [core, lig].forEach(function (m) { m.instanceMatrix.setUsage(THREE.DynamicDrawUsage); sB.add(m); });
-  function spawnMol(m, anyY) {
-    var a = Math.random() * Math.PI * 2, r = Math.sqrt(Math.random()) * 3.8;
-    m.x = Math.cos(a) * r; m.z = Math.sin(a) * r; m.y = anyY ? rand(0.6, 3.6) : rand(3.2, 3.8);
-    m.vy = rand(0.25, 0.55); m.rot = rand(0, 6.28); m.spin = rand(-1.5, 1.5);
-  }
-  for (var mi = 0; mi < MOL; mi++) { var mm = {}; spawnMol(mm, true); mols.push(mm); }
-  function updateMols(dt) {
-    mols.forEach(function (m, k) {
-      m.y -= m.vy * dt; m.rot += m.spin * dt;
-      if (m.y < 0.5) spawnMol(m, false);
-      var sc = clamp01((m.y - 0.55) / 0.5) * clamp01((3.8 - m.y) / 0.4);
-      tmp.quaternion.identity();
-      tmp.position.set(m.x, m.y, m.z); tmp.scale.setScalar(0.05 * sc + 0.0001); tmp.updateMatrix(); core.setMatrixAt(k, tmp.matrix);
-      for (var s = 0; s < 2; s++) {
-        var ang = m.rot + s * Math.PI, spread = 0.11 + (1 - sc) * 0.25;   // ligands drift apart as they crack
-        tmp.position.set(m.x + Math.cos(ang) * spread, m.y + (s ? 0.03 : -0.03), m.z + Math.sin(ang) * spread);
-        tmp.scale.setScalar(0.034 * sc + 0.0001); tmp.updateMatrix(); lig.setMatrixAt(k * 2 + s, tmp.matrix);
+  var cur = new Float32Array(atoms.length * 3), seated = new Float32Array(atoms.length);
+  function updateLayer(e) {
+    atoms.forEach(function (m, k) {
+      var t0 = m.t - 2.4, t1 = m.t - 0.7, x, y, z;
+      if (e < t1) {                                       // carried in from the plasma
+        var q = ease((e - t0) / (t1 - t0));
+        x = lerp(m.from[0], m.pos[0], q); y = lerp(m.from[1], m.pos[1] + 1.7, q); z = lerp(m.from[2], m.pos[2], q);
+      } else {                                            // cracked: the bare atom settles
+        var s = ease((e - t1) / 0.7);
+        x = m.pos[0]; y = lerp(m.pos[1] + 1.7, m.pos[1], s); z = m.pos[2];
       }
+      cur[k * 3] = x; cur[k * 3 + 1] = y; cur[k * 3 + 2] = z;
+      seated[k] = smooth(m.t - 0.1, m.t + 0.4, e);
     });
-    core.instanceMatrix.needsUpdate = lig.instanceMatrix.needsUpdate = true;
+    parts.forEach(function (p, i) {
+      var m = atoms[p.k], o = p.k * 3, on = e > m.t - 2.4 ? 1 : 0, crack = m.t - 0.7;
+      if (!p.lig) {
+        aOff.setXYZ(i, cur[o], cur[o + 1], cur[o + 2]);
+        aDat.setXYZ(i, p.size * on, on, 1.4 * Math.exp(-Math.pow((e - crack) / 0.25, 2)));
+        return;
+      }
+      var yaw = m.spin[0] + 1.6 * e, cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(m.spin[1]), sp = Math.sin(m.spin[1]);
+      var dx = p.lig[0], dy = p.lig[1], dz = p.lig[2], tz;
+      tz = dx * sy + dz * cy; dx = dx * cy - dz * sy; dz = tz;
+      tz = dy * sp + dz * cp; dy = dy * cp - dz * sp; dz = tz;
+      var after = Math.max(0, e - crack), dist = p.dist + 5 * after, gone = smooth(0, 0.8, after);
+      aOff.setXYZ(i, cur[o] + dx * dist, cur[o + 1] + dy * dist + 1.5 * after, cur[o + 2] + dz * dist);
+      aDat.setXYZ(i, p.size * on * (1 - gone), on * (1 - gone), 0);
+    });
+    bonds.forEach(function (bd, k) { aBond.setXY(k, 0.07, Math.min(seated[bd[0]], seated[bd[1]])); });
+    aOff.needsUpdate = aDat.needsUpdate = aBond.needsUpdate = true;
   }
-
-  // plasma cloud from above
-  var PL = 1700, plSpeed = new Float32Array(PL);
-  var plasma = points(PL, function (i, p, c) {
-    p[i * 3] = rand(-1, 1) * rand(0.3, 3.4); p[i * 3 + 1] = rand(1.4, 4.4); p[i * 3 + 2] = rand(-1, 1) * rand(0.3, 2.6);
-    c.setHSL(rand(0.72, 0.8), 0.85, rand(0.5, 0.72)); plSpeed[i] = rand(0.15, 0.45);
-  }, 0.2, 0.75);
-  sB.add(plasma);
-
-  // UV light beam, entering from the side at an angle
-  var BEAM = 2000, bA = new THREE.Vector3(-3.0, 4.9, -1.4), bB = new THREE.Vector3(0.1, 0.45, 0.1);
-  var bDir = bB.clone().sub(bA), p1 = new THREE.Vector3().crossVectors(bDir, Y).normalize(), p2 = new THREE.Vector3().crossVectors(bDir, p1).normalize();
-  var bU = new Float32Array(BEAM), bO = [];
-  var beam = points(BEAM, function (i, p, c) {
-    bU[i] = Math.random(); var a = Math.random() * 6.283, r = Math.pow(Math.random(), 0.7);
-    bO.push([Math.cos(a) * r, Math.sin(a) * r]);
-    Math.random() < 0.4 ? c.setHex(0xa5f3fc) : c.setHex(0xf1f5f9);
-  }, 0.085, 0.95);
-  sB.add(beam);
-  function updateBeam(dt) {
-    var pos = beam.geometry.attributes.position.array;
-    for (var i = 0; i < BEAM; i++) {
-      bU[i] += dt * 0.32; if (bU[i] > 1) bU[i] -= 1;
-      var u = bU[i], w = 0.06 + 0.42 * u * u;
-      pos[i * 3]     = bA.x + bDir.x * u + (p1.x * bO[i][0] + p2.x * bO[i][1]) * w;
-      pos[i * 3 + 1] = bA.y + bDir.y * u + (p1.y * bO[i][0] + p2.y * bO[i][1]) * w;
-      pos[i * 3 + 2] = bA.z + bDir.z * u + (p1.z * bO[i][0] + p2.z * bO[i][1]) * w;
-    }
-    beam.geometry.attributes.position.needsUpdate = true;
-  }
-  function fall(pts, speeds, top, bot, dt) {
-    var pos = pts.geometry.attributes.position.array;
-    for (var i = 0; i < speeds.length; i++) {
-      pos[i * 3 + 1] -= speeds[i] * dt;
-      if (pos[i * 3 + 1] < bot) pos[i * 3 + 1] = top;
-    }
-    pts.geometry.attributes.position.needsUpdate = true;
-  }
-  sB.add(points(260, function (i, p, c) {               // faint background specks
-    p[i * 3] = rand(-9, 9); p[i * 3 + 1] = rand(-4, 7); p[i * 3 + 2] = rand(-9, -3); c.setHSL(0.6, 0.3, rand(0.3, 0.6));
-  }, 0.05, 0.5));
 
   /* ───────── Labels ───────── */
-  var anchors = {
-    gas: new THREE.Vector3(2.35, 1.1, 1.2), wafer: new THREE.Vector3(1.32, -0.94, 0.3),
-    plasma: new THREE.Vector3(0.4, 3.6, -1.0), light: bA.clone().add(bDir.clone().multiplyScalar(0.52)).add(new THREE.Vector3(0.45, 0, 0))
-  };
-  var W = 1, Hh = 1, pv = new THREE.Vector3();
-  function placeLabel(k, cam, on) {
-    var el = labels[k]; if (!el) return;
-    el.classList.toggle('on', on);
-    if (!on) return;
-    pv.copy(anchors[k]).project(cam);
-    var px = (pv.x + 1) / 2 * W, py = Math.min(Math.max((1 - pv.y) / 2 * Hh, 16), Hh - 16), flip = px + el.offsetWidth > W - 12;
-    el.classList.toggle('flip', flip);
-    el.style.transform = 'translate(' + px.toFixed(1) + 'px,' + py.toFixed(1) + 'px) translate(' + (flip ? '-100%' : '0') + ',-50%)';
+  var TAGS = [
+    { el: root.querySelector('[data-k="plasma"]'), at: new THREE.Vector3(-2.5, 8.6, 0), from: 10.2 },
+    { el: root.querySelector('[data-k="light"]'), at: new THREE.Vector3(-2, 6.6, 2.1), from: 10.8 }
+  ];
+  var W = 1, H = 1, pv = new THREE.Vector3();
+  function updateTags(l, fade) {
+    TAGS.forEach(function (tg) {
+      if (!tg.el) return;
+      var op = 0;
+      if (l >= tg.from) {
+        pv.copy(tg.at).project(cam);
+        if (pv.z < 1 && Math.abs(pv.x) < 1.05 && Math.abs(pv.y) < 1.05) {
+          op = smooth(tg.from, tg.from + 0.5, l) * (1 - smooth(LOOP - 0.6, LOOP - 0.1, l)) * fade;
+          var x = (pv.x + 1) / 2 * W, w = tg.el.offsetWidth;
+          if (x + w + 24 > W) x = Math.max(0, x - w - 24);
+          tg.el.style.transform = 'translate(' + x.toFixed(1) + 'px,' + ((1 - pv.y) / 2 * H).toFixed(1) + 'px) translateY(-50%)';
+        }
+      }
+      var s = op.toFixed(3);
+      if (tg.el.style.opacity !== s) tg.el.style.opacity = s;
+    });
   }
 
   /* ───────── Timeline ───────── */
-  var LOOP = 22, SWITCH = 5.6, phase = null;
-  var CAPS = {
-    A: ['Inside the chamber, below 450 °C.', 'Precursor gas flows down onto a 300 mm wafer spinning on a heated susceptor.'],
-    B: ['A machine that grows semiconductors a few atoms thick.', 'Plasma and light crack the precursor molecules, and molybdenum and sulfur settle into one atomic layer of MoS₂.']
-  };
-  function setPhase(p) {
-    if (p === phase) return;
-    var first = phase === null; phase = p;
-    if (first) { capTitle.textContent = CAPS[p][0]; capText.textContent = CAPS[p][1]; return; }
-    caption.style.opacity = 0;
-    setTimeout(function () { capTitle.textContent = CAPS[p][0]; capText.textContent = CAPS[p][1]; caption.style.opacity = 1; }, 250);
-  }
-  function fadeAt(t) {
-    if (t < 0.5) return 1 - t / 0.5;
-    if (t > 5.0 && t < SWITCH) return (t - 5.0) / 0.6;
-    if (t >= SWITCH && t < SWITCH + 0.6) return 1 - (t - SWITCH) / 0.6;
-    if (t > LOOP - 0.6) return (t - (LOOP - 0.6)) / 0.6;
-    return 0;
-  }
-  var camFrom = new THREE.Vector3(0, 2.6, 11.2), camTo = new THREE.Vector3(0, 0.6, 3.2);
-  var lookFrom = new THREE.Vector3(0, 0.1, 0), lookTo = new THREE.Vector3(0, -0.95, 0), look = new THREE.Vector3();
+  var lineIdx = 0;
+  function frame(l) {
+    var fade = smooth(0, 0.8, l) * (1 - smooth(LOOP - 0.8, LOOP, l));
+    U.chamber.value = fade * (1 - smooth(8.2, 9.2, l));
+    U.lattice.value = fade * smooth(9.2, 10.2, l);
+    chamber.visible = U.chamber.value > 0.002;
+    world.visible = U.lattice.value > 0.002;
 
-  function frame(t, dt) {
-    fade.style.opacity = fadeAt(t).toFixed(3);
-    if (t < SWITCH) {
-      setPhase('A');
-      var d = easeInOut(clamp01((t - 4.3) / 1.3));
-      cA.position.lerpVectors(camFrom, camTo, d);
-      look.lerpVectors(lookFrom, lookTo, d); cA.lookAt(look);
-      platter.rotation.y += dt * 0.35;
-      fall(gas, gasSpeed, gasTop, gasBot, dt);
-      renderer.render(sA, cA);
-      placeLabel('gas', cA, t > 0.8 && t < 4.3); placeLabel('wafer', cA, t > 1.4 && t < 4.3);
-      placeLabel('plasma', cB, false); placeLabel('light', cB, false);
-    } else {
-      setPhase('B');
-      var tl = t - SWITCH;
-      lattice.rotation.y = -0.35 + tl * 0.035;
-      updateLattice(tl); updateMols(dt); updateBeam(dt);
-      fall(plasma, plSpeed, 4.4, 1.4, dt);
-      cB.position.set(Math.sin(tl * 0.04) * 0.8, 5.6, 10.2); cB.lookAt(0, 0.7, 0);
-      renderer.render(sB, cB);
-      placeLabel('gas', cA, false); placeLabel('wafer', cA, false);
-      placeLabel('plasma', cB, tl > 0.8 && t < LOOP - 0.8); placeLabel('light', cB, tl > 1.4 && t < LOOP - 0.8);
+    susceptor.material.uniforms.uGrow.value = 2.2 * ease((l - 2) / 6.5);
+    susceptor.rotation.y = 0.08 * U.time.value;
+
+    if (l < SWITCH) {                                    // orbit the chamber, then dive to the wafer
+      var ang = 0.5 + 0.045 * l, d = ease((l - 7) / 2.2), R = lerp(9.6, 4.5, d);
+      cam.position.set(Math.sin(ang) * R, lerp(4.2, 2.2, d), Math.cos(ang) * R);
+      cam.lookAt(0, lerp(0.8, 0, d), 0);
+    } else {                                             // atomic view, drifting slowly in
+      var e = l - SWITCH, a2 = 0.55 + 0.03 * e, q = ease(e / 9), R2 = lerp(25, 21, q);
+      layer.rotation.y = 0.35 + 0.035 * e;
+      if (world.visible) updateLayer(e);
+      cam.position.set(Math.sin(a2) * R2, lerp(9.5, 10.5, q), Math.cos(a2) * R2);
+      cam.lookAt(0, 2.4, 0);
     }
+    var li = l > SWITCH ? 1 : 0;
+    if (li !== lineIdx) { lineIdx = li; lineEl.textContent = LINES[li]; }
+    renderer.render(scene, cam);
+    updateTags(l, fade);
   }
 
   function resize() {
-    W = stage.clientWidth || 1; Hh = stage.clientHeight || 1;
-    renderer.setSize(W, Hh, false);
-    cA.aspect = cB.aspect = W / Hh;
-    // keep the scene framed on narrow/tall stages
-    cA.fov = cB.fov = W / Hh < 1.4 ? 38 : 32;
-    cA.updateProjectionMatrix(); cB.updateProjectionMatrix();
+    W = stage.clientWidth || 1; H = stage.clientHeight || 1;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2, Math.sqrt(8294400 / (W * H)));
+    renderer.setPixelRatio(dpr);
+    renderer.setSize(W, H, false);
+    cam.aspect = W / H; cam.updateProjectionMatrix();
+    U.px.value = H * dpr / 1080 * 6;
   }
   resize();
-  if (window.ResizeObserver) new ResizeObserver(function () { resize(); if (reduced) frame(SWITCH + 12, 0); }).observe(stage);
 
-  if (reduced) {                                         // static, fully grown layer
-    for (var w = 0; w < 30; w++) { updateMols(0.1); updateBeam(0.1); }
-    frame(SWITCH + 12, 0); return;
-  }
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var clock = reduced ? 0.6 * LOOP : 0;
+  if (window.ResizeObserver) new ResizeObserver(function () { resize(); if (reduced) frame(clock); }).observe(stage);
+  if (reduced) { U.time.value = clock; frame(clock); return; }
 
-  var t = 0, last = performance.now(), visible = true, running = true;
-  if (window.IntersectionObserver) new IntersectionObserver(function (e) { visible = e[0].isIntersecting; }).observe(root);
-  document.addEventListener('visibilitychange', function () { running = !document.hidden; });
+  var visible = true, last = performance.now();
+  if (window.IntersectionObserver) new IntersectionObserver(function (en) { visible = en[0].isIntersecting; }).observe(stage);
   (function loop(now) {
-    var dt = Math.min((now - last) / 1000, 0.05); last = now;
-    if (visible && running) {
-      t += dt;
-      if (t >= LOOP) { t -= LOOP; mols.forEach(function (m) { spawnMol(m, true); }); }
-      frame(t, dt);
-    }
     requestAnimationFrame(loop);
+    var dt = Math.min(0.1, (now - last) / 1000); last = now;
+    if (!visible || document.hidden) return;
+    clock += dt; if (clock >= LOOP) clock = 0;
+    U.time.value += dt;
+    frame(clock);
   })(last);
 })();
 </script>
 <script src="../assets/nav.js" defer></script>
-<script src="../assets/nanogalaxy-showcase.js" defer></script>
 <script>
 (function() {
     const params = new URLSearchParams(window.location.search);
