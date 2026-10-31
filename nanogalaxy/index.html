@@ -108,31 +108,33 @@
   gap: 8px;
 }
 .ng-btn-ghost:hover { border-color: var(--brand-blue); color: var(--brand-blue); }
-.ng-hero-visual {
-  background: var(--surface);
-  border: 1px solid var(--border);
+/* Hero visual — animated PPMOCVD growth sequence */
+.ng-blob {
+  background: #050a18;
+  border: 1px solid rgba(148,163,184,0.12);
   border-radius: 16px;
-  padding: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 360px;
-  position: relative;
   overflow: hidden;
+  box-shadow: 0 30px 60px -24px rgba(5,10,24,0.55);
 }
-.ng-hero-visual::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(43,207,255,0.06), transparent 60%);
+.ng-blob-stage { position: relative; aspect-ratio: 16 / 10; }
+.ng-blob-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.ng-blob-label {
+  position: absolute; left: 0; top: 0;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 13px; color: #e2e8f0; white-space: nowrap;
+  padding: 3px 0 3px 10px; border-left: 2px solid #38bdf8;
+  opacity: 0; transition: opacity 0.6s; pointer-events: none; will-change: transform;
 }
-.ng-hero-visual img {
-  max-width: 100%;
-  height: auto;
-  position: relative;
-  z-index: 1;
-  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
-}
+.ng-blob-label.on { opacity: 1; }
+.ng-blob-label.flip { border-left: 0; border-right: 2px solid #38bdf8; padding: 3px 10px 3px 0; }
+.ng-blob-fade { position: absolute; inset: 0; background: #050a18; opacity: 1; pointer-events: none; }
+.ng-blob-fallback { display: none; }
+.ng-blob-caption { padding: 1.25rem 1.5rem 1.5rem; border-top: 1px solid rgba(148,163,184,0.10); transition: opacity 0.5s; }
+.ng-blob-caption h3 { font-size: 1.05rem; color: #f8fafc; margin-bottom: 0.4rem; }
+.ng-blob-caption p { font-size: 13.5px; color: #94a3b8; line-height: 1.6; margin: 0; }
+.ng-blob.no-webgl canvas, .ng-blob.no-webgl .ng-blob-label, .ng-blob.no-webgl .ng-blob-fade { display: none; }
+.ng-blob.no-webgl .ng-blob-fallback { display: block; position: absolute; inset: 0; margin: auto; max-width: 85%; max-height: 85%; }
+@media (max-width: 560px) { .ng-blob-label { font-size: 11px; } }
 
 /* Stats */
 .ng-stats {
@@ -561,8 +563,20 @@
         <a class="ng-btn-ghost" href="#datasheet">View Datasheet</a>
       </div>
     </div>
-    <div class="ng-hero-visual">
-      <img src="../assets/nanogalaxy-machine.png" alt="NanoGalaxy PPMOCVD production tool" />
+    <div class="ng-blob" id="ngBlob">
+      <div class="ng-blob-stage" role="img" aria-label="Animation: inside the NanoGalaxy chamber, plasma and UV light grow a single atomic layer of MoS2 on a 300 mm wafer">
+        <canvas id="ngBlobCanvas"></canvas>
+        <img class="ng-blob-fallback" src="../assets/nanogalaxy-machine2.png" alt="NanoGalaxy PPMOCVD production tool" />
+        <div class="ng-blob-label" data-k="gas">precursor gas, flowing down</div>
+        <div class="ng-blob-label" data-k="wafer">300 mm wafer</div>
+        <div class="ng-blob-label" data-k="plasma">plasma, from above</div>
+        <div class="ng-blob-label" data-k="light">light, from the side at an angle</div>
+        <div class="ng-blob-fade"></div>
+      </div>
+      <div class="ng-blob-caption">
+        <h3 id="ngBlobTitle">Inside the chamber, below 450 °C.</h3>
+        <p id="ngBlobText">Precursor gas flows down onto a 300 mm wafer spinning on a heated susceptor.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -674,7 +688,7 @@
       <h2>Equipment <em>Specifications</em></h2>
       <p class="ng-section-lede">Designed from the ground up for high-volume 2D TMD manufacturing — precision, reliability, and serviceability built in at every layer.</p>
     </div>
-    <a class="ng-btn-ghost" href="mailto:enterprise@flowdaptor.com?subject=NanoGalaxy%20PPMOCVD%20datasheet%20request">Request printable datasheet ↗</a>
+    <a class="ng-btn-ghost" href="/datasheet">Request printable datasheet ↗</a>
   </div>
   <div class="ng-specs-grid">
     <div class="ng-spec-card">
@@ -808,6 +822,346 @@
   </div>
   <div class="fd-footer-copy">FlowDaptor Pte. Ltd. © 2026</div>
 </footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* NanoGalaxy hero animation: chamber view → MoS2 monolayer growth, looping */
+(function () {
+  var root = document.getElementById('ngBlob');
+  if (!root) return;
+  var stage = root.querySelector('.ng-blob-stage');
+  var canvas = document.getElementById('ngBlobCanvas');
+  var fade = root.querySelector('.ng-blob-fade');
+  var caption = root.querySelector('.ng-blob-caption');
+  var capTitle = document.getElementById('ngBlobTitle');
+  var capText = document.getElementById('ngBlobText');
+  var labels = {};
+  root.querySelectorAll('.ng-blob-label').forEach(function (el) { labels[el.dataset.k] = el; });
+  function fail() { root.classList.add('no-webgl'); }
+  if (!window.THREE) return fail();
+
+  var renderer;
+  try { renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true }); } catch (e) { return fail(); }
+  if (!renderer.getContext()) return fail();
+  renderer.setClearColor(0x050a18, 1);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var rand = function (a, b) { return a + Math.random() * (b - a); };
+  var clamp01 = function (x) { return x < 0 ? 0 : x > 1 ? 1 : x; };
+  var easeOut = function (x) { return 1 - Math.pow(1 - x, 3); };
+  var easeInOut = function (x) { return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+
+  function canvasTex(size, draw) {
+    var c = document.createElement('canvas'); c.width = c.height = size;
+    draw(c.getContext('2d'), size);
+    var t = new THREE.CanvasTexture(c); t.anisotropy = 4; return t;
+  }
+  var DOT = canvasTex(64, function (g, s) {
+    var gr = g.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2);
+    gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.35, 'rgba(255,255,255,0.6)'); gr.addColorStop(1, 'rgba(255,255,255,0)');
+    g.fillStyle = gr; g.fillRect(0, 0, s, s);
+  });
+  function points(n, fill, size, opacity) {
+    var pos = new Float32Array(n * 3), col = new Float32Array(n * 3), c = new THREE.Color();
+    for (var i = 0; i < n; i++) { fill(i, pos, c); col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b; }
+    var geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+    var mat = new THREE.PointsMaterial({ size: size, map: DOT, vertexColors: true, transparent: true, opacity: opacity,
+      depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true });
+    return new THREE.Points(geo, mat);
+  }
+
+  /* ───────── Scene A: the chamber ───────── */
+  var sA = new THREE.Scene();
+  var cA = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
+  sA.add(new THREE.AmbientLight(0xffffff, 0.55));
+  var dA = new THREE.DirectionalLight(0xffffff, 0.85); dA.position.set(2, 6, 5); sA.add(dA);
+  var slate = new THREE.MeshStandardMaterial({ color: 0x4b5a70, roughness: 0.55, metalness: 0.35 });
+  var lid = new THREE.Mesh(new THREE.CylinderGeometry(3.2, 3.2, 0.32, 96), slate); lid.position.y = 2.2; sA.add(lid);
+  var base = new THREE.Mesh(new THREE.CylinderGeometry(3.25, 3.25, 0.55, 96),
+    new THREE.MeshStandardMaterial({ color: 0x3e4a5c, roughness: 0.6, metalness: 0.35 }));
+  base.position.y = -1.36; sA.add(base);
+
+  var ringTex = canvasTex(512, function (g, s) {
+    var r = s / 2;
+    var gr = g.createRadialGradient(r, r, 0, r, r, r);
+    gr.addColorStop(0, '#cbd5e1'); gr.addColorStop(1, '#8a97aa');
+    g.fillStyle = gr; g.fillRect(0, 0, s, s);
+    for (var k = 0; k < 90; k++) {           // soft concentric ripples
+      var rr = r * (0.42 + k / 90 * 0.58);
+      g.strokeStyle = 'rgba(255,255,255,' + (0.10 + 0.10 * Math.sin(k * 0.45)) + ')';
+      g.lineWidth = 2; g.beginPath(); g.arc(r, r, rr, 0, Math.PI * 2); g.stroke();
+    }
+  });
+  var platter = new THREE.Group(); platter.position.y = -1.02; sA.add(platter);
+  var platterSide = new THREE.MeshStandardMaterial({ color: 0x6b7a90, roughness: 0.5, metalness: 0.3 });
+  platter.add(new THREE.Mesh(new THREE.CylinderGeometry(2.75, 2.75, 0.12, 96),
+    [platterSide, new THREE.MeshStandardMaterial({ map: ringTex, roughness: 0.4, metalness: 0.2 }), platterSide]));
+
+  var waferTex = canvasTex(1024, function (g, s) {
+    var r = s / 2;
+    var gr = g.createRadialGradient(r, r, 0, r, r, r);
+    gr.addColorStop(0, '#5b2bd6'); gr.addColorStop(0.92, '#3b1a9a'); gr.addColorStop(1, '#3b1a9a');
+    g.fillStyle = gr; g.beginPath(); g.arc(r, r, r * 0.94, 0, Math.PI * 2); g.fill();
+    g.fillStyle = 'rgba(196,181,253,0.85)';
+    var a = 13, h = a * Math.sqrt(3) / 2;
+    for (var y = 0, row = 0; y < s; y += h, row++) for (var x = (row % 2) * a / 2; x < s; x += a) {
+      if (Math.hypot(x - r, y - r) < r * 0.9) { g.beginPath(); g.arc(x, y, 2.2, 0, Math.PI * 2); g.fill(); }
+    }
+    g.shadowColor = '#67e8f9'; g.shadowBlur = 30; g.strokeStyle = '#a5f3fc'; g.lineWidth = 14;
+    g.beginPath(); g.arc(r, r, r * 0.94, 0, Math.PI * 2); g.stroke();
+  });
+  var wafer = new THREE.Mesh(new THREE.CircleGeometry(1.3, 96),
+    new THREE.MeshBasicMaterial({ map: waferTex, transparent: true }));
+  wafer.rotation.x = -Math.PI / 2; wafer.position.y = 0.065; platter.add(wafer);
+  var halo = new THREE.Mesh(new THREE.RingGeometry(1.25, 1.75, 96),
+    new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.12, blending: THREE.AdditiveBlending, depthWrite: false }));
+  halo.rotation.x = -Math.PI / 2; halo.position.y = 0.07; platter.add(halo);
+  var dust = points(500, function (i, p, c) {
+    var a = Math.random() * Math.PI * 2, r = Math.sqrt(rand(0.2, 1)) * 2.7;
+    p[i * 3] = Math.cos(a) * r; p[i * 3 + 1] = 0.08; p[i * 3 + 2] = Math.sin(a) * r;
+    c.setHSL(0.55, 0.6, rand(0.75, 0.95));
+  }, 0.03, 0.55);
+  platter.add(dust);
+
+  var GAS = 1100, gasTop = 2.02, gasBot = -0.92;
+  var gas = points(GAS, function (i, p, c) {
+    var a = Math.random() * Math.PI * 2, r = Math.sqrt(Math.random()) * 2.95;
+    p[i * 3] = Math.cos(a) * r; p[i * 3 + 1] = rand(gasBot, gasTop); p[i * 3 + 2] = Math.sin(a) * r;
+    Math.random() < 0.3 ? c.setHex(0x818cf8) : c.setHSL(0.55, 0.7, rand(0.75, 0.95));
+  }, 0.04, 0.9);
+  var gasSpeed = new Float32Array(GAS); for (var gi = 0; gi < GAS; gi++) gasSpeed[gi] = rand(0.35, 0.8);
+  sA.add(gas);
+
+  /* ───────── Scene B: the MoS2 monolayer ───────── */
+  var sB = new THREE.Scene();
+  var cB = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
+  sB.add(new THREE.AmbientLight(0xffffff, 0.45));
+  var dB = new THREE.DirectionalLight(0xffffff, 1.15); dB.position.set(-4, 7, 4); sB.add(dB);
+  var rim = new THREE.PointLight(0x67e8f9, 1.2, 14); rim.position.set(3, 2, -3); sB.add(rim);
+  var lattice = new THREE.Group(); sB.add(lattice);
+
+  var A = 0.62, R = 3.1, H = 0.36, S3 = Math.sqrt(3);
+  var V = [[A / 2, A / (2 * S3)], [-A / 2, A / (2 * S3)], [0, -A / S3]];
+  var mo = [], sSites = {}, sList = [], bonds = [];
+  var key = function (x, z) { return Math.round(x * 100) + ',' + Math.round(z * 100); };
+  function birth(r) { return 0.3 + (r / R) * 6.2 + rand(0, 1.3); }
+  for (var i = -12; i <= 12; i++) for (var j = -12; j <= 12; j++) {
+    var x = A * (i + j / 2), z = A * j * S3 / 2, r = Math.hypot(x, z);
+    if (r < R) mo.push({ x: x, z: z, t: birth(r) });
+    var sx = x + V[0][0], sz = z + V[0][1], sr = Math.hypot(sx, sz);
+    if (sr < R + 0.15) {
+      var site = { x: sx, z: sz, t: [birth(sr) + 0.25, birth(sr) + 0.35] };
+      sSites[key(sx, sz)] = site; sList.push(site);
+    }
+  }
+  mo.forEach(function (m) {
+    V.forEach(function (v) {
+      var s = sSites[key(m.x + v[0], m.z + v[1])];
+      if (!s) return;
+      [0, 1].forEach(function (k) { bonds.push({ a: m, b: s, y: k ? -H : H, t: Math.max(m.t, s.t[k]) + 0.6 }); });
+    });
+  });
+
+  var sphere = new THREE.SphereGeometry(1, 22, 16);
+  var moMesh = new THREE.InstancedMesh(sphere, new THREE.MeshStandardMaterial({ roughness: 0.3, metalness: 0.15 }), mo.length);
+  var sMesh = new THREE.InstancedMesh(sphere, new THREE.MeshStandardMaterial({ roughness: 0.3, metalness: 0.2 }), sList.length * 2);
+  var bMesh = new THREE.InstancedMesh(new THREE.CylinderGeometry(1, 1, 1, 6),
+    new THREE.MeshStandardMaterial({ color: 0x8796ab, roughness: 0.5, metalness: 0.3 }), bonds.length);
+  var col = new THREE.Color();
+  mo.forEach(function (m, k) { moMesh.setColorAt(k, col.setHex(Math.random() < 0.12 ? 0x7af3ff : 0x14b8a6)); });
+  for (var k = 0; k < sList.length * 2; k++) sMesh.setColorAt(k, col.setHex(Math.random() < 0.1 ? 0xfff07a : 0xeab308));
+  [moMesh, sMesh, bMesh].forEach(function (m) { m.instanceMatrix.setUsage(THREE.DynamicDrawUsage); lattice.add(m); });
+
+  var Y = new THREE.Vector3(0, 1, 0), tmp = new THREE.Object3D(), va = new THREE.Vector3(), vb = new THREE.Vector3();
+  function atomAt(mesh, idx, x, y, z, rad, t0, tl) {
+    var p = clamp01((tl - t0) / 0.75), e = easeOut(p);
+    tmp.position.set(x, y + (1 - e) * 1.6, z);
+    tmp.quaternion.identity();
+    tmp.scale.setScalar(p > 0 ? rad * (0.35 + 0.65 * e) : 0.0001);
+    tmp.updateMatrix(); mesh.setMatrixAt(idx, tmp.matrix);
+  }
+  function updateLattice(tl) {
+    mo.forEach(function (m, k) { atomAt(moMesh, k, m.x, 0, m.z, 0.21, m.t, tl); });
+    sList.forEach(function (s, k) {
+      atomAt(sMesh, k * 2, s.x, H, s.z, 0.17, s.t[0], tl);
+      atomAt(sMesh, k * 2 + 1, s.x, -H, s.z, 0.17, s.t[1], tl);
+    });
+    bonds.forEach(function (b, k) {
+      var g = clamp01((tl - b.t) / 0.4);
+      va.set(b.a.x, 0, b.a.z); vb.set(b.b.x, b.y, b.b.z);
+      tmp.position.copy(va).add(vb).multiplyScalar(0.5);
+      vb.sub(va); var len = vb.length();
+      tmp.quaternion.setFromUnitVectors(Y, vb.normalize());
+      tmp.scale.set(g > 0 ? 0.028 : 0.0001, Math.max(len * g, 0.0001), g > 0 ? 0.028 : 0.0001);
+      tmp.updateMatrix(); bMesh.setMatrixAt(k, tmp.matrix);
+    });
+    moMesh.instanceMatrix.needsUpdate = sMesh.instanceMatrix.needsUpdate = bMesh.instanceMatrix.needsUpdate = true;
+  }
+
+  // precursor molecules: metal core + two ligands, cracking as they reach the surface
+  var MOL = 46, mols = [];
+  var core = new THREE.InstancedMesh(sphere, new THREE.MeshStandardMaterial({ color: 0x6b7280, roughness: 0.4 }), MOL);
+  var lig = new THREE.InstancedMesh(sphere, new THREE.MeshStandardMaterial({ color: 0xef4444, roughness: 0.4 }), MOL * 2);
+  [core, lig].forEach(function (m) { m.instanceMatrix.setUsage(THREE.DynamicDrawUsage); sB.add(m); });
+  function spawnMol(m, anyY) {
+    var a = Math.random() * Math.PI * 2, r = Math.sqrt(Math.random()) * 3.8;
+    m.x = Math.cos(a) * r; m.z = Math.sin(a) * r; m.y = anyY ? rand(0.6, 3.6) : rand(3.2, 3.8);
+    m.vy = rand(0.25, 0.55); m.rot = rand(0, 6.28); m.spin = rand(-1.5, 1.5);
+  }
+  for (var mi = 0; mi < MOL; mi++) { var mm = {}; spawnMol(mm, true); mols.push(mm); }
+  function updateMols(dt) {
+    mols.forEach(function (m, k) {
+      m.y -= m.vy * dt; m.rot += m.spin * dt;
+      if (m.y < 0.5) spawnMol(m, false);
+      var sc = clamp01((m.y - 0.55) / 0.5) * clamp01((3.8 - m.y) / 0.4);
+      tmp.quaternion.identity();
+      tmp.position.set(m.x, m.y, m.z); tmp.scale.setScalar(0.05 * sc + 0.0001); tmp.updateMatrix(); core.setMatrixAt(k, tmp.matrix);
+      for (var s = 0; s < 2; s++) {
+        var ang = m.rot + s * Math.PI, spread = 0.11 + (1 - sc) * 0.25;   // ligands drift apart as they crack
+        tmp.position.set(m.x + Math.cos(ang) * spread, m.y + (s ? 0.03 : -0.03), m.z + Math.sin(ang) * spread);
+        tmp.scale.setScalar(0.034 * sc + 0.0001); tmp.updateMatrix(); lig.setMatrixAt(k * 2 + s, tmp.matrix);
+      }
+    });
+    core.instanceMatrix.needsUpdate = lig.instanceMatrix.needsUpdate = true;
+  }
+
+  // plasma cloud from above
+  var PL = 1700, plSpeed = new Float32Array(PL);
+  var plasma = points(PL, function (i, p, c) {
+    p[i * 3] = rand(-1, 1) * rand(0.3, 3.4); p[i * 3 + 1] = rand(1.4, 4.4); p[i * 3 + 2] = rand(-1, 1) * rand(0.3, 2.6);
+    c.setHSL(rand(0.72, 0.8), 0.85, rand(0.5, 0.72)); plSpeed[i] = rand(0.15, 0.45);
+  }, 0.2, 0.75);
+  sB.add(plasma);
+
+  // UV light beam, entering from the side at an angle
+  var BEAM = 2000, bA = new THREE.Vector3(-3.0, 4.9, -1.4), bB = new THREE.Vector3(0.1, 0.45, 0.1);
+  var bDir = bB.clone().sub(bA), p1 = new THREE.Vector3().crossVectors(bDir, Y).normalize(), p2 = new THREE.Vector3().crossVectors(bDir, p1).normalize();
+  var bU = new Float32Array(BEAM), bO = [];
+  var beam = points(BEAM, function (i, p, c) {
+    bU[i] = Math.random(); var a = Math.random() * 6.283, r = Math.pow(Math.random(), 0.7);
+    bO.push([Math.cos(a) * r, Math.sin(a) * r]);
+    Math.random() < 0.4 ? c.setHex(0xa5f3fc) : c.setHex(0xf1f5f9);
+  }, 0.085, 0.95);
+  sB.add(beam);
+  function updateBeam(dt) {
+    var pos = beam.geometry.attributes.position.array;
+    for (var i = 0; i < BEAM; i++) {
+      bU[i] += dt * 0.32; if (bU[i] > 1) bU[i] -= 1;
+      var u = bU[i], w = 0.06 + 0.42 * u * u;
+      pos[i * 3]     = bA.x + bDir.x * u + (p1.x * bO[i][0] + p2.x * bO[i][1]) * w;
+      pos[i * 3 + 1] = bA.y + bDir.y * u + (p1.y * bO[i][0] + p2.y * bO[i][1]) * w;
+      pos[i * 3 + 2] = bA.z + bDir.z * u + (p1.z * bO[i][0] + p2.z * bO[i][1]) * w;
+    }
+    beam.geometry.attributes.position.needsUpdate = true;
+  }
+  function fall(pts, speeds, top, bot, dt) {
+    var pos = pts.geometry.attributes.position.array;
+    for (var i = 0; i < speeds.length; i++) {
+      pos[i * 3 + 1] -= speeds[i] * dt;
+      if (pos[i * 3 + 1] < bot) pos[i * 3 + 1] = top;
+    }
+    pts.geometry.attributes.position.needsUpdate = true;
+  }
+  sB.add(points(260, function (i, p, c) {               // faint background specks
+    p[i * 3] = rand(-9, 9); p[i * 3 + 1] = rand(-4, 7); p[i * 3 + 2] = rand(-9, -3); c.setHSL(0.6, 0.3, rand(0.3, 0.6));
+  }, 0.05, 0.5));
+
+  /* ───────── Labels ───────── */
+  var anchors = {
+    gas: new THREE.Vector3(2.35, 1.1, 1.2), wafer: new THREE.Vector3(1.32, -0.94, 0.3),
+    plasma: new THREE.Vector3(0.4, 3.6, -1.0), light: bA.clone().add(bDir.clone().multiplyScalar(0.52)).add(new THREE.Vector3(0.45, 0, 0))
+  };
+  var W = 1, Hh = 1, pv = new THREE.Vector3();
+  function placeLabel(k, cam, on) {
+    var el = labels[k]; if (!el) return;
+    el.classList.toggle('on', on);
+    if (!on) return;
+    pv.copy(anchors[k]).project(cam);
+    var px = (pv.x + 1) / 2 * W, py = Math.min(Math.max((1 - pv.y) / 2 * Hh, 16), Hh - 16), flip = px + el.offsetWidth > W - 12;
+    el.classList.toggle('flip', flip);
+    el.style.transform = 'translate(' + px.toFixed(1) + 'px,' + py.toFixed(1) + 'px) translate(' + (flip ? '-100%' : '0') + ',-50%)';
+  }
+
+  /* ───────── Timeline ───────── */
+  var LOOP = 22, SWITCH = 5.6, phase = null;
+  var CAPS = {
+    A: ['Inside the chamber, below 450 °C.', 'Precursor gas flows down onto a 300 mm wafer spinning on a heated susceptor.'],
+    B: ['A machine that grows semiconductors a few atoms thick.', 'Plasma and light crack the precursor molecules, and molybdenum and sulfur settle into one atomic layer of MoS₂.']
+  };
+  function setPhase(p) {
+    if (p === phase) return;
+    var first = phase === null; phase = p;
+    if (first) { capTitle.textContent = CAPS[p][0]; capText.textContent = CAPS[p][1]; return; }
+    caption.style.opacity = 0;
+    setTimeout(function () { capTitle.textContent = CAPS[p][0]; capText.textContent = CAPS[p][1]; caption.style.opacity = 1; }, 250);
+  }
+  function fadeAt(t) {
+    if (t < 0.5) return 1 - t / 0.5;
+    if (t > 5.0 && t < SWITCH) return (t - 5.0) / 0.6;
+    if (t >= SWITCH && t < SWITCH + 0.6) return 1 - (t - SWITCH) / 0.6;
+    if (t > LOOP - 0.6) return (t - (LOOP - 0.6)) / 0.6;
+    return 0;
+  }
+  var camFrom = new THREE.Vector3(0, 2.6, 11.2), camTo = new THREE.Vector3(0, 0.6, 3.2);
+  var lookFrom = new THREE.Vector3(0, 0.1, 0), lookTo = new THREE.Vector3(0, -0.95, 0), look = new THREE.Vector3();
+
+  function frame(t, dt) {
+    fade.style.opacity = fadeAt(t).toFixed(3);
+    if (t < SWITCH) {
+      setPhase('A');
+      var d = easeInOut(clamp01((t - 4.3) / 1.3));
+      cA.position.lerpVectors(camFrom, camTo, d);
+      look.lerpVectors(lookFrom, lookTo, d); cA.lookAt(look);
+      platter.rotation.y += dt * 0.35;
+      fall(gas, gasSpeed, gasTop, gasBot, dt);
+      renderer.render(sA, cA);
+      placeLabel('gas', cA, t > 0.8 && t < 4.3); placeLabel('wafer', cA, t > 1.4 && t < 4.3);
+      placeLabel('plasma', cB, false); placeLabel('light', cB, false);
+    } else {
+      setPhase('B');
+      var tl = t - SWITCH;
+      lattice.rotation.y = -0.35 + tl * 0.035;
+      updateLattice(tl); updateMols(dt); updateBeam(dt);
+      fall(plasma, plSpeed, 4.4, 1.4, dt);
+      cB.position.set(Math.sin(tl * 0.04) * 0.8, 5.6, 10.2); cB.lookAt(0, 0.7, 0);
+      renderer.render(sB, cB);
+      placeLabel('gas', cA, false); placeLabel('wafer', cA, false);
+      placeLabel('plasma', cB, tl > 0.8 && t < LOOP - 0.8); placeLabel('light', cB, tl > 1.4 && t < LOOP - 0.8);
+    }
+  }
+
+  function resize() {
+    W = stage.clientWidth || 1; Hh = stage.clientHeight || 1;
+    renderer.setSize(W, Hh, false);
+    cA.aspect = cB.aspect = W / Hh;
+    // keep the scene framed on narrow/tall stages
+    cA.fov = cB.fov = W / Hh < 1.4 ? 38 : 32;
+    cA.updateProjectionMatrix(); cB.updateProjectionMatrix();
+  }
+  resize();
+  if (window.ResizeObserver) new ResizeObserver(function () { resize(); if (reduced) frame(SWITCH + 12, 0); }).observe(stage);
+
+  if (reduced) {                                         // static, fully grown layer
+    for (var w = 0; w < 30; w++) { updateMols(0.1); updateBeam(0.1); }
+    frame(SWITCH + 12, 0); return;
+  }
+
+  var t = 0, last = performance.now(), visible = true, running = true;
+  if (window.IntersectionObserver) new IntersectionObserver(function (e) { visible = e[0].isIntersecting; }).observe(root);
+  document.addEventListener('visibilitychange', function () { running = !document.hidden; });
+  (function loop(now) {
+    var dt = Math.min((now - last) / 1000, 0.05); last = now;
+    if (visible && running) {
+      t += dt;
+      if (t >= LOOP) { t -= LOOP; mols.forEach(function (m) { spawnMol(m, true); }); }
+      frame(t, dt);
+    }
+    requestAnimationFrame(loop);
+  })(last);
+})();
+</script>
 <script src="../assets/nav.js" defer></script>
 <script>
 (function() {
