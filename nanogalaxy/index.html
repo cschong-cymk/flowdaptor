@@ -809,5 +809,19 @@
   <div class="fd-footer-copy">FlowDaptor Pte. Ltd. © 2026</div>
 </footer>
 <script src="../assets/nav.js" defer></script>
+<script>
+(function() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('sent') === '1') {
+        alert('Thanks! Your quote request was sent.');
+    } else if (params.get('error') === 'validation') {
+        alert('Please check your name, email, and project description.');
+    } else if (params.get('error') === 'send') {
+        alert('Something went wrong sending your request. Please email us directly.');
+    } else if (params.get('error') === 'config') {
+        alert('Mail is not configured. Please email us directly.');
+    }
+})();
+</script>
 </body>
 </html>
