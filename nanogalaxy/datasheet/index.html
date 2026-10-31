@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NanoGalaxy™ PPMOCVD — Product Datasheet | FlowDaptor</title>
+<meta name="description" content="Technical datasheet for the NanoGalaxy PPMOCVD 2D TMD growth platform: specifications, applications, and facility requirements." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="../../assets/site.css?v=20260616-1713" />
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+
+<style>
+/* ── NanoGalaxy Datasheet ── */
+.ng-ds-page { background: var(--bg); }
+
+.ng-ds-hero {
+  position: relative;
+  padding: 5rem max(2.5rem, calc((100% - 1100px) / 2)) 3rem;
+  overflow: hidden;
+}
+.ng-ds-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(43,207,255,0.08), transparent 35%),
+    radial-gradient(circle at 20% 80%, rgba(56,232,196,0.06), transparent 35%);
+  pointer-events: none;
+}
+.ng-ds-back {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+  transition: color 0.2s;
+}
+.ng-ds-back:hover { color: var(--brand-blue); }
+.ng-ds-back svg { width: 14px; height: 14px; }
+
+.ng-ds-label {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-blue);
+  margin-bottom: 1rem;
+}
+.ng-ds-label::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand-grad);
+}
+.ng-ds-rev {
+  position: relative;
+  z-index: 1;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+}
+
+.ng-ds-hero h1 {
+  position: relative;
+  z-index: 1;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 1.05;
+  margin-bottom: 0.75rem;
+}
+.ng-ds-hero h1 + p {
+  position: relative;
+  z-index: 1;
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  max-width: 760px;
+  margin-bottom: 1.75rem;
+  line-height: 1.55;
+}
+.ng-ds-lead {
+  position: relative;
+  z-index: 1;
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 860px;
+  line-height: 1.65;
+  margin-bottom: 2.5rem;
+}
+
+.ng-ds-highlights {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+.ng-ds-hl {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+}
+.ng-ds-hl-value {
+  display: block;
+  font-family: var(--font-head);
+  font-size: 1.75rem;
+  font-weight: 700;
+  background: var(--brand-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.35rem;
+}
+.ng-ds-hl-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.15rem;
+}
+.ng-ds-hl-sub {
+  display: block;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.ng-ds-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 4rem 2.5rem;
+  border-top: 1px solid var(--border);
+}
+.ng-ds-section:first-of-type { border-top: none; }
+.ng-ds-section h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  margin-bottom: 1rem;
+}
+.ng-ds-section h2 em {
+  font-style: normal;
+  background: var(--brand-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.ng-ds-section > p {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 720px;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.ng-ds-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+.ng-ds-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.75rem;
+}
+.ng-ds-card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+.ng-ds-card dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem 1.5rem;
+}
+.ng-ds-card dt {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+.ng-ds-card dd {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.ng-ds-apps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.ng-ds-app {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.ng-ds-footer-note {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 2.5rem 4rem;
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .ng-ds-highlights { grid-template-columns: repeat(2, 1fr); }
+  .ng-ds-grid { grid-template-columns: 1fr; }
+  .ng-ds-card dl { grid-template-columns: 1fr; }
+  .ng-ds-apps { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body class="ng-ds-page">
+
+<nav class="fd-nav">
+  <a class="fd-nav-logo" href="../../"><img src="../../assets/flowdaptor-logo-small.png" alt="FlowDaptor"/></a>
+  <ul class="fd-nav-links">
+    <li><a href="../../products/">Products</a></li>
+    <li><a href="../../workflow/">Workflows</a></li>
+    <li><a href="../../enterprise/">Enterprise</a></li>
+    <li><a href="../../training/">Training</a></li>
+    <li><a href="../../blog/">Blog</a></li>
+    <li><a href="../../about/">About</a></li>
+    <li><a href="../../store/" class="store-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Store</a></li>
+  </ul>
+  <a class="fd-nav-cta" href="mailto:enterprise@flowdaptor.com">Request a quote</a>
+</nav>
+
+<section class="ng-ds-hero">
+  <a class="ng-ds-back" href="../">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+    Back to product page
+  </a>
+  <div class="ng-ds-label">Product Datasheet</div>
+  <div class="ng-ds-rev">Rev. 2.0 — 2026</div>
+  <h1>NanoGalaxy™ <em>PPMOCVD</em></h1>
+  <p>Plasma-Photon MOCVD platform for wafer-scale 2D TMD growth below 450 °C</p>
+  <p class="ng-ds-lead">The NanoGalaxy PPMOCVD grows atomically uniform 2D transition-metal-dichalcogenide monolayers on full 300 mm wafers at CMOS back-end-of-line temperatures. ICP plasma activation lowers the precursor energy barrier while in-situ UV irradiation removes defects in real time — delivering production-grade material quality at 60 wafers per hour for monolithic 3D integration, advanced memory, and 1 nm-node logic.</p>
+
+  <div class="ng-ds-highlights">
+    <div class="ng-ds-hl">
+      <span class="ng-ds-hl-value">&lt;450 °C</span>
+      <span class="ng-ds-hl-label">Growth temperature</span>
+    </div>
+    <div class="ng-ds-hl">
+      <span class="ng-ds-hl-value">60 s</span>
+      <span class="ng-ds-hl-label">Monolayer window</span>
+    </div>
+    <div class="ng-ds-hl">
+      <span class="ng-ds-hl-value">300 mm</span>
+      <span class="ng-ds-hl-label">Wafer size</span>
+    </div>
+    <div class="ng-ds-hl">
+      <span class="ng-ds-hl-value">60 /hr</span>
+      <span class="ng-ds-hl-label">Throughput</span>
+    </div>
+  </div>
+</section>
+
+<section class="ng-ds-section">
+  <h2>Process <em>Performance</em></h2>
+  <p>Process parameters qualified for production-grade 2D TMD growth on 300 mm CMOS wafers.</p>
+  <div class="ng-ds-grid">
+    <div class="ng-ds-card">
+      <h3>Materials &amp; Growth</h3>
+      <dl>
+        <dt>Supported materials</dt>
+        <dd>MoS₂, WS₂, MoSe₂, WSe₂</dd>
+        <dt>Growth temperature</dt>
+        <dd>&lt; 450 °C (adjustable)</dd>
+        <dt>Growth window</dt>
+        <dd>60 s per monolayer cycle</dd>
+        <dt>Monolayer growth rate</dt>
+        <dd>0.65 nm/min — atomic-level precision</dd>
+        <dt>Film uniformity</dt>
+        <dd>Atomic-level uniformity across full 300 mm wafer</dd>
+        <dt>Process gases</dt>
+        <dd>H₂, Ar, S(Se) source, Mo/W source</dd>
+      </dl>
+    </div>
+    <div class="ng-ds-card">
+      <h3>Plasma &amp; UV Subsystems</h3>
+      <dl>
+        <dt>ICP function</dt>
+        <dd>Precursor activation — lowers reaction energy barrier</dd>
+        <dt>UV function</dt>
+        <dd>In-situ, real-time defect removal during growth</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="ng-ds-section">
+  <h2>Platform &amp; <em>Throughput</em></h2>
+  <p>Architecture designed for high-volume manufacturing and continuous fab operation.</p>
+  <div class="ng-ds-grid">
+    <div class="ng-ds-card">
+      <h3>Equipment Configuration</h3>
+      <dl>
+        <dt>Process chambers</dt>
+        <dd>4 independent chambers, parallel processing</dd>
+        <dt>Wafer size</dt>
+        <dd>12 inch (300 mm)</dd>
+        <dt>Max throughput</dt>
+        <dd>60 wafers/hr (4-chamber parallel)</dd>
+        <dt>Susceptor</dt>
+        <dd>Rotary — no center temperature dip</dd>
+        <dt>Chamber access</dt>
+        <dd>Lift-up lid for easy maintenance</dd>
+      </dl>
+    </div>
+    <div class="ng-ds-card">
+      <h3>Thermal &amp; Facility</h3>
+      <dl>
+        <dt>Heating method</dt>
+        <dd>Full-line SCR, 6 independent temperature zones</dd>
+        <dt>Temperature measurement</dt>
+        <dd>Dual-mode: thermocouple + IR camera</dd>
+        <dt>System power</dt>
+        <dd>~35 kW — three-phase AC 380 V, 50/60 Hz</dd>
+        <dt>Equipment footprint</dt>
+        <dd>4776 × 4615 × 1651 mm (W × D × H)</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="ng-ds-section">
+  <h2>Service &amp; <em>Support</em></h2>
+  <p>Committed to peak equipment performance through the tool's entire operational lifetime.</p>
+  <div class="ng-ds-grid">
+    <div class="ng-ds-card">
+      <h3>Parts Warranty</h3>
+      <dl>
+        <dt>Coverage</dt>
+        <dd>5-year replacement of any parts</dd>
+      </dl>
+    </div>
+    <div class="ng-ds-card">
+      <h3>Upgrades</h3>
+      <dl>
+        <dt>Lifecycle support</dt>
+        <dd>Continuous software &amp; hardware iteration support</dd>
+      </dl>
+    </div>
+    <div class="ng-ds-card">
+      <h3>Process Support</h3>
+      <dl>
+        <dt>Engineering support</dt>
+        <dd>1 on-site equipment engineer + 1 process engineer</dd>
+        <dt>Process scope</dt>
+        <dd>2D TMD CMOS and 3D monolithic integration flows</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="ng-ds-section">
+  <h2>Target <em>Applications</em></h2>
+  <p>Production-ready material for next-generation semiconductor architectures.</p>
+  <div class="ng-ds-apps">
+    <div class="ng-ds-app">3D stacked SRAM</div>
+    <div class="ng-ds-app">3D stacked DRAM</div>
+    <div class="ng-ds-app">RRAM</div>
+    <div class="ng-ds-app">MRAM</div>
+    <div class="ng-ds-app">Radiation-hardened electronics</div>
+    <div class="ng-ds-app">1 nm-node 2D channel logic</div>
+  </div>
+</section>
+
+<p class="ng-ds-footer-note">FlowDaptor — Advanced material growth equipment · enterprise@flowdaptor.com · flowdaptor.ai<br>Specifications subject to change without notice. NanoGalaxy™ is a trademark of FlowDaptor. © 2026 FlowDaptor Pte. Ltd. All rights reserved.</p>
+
+<footer class="fd-footer">
+  <div class="fd-footer-logo"><img src="../../assets/flowdaptor-logo-small.png" alt="FlowDaptor"/></div>
+  <div class="fd-footer-links">
+    <a href="../../products/">Products</a>
+    <a href="../../workflow/">Workflows</a>
+    <a href="../../enterprise/">Enterprise</a>
+    <a href="../../training/">Training</a>
+    <a href="../../blog/">Blog</a>
+    <a href="../../about/">About</a>
+    <a href="../../store/">Store</a>
+    <a href="../../contact/">Contact</a>
+  </div>
+  <div class="fd-footer-copy">FlowDaptor Pte. Ltd. © 2026</div>
+</footer>
+
+<script src="../../assets/nav.js" defer></script>
+</body>
+</html>
