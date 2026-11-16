@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FlowDaptor at the n8n + SCU AIC Buildathon — FlowDaptor Blog</title>
+<meta name="description" content="FlowDaptor joined the n8n + SCU AIC Buildathon at Santa Clara University as an n8n official ambassador. Here's what we built, demoed, and learned from the next generation of agentic builders." />
+<link rel="stylesheet" href="../../assets/site.css?v=20260616-1713" />
+<style>
+:root{--fd-paper:#05060F}
+body{background:#05060F!important;color:#F5EDE6!important}
+.fd-nav{display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important}
+.fd-nav-links{flex-direction:row!important;list-style:none!important}
+.fd-nav-links a{color:rgba(236,241,248,0.75)!important;-webkit-text-fill-color:rgba(236,241,248,0.75)!important}
+.fd-nav-cta{color:#03121a!important;-webkit-text-fill-color:#03121a!important;background:linear-gradient(90deg,#2BCFFF,#38E8C4)!important}
+.fd-logo img{height:26px!important}
+h1,h2,h3{color:#F5EDE6!important;-webkit-text-fill-color:#F5EDE6!important;background:none!important}
+h1 em,h2 em{font-style:normal!important;background:linear-gradient(90deg,#2BCFFF,#38E8C4)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;-webkit-text-fill-color:transparent!important}
+p{color:rgba(236,241,248,0.75)!important;-webkit-text-fill-color:rgba(236,241,248,0.75)!important}
+.bl-wrap{max-width:720px;margin:0 auto;padding:5rem 2.5rem 6rem}
+.bl-meta{display:flex;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;align-items:center}
+.bl-tag{font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#2BCFFF;-webkit-text-fill-color:#2BCFFF;border:1px solid rgba(43,207,255,0.3);padding:5px 12px;border-radius:999px;background:rgba(43,207,255,0.06)}
+.bl-date{font-size:13px;color:var(--text-muted);-webkit-text-fill-color:var(--text-muted)}
+.bl-cover{margin:2.5rem 0;border-radius:12px;overflow:hidden;border:1px solid rgba(200,220,255,0.08)}
+.bl-cover img{width:100%;display:block}
+.bl-cover figcaption{font-size:12px;color:var(--text-muted);-webkit-text-fill-color:var(--text-muted);padding:0.75rem 1rem;text-align:center}
+.bl-wrap h1{font-size:clamp(2rem,4vw,3rem);font-weight:700;line-height:1.15;letter-spacing:-0.02em;margin-bottom:1.5rem}
+.bl-wrap h2{font-size:clamp(1.3rem,2.6vw,1.7rem);font-weight:700;line-height:1.25;letter-spacing:-0.01em;margin:3rem 0 1.25rem}
+.bl-wrap p{font-size:1rem;line-height:1.85;margin-bottom:1.5rem}
+.bl-wrap p strong,.bl-wrap li strong,.bl-wrap td strong{color:#F5EDE6;-webkit-text-fill-color:#F5EDE6;font-weight:700}
+.bl-wrap p a{color:#2BCFFF;-webkit-text-fill-color:#2BCFFF}
+.bl-lede{font-size:1.2rem!important;line-height:1.7!important;color:rgba(236,241,248,0.9)!important;-webkit-text-fill-color:rgba(236,241,248,0.9)!important}
+.bl-wrap ul,.bl-wrap ol{margin:0 0 1.5rem;padding-left:1.4rem}
+.bl-wrap li{font-size:1rem;line-height:1.85;color:rgba(236,241,248,0.75);-webkit-text-fill-color:rgba(236,241,248,0.75);margin-bottom:0.5rem}
+.bl-wrap li::marker{color:#2BCFFF}
+.bl-cta{background:#0C0F1C;border:1px solid rgba(200,220,255,0.08);border-radius:12px;padding:2.5rem;text-align:center;margin-top:4rem}
+.bl-cta h3{font-size:1.4rem;font-weight:700;margin-bottom:0.75rem}
+.bl-cta p{margin-bottom:1.5rem}
+.bl-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.bl-cta-btn{display:inline-block;background:linear-gradient(90deg,#2BCFFF,#38E8C4);color:#03121a!important;-webkit-text-fill-color:#03121a!important;font-size:14px;font-weight:700;padding:0.75rem 2rem;border-radius:999px;text-decoration:none}
+.bl-cta-link{display:inline-block;font-size:14px;font-weight:600;color:rgba(236,241,248,0.5)!important;-webkit-text-fill-color:rgba(236,241,248,0.5)!important;border-bottom:1px solid rgba(200,220,255,0.2);padding-bottom:2px;text-decoration:none;align-self:center}
+.fd-footer{background:#080A16!important;border-top:0.5px solid rgba(200,220,255,0.07)!important;padding:2.5rem!important;display:flex!important;flex-direction:column!important;align-items:center!important;gap:1.25rem!important;text-align:center!important}
+.fd-footer-logo img{height:26px;opacity:0.5}
+.fd-footer-links{display:flex!important;flex-wrap:wrap!important;gap:1.5rem!important;justify-content:center!important;list-style:none!important}
+.fd-footer-links a{font-size:12px!important;font-weight:600!important;letter-spacing:0.06em!important;text-transform:uppercase!important;color:var(--text-muted)!important;-webkit-text-fill-color:var(--text-muted)!important}
+.fd-footer-copy{font-size:12px;color:var(--text-dim);-webkit-text-fill-color:var(--text-dim)}
+</style>
+</head>
+<body>
+<nav class="fd-nav">
+  <a href="../../" class="fd-logo"><img src="../../assets/flowdaptor-logo-small.png" alt="FlowDaptor" /></a>
+  <ul class="fd-nav-links">
+    <li><a href="../../products/">Products</a></li>
+    <li><a href="../../workflow/">Workflows</a></li>
+    <li><a href="../../enterprise/">Enterprise</a></li>
+    <li><a href="../../training/">Training</a></li>
+    <li><a href="../../blog/" class="active">Blog</a></li>
+    <li><a href="../../about/">About</a></li>
+    <li><a href="../../store/" class="store-link">Store</a></li>
+  </ul>
+  <a class="fd-nav-cta" href="../../contact/">Get in touch</a>
+</nav>
+
+<div class="bl-wrap">
+  <div class="bl-meta">
+    <span class="bl-tag">Events</span>
+    <span class="bl-date">15 November 2026</span>
+  </div>
+
+  <h1>FlowDaptor at the <em>n8n + SCU AIC Buildathon</em></h1>
+
+  <p class="bl-lede">On 15 November 2026, the FlowDaptor team joined the n8n + SCU AIC Buildathon at Santa Clara University. As an n8n official ambassador, we spent the day with student builders, demoing agentic workflows and swapping field notes on what actually works in production.</p>
+
+  <figure class="bl-cover">
+    <img src="../../assets/n8n-scu-buildathon-hero.jpg" alt="n8n Santa Clara University Buildathon: automate anything" />
+    <figcaption>n8n + SCU AIC Buildathon at Santa Clara University.</figcaption>
+  </figure>
+
+  <h2>Why this event matters</h2>
+  <p>The next generation of operators, founders, and engineers is learning automation early. They are not asking whether AI agents will change work; they are asking how to wire them together safely. That is exactly the question FlowDaptor was built to answer.</p>
+
+  <p>Hosted by n8n and the SCU AI Collaborate club, the Buildathon brought together students from across disciplines to build real workflows in a single day: lead routing, research agents, content pipelines, and ops dashboards.</p>
+
+  <h2>What we demoed</h2>
+  <p>We showed how FlowDaptor uses the same connect-anything philosophy as n8n, but with tighter guardrails for regulated or high-stakes work:</p>
+  <ul>
+    <li><strong>Bounded autonomy</strong> — agents that act only within approved scopes and escalate when confidence drops.</li>
+    <li><strong>Human-in-the-loop handoffs</strong> — automation that pauses for approval before money, data, or commitments move.</li>
+    <li><strong>Multi-agent orchestration</strong> — coordinator agents routing tasks to specialist agents, just like a well-run team.</li>
+  </ul>
+
+  <figure class="bl-cover">
+    <img src="../../assets/n8n-scu-buildathon-demo.jpg" alt="Demo at the n8n + SCU AIC Buildathon" />
+    <figcaption>Walking students through agentic workflow patterns.</figcaption>
+  </figure>
+
+  <h2>What we learned</h2>
+  <p>Student teams move fast. The best teams were not the ones with the flashiest prompts; they were the ones that drew a clear boundary around what the agent was allowed to decide on its own.</p>
+
+  <p>That lines up with what we see in the field. Whether you are automating deal flow, customer support, or content operations, the hard part is rarely the model. It is the policy: when to act, when to ask, and when to stop.</p>
+
+  <h2>Swag and souvenirs</h2>
+  <p>No ambassador trip is complete without proof. We brought home the official n8n shirt — a reminder that the best automation communities are built by people who actually show up.</p>
+
+  <figure class="bl-cover">
+    <img src="../../assets/n8n-scu-buildathon-shirt.jpg" alt="Official n8n shirt from the SCU AIC Buildathon" />
+    <figcaption>Official n8n ambassador shirt from the event.</figcaption>
+  </figure>
+
+  <h2>What's next</h2>
+  <p>We are doubling down on our n8n ambassador work at SCU and other campuses. If you are a student, club, or faculty member building with agents, get in touch. We would love to demo, mentor, or co-build with you.</p>
+
+  <div class="bl-cta">
+    <h3>Build agents that know when to stop.</h3>
+    <p>Bounded, audited, and ready for real work.</p>
+    <div class="bl-cta-btns">
+      <a class="bl-cta-btn" href="../../products/">See what we build</a>
+      <a class="bl-cta-link" href="../../contact/">Talk to us</a>
+    </div>
+  </div>
+</div>
+
+<footer class="fd-footer">
+  <div class="fd-footer-logo"><img src="../../assets/flowdaptor-logo-small.png" alt="FlowDaptor"/></div>
+  <ul class="fd-footer-links">
+    <li><a href="../../products/">Products</a></li><li><a href="../../store/">Store</a></li><li><a href="../../blog/">Blog</a></li><li><a href="../../contact/">Contact</a></li>
+  </ul>
+  <div class="fd-footer-copy">FlowDaptor Pte. Ltd. &copy; 2026</div>
+</footer>
+<script src="../../assets/nav.js" defer></script>
+</body>
+</html>
